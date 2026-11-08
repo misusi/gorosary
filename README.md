@@ -62,6 +62,9 @@ says so, instead of failing with `EADDRINUSE`.
 
 Full command list and the repository map: **[STARTUP.md](./STARTUP.md)**.
 
+Going live: **[docs/DEPLOY.md](./docs/DEPLOY.md)** — GitHub, Railway, and the
+Porkbun DNS records for gorosary.app.
+
 ---
 
 ## Adding a prayer

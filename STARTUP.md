@@ -18,8 +18,9 @@ the prayers of the day — one stop, no introductions.
 | 2 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Every decision made so far and the reasoning behind it. Read before changing architecture. |
 | 3 | [`docs/CONTENT.md`](docs/CONTENT.md) | **How to write and edit prayer content.** Read this before touching `packages/content/content/`. |
 | 4 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | What is built, what is next, what is deliberately deferred. |
-| 5 | [`packages/content/src/schema.ts`](packages/content/src/schema.ts) | The contract every content file must satisfy. |
-| 6 | [`packages/content/src/nav.ts`](packages/content/src/nav.ts) | The navigation tree. The website's routes are generated from it. |
+| 5 | [`docs/DEPLOY.md`](docs/DEPLOY.md) | How the site goes live: GitHub → Railway → Porkbun → gorosary.app. |
+| 6 | [`packages/content/src/schema.ts`](packages/content/src/schema.ts) | The contract every content file must satisfy. |
+| 7 | [`packages/content/src/nav.ts`](packages/content/src/nav.ts) | The navigation tree. The website's routes are generated from it. |
 
 For AI assistants working in this repo, also read
 [`CLAUDE.md`](CLAUDE.md).
@@ -82,9 +83,10 @@ gorosary/
 │  ├─ ui/                   ← design tokens + shared formatting, used by both apps
 │  └─ tsconfig/             ← shared TypeScript presets (nextjs, expo, library)
 │
-├─ docs/                    ← decisions, content guide, roadmap
+├─ docs/                    ← decisions, content guide, roadmap, deployment
 ├─ scripts/                 ← startup scripts for PowerShell and shell
-└─ .github/                 ← (not yet created) CI
+├─ railway.json             ← how Railway builds and starts the website
+└─ .github/                 ← CI
 ```
 
 ---

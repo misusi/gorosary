@@ -43,3 +43,7 @@ Thumbs.db
 npm-debug.log*
 yarn-error.log*
 coverage/
+
+# local scratch files from manual verification runs
+prod-test.*
+*.err
