@@ -18,6 +18,7 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="index" options={{ title: 'Today' }} />
+        <Stack.Screen name="readings" options={{ title: 'Readings' }} />
         <Stack.Screen name="section/[id]" options={{ title: '' }} />
         <Stack.Screen name="prayer/[id]" options={{ title: '' }} />
         <Stack.Screen name="search" options={{ title: 'Search' }} />

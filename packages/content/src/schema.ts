@@ -16,6 +16,7 @@ export const sectionSchema = z.enum([
   'litanies',
   'calendar',
   'devotions',
+  'readings',
 ]);
 export type SectionId = z.infer<typeof sectionSchema>;
 
@@ -98,6 +99,37 @@ export const calendarEntrySchema = z.object({
   note: z.string().optional(),
 });
 
+/* --- readings ------------------------------------------------------------ */
+
+/** One Scripture reading of the day. */
+export const readingSchema = z.object({
+  /** The citation, e.g. "John 3:16-17". */
+  reference: z.string().min(1),
+  /** A short heading, e.g. "Nicodemus comes to Jesus at night". */
+  title: z.string().optional(),
+  /** One or two sentences on what the reading is about. */
+  summary: z.string().optional(),
+});
+
+export type Reading = z.infer<typeof readingSchema>;
+
+/**
+ * One day's readings.
+ *
+ * `slot` is the key the calendar engine computes — `ordinary:12:0` for the
+ * Twelfth Sunday in Ordinary Time, `named:easter` for Easter Sunday.
+ */
+export const lectionaryEntrySchema = z.object({
+  slot: z.string().min(1),
+  label: z.string().optional(),
+  firstReading: readingSchema.optional(),
+  psalm: readingSchema.optional(),
+  secondReading: readingSchema.optional(),
+  gospel: readingSchema.optional(),
+});
+
+export type LectionaryEntry = z.infer<typeof lectionaryEntrySchema>;
+
 const docBase = {
   id: z
     .string()
@@ -144,6 +176,13 @@ export const docSchema = z.discriminatedUnion('kind', [
     ...docBase,
     kind: z.literal('calendar'),
     entries: z.array(calendarEntrySchema).min(1),
+  }),
+  z.object({
+    ...docBase,
+    kind: z.literal('readings'),
+    /** `common` holds the weekdays that do not change with the cycle year. */
+    cycle: z.enum(['a', 'b', 'c', 'common']),
+    entries: z.array(lectionaryEntrySchema).min(1),
   }),
 ]);
 

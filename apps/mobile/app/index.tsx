@@ -91,6 +91,25 @@ export default function TodayScreen() {
         </Link>
       ) : null}
 
+      <Link
+        href="/readings"
+        style={{
+          borderWidth: 1,
+          borderColor: theme.line,
+          borderRadius: 10,
+          backgroundColor: theme.surface,
+          textAlign: 'center',
+          paddingVertical: 13,
+          fontWeight: '600',
+          fontSize: 15.5,
+          color: theme.ink,
+          overflow: 'hidden',
+          marginBottom: 28,
+        }}
+      >
+        Today's Readings
+      </Link>
+
       {today.mysteries.length > 0 ? (
         <>
           <Text

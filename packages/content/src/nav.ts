@@ -39,6 +39,12 @@ export const NAV: NavSection[] = [
         description: 'The mystery set prayed today, with all five decades.',
       },
       {
+        label: "Today's Readings",
+        href: '/readings',
+        description:
+          'The readings of the day from the Roman Lectionary: the First Reading, the Psalm, the Second Reading, and the Gospel.',
+      },
+      {
         label: 'Saint of the Day',
         href: '/calendar/saint-of-the-day',
         docId: 'saint-of-the-day',

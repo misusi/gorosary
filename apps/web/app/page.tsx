@@ -43,6 +43,9 @@ export default function HomePage() {
             <Link className="button button--primary" href={SET_HREF[today.set] ?? '/rosary'}>
               Pray the Rosary
             </Link>
+            <Link className="button button--ghost" href="/readings">
+              Readings
+            </Link>
             <Link className="button button--ghost" href="/novenas">
               Novenas
             </Link>

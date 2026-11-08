@@ -56,6 +56,20 @@ export type {
   Fast,
   LiturgicalColour,
 } from './calendar/day.js';
+export {
+  lectionaryPosition,
+  cycleYearFor,
+  liturgicalStartYear,
+  holyFamilyDate,
+} from './calendar/lectionary.js';
+export type { CycleYear, LectionaryPosition } from './calendar/lectionary.js';
+export {
+  getReadings,
+  sundayEntriesForCycle,
+  CYCLE_TITLES,
+  CYCLE_GOSPELS,
+} from './readings.js';
+export type { ReadingSet } from './readings.js';
 export { WEEKDAY_NAMES, toIsoDate, monthDayKey, localToday } from './calendar/dates.js';
 export type { WeekdayName } from './calendar/dates.js';
 
@@ -68,6 +82,8 @@ export type {
   Station,
   Chapter,
   CalendarEntry,
+  Reading,
+  LectionaryEntry,
 } from './schema.js';
 
 // ---------------------------------------------------------------------------

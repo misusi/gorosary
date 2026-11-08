@@ -21,6 +21,13 @@ function buildRoutes(): Map<string, RouteMatch> {
 
 const routes = buildRoutes();
 
+/**
+ * Paths served by a route of their own rather than by the content catch-all.
+ * These are dynamic — the readings change with the day — so they cannot be
+ * prerendered with the rest.
+ */
+const STANDALONE_ROUTES = new Set(['/search', '/readings']);
+
 export function matchPath(path: string): RouteMatch | undefined {
   const clean = `/${path.replace(/^\/+|\/+$/g, '')}`;
   return routes.get(clean);
@@ -28,7 +35,9 @@ export function matchPath(path: string): RouteMatch | undefined {
 
 /** Every navigable path, used for static generation and the sitemap. */
 export function allPaths(): string[] {
-  return [...routes.keys()].filter((href) => href !== '/');
+  return [...routes.keys()].filter(
+    (href) => href !== '/' && !STANDALONE_ROUTES.has(href),
+  );
 }
 
 /** The documents belonging to a section, in navigation order. */

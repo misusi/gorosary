@@ -37,6 +37,7 @@ const BASE_KEYS = [
   'edition',
   'attribution',
   'body',
+  'cycle',
 ] as const;
 
 const KIND_KEYS: Record<string, string[]> = {
@@ -47,6 +48,7 @@ const KIND_KEYS: Record<string, string[]> = {
   litany: ['invocations'],
   stations: ['stations'],
   calendar: ['entries'],
+  readings: ['entries'],
 };
 
 function walk(dir: string): string[] {
