@@ -67,7 +67,7 @@ and no nav entry may point at nothing.
 
 ### The website is Next.js; the app is Expo
 
-**Decision.** Next.js 15 App Router for the website, Expo SDK 52 (React
+**Decision.** Next.js 16 App Router for the website, Expo SDK 58 (React
 Native) for the app.
 
 **Why.** The website needs real URLs, server rendering, and good indexing —
@@ -135,6 +135,19 @@ server's timezone decides what a visitor sees. The app is correct by
 construction. Closing this on the website means either resolving the day from
 a client-supplied timezone or edge-rendering per region; both are noted in the
 roadmap.
+
+### React and React Native are hoisted to the workspace root
+
+**Decision.** The root `package.json` declares `react`, `react-dom` and
+`react-native` as devDependencies, and pins `react-native` through `overrides`.
+
+**Why.** The website and the app must run the same React major — 19.3 — or the
+workspace ends up with two copies and a peer-dependency conflict that makes
+`npm install` fail outright. React Native is worse: packages such as
+`@react-native-async-storage/async-storage` declare it only as a *peer*, so
+npm resolves them against whatever is at the root. Hoisting explicitly
+guarantees one copy, and the override stops a stale version from surviving in
+the root when the Expo SDK is upgraded.
 
 ### No bottom tab bar in the app yet
 

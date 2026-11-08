@@ -1,0 +1,22 @@
+# Normalize line endings. The repository stores LF; every platform checks out
+# LF. Without this, Windows contributors get CRLF churn in every diff and CI
+# sees different files than were committed.
+* text=auto eol=lf
+
+*.md text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.yml text eol=lf
+*.ps1 text eol=lf
+*.sh text eol=lf
+
+# These are binary — never touch their line endings.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.woff binary
+*.woff2 binary

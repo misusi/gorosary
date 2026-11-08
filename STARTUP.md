@@ -37,7 +37,7 @@ gorosary/
 ├─ tsconfig.base.json       ← TypeScript settings every package inherits
 │
 ├─ apps/
-│  ├─ web/                  ← gorosary.app. Next.js 15, App Router, SSR + SSG.
+│  ├─ web/                  ← gorosary.app. Next.js 16, App Router, SSR + SSG.
 │  │  ├─ app/
 │  │  │  ├─ page.tsx        ← THE LANDING PAGE: today's rosary
 │  │  │  ├─ [...path]/      ← every other route, resolved from the nav

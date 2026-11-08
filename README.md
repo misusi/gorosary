@@ -34,8 +34,8 @@ the Church is praying today, and then it gets out of the way.
 | | |
 |---|---|
 | Monorepo | npm workspaces |
-| Website | Next.js 15 (App Router), React 19, TypeScript |
-| App | Expo SDK 52, React Native 0.76, Expo Router |
+| Website | Next.js 16 (App Router), React 19.3, TypeScript |
+| App | Expo SDK 58, React Native 0.88, Expo Router |
 | Content | Markdown + YAML frontmatter, validated with Zod, compiled to TypeScript |
 | Calendar | Own implementation of the Gregorian computus and the Roman liturgical year |
 | Storage | Local only for now (browser storage / AsyncStorage). No account, no backend, no tracking. |
