@@ -69,6 +69,7 @@ export type { CycleYear, LectionaryPosition } from './calendar/lectionary.js';
 export {
   getReadings,
   sundayEntriesForCycle,
+  yearEntries,
   CYCLE_TITLES,
   CYCLE_GOSPELS,
 } from './readings.js';

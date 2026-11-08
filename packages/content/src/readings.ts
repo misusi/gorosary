@@ -1,6 +1,10 @@
 import type { CycleYear, LectionaryPosition } from './calendar/lectionary.js';
-import { lectionaryPosition } from './calendar/lectionary.js';
-import { localToday } from './calendar/dates.js';
+import {
+  CYCLE_START_YEARS,
+  lectionaryPosition,
+} from './calendar/lectionary.js';
+import { addDays, localToday } from './calendar/dates.js';
+import { liturgicalYear } from './calendar/liturgical.js';
 import type { LectionaryEntry } from './schema.js';
 import { content } from './generated/content.js';
 
@@ -93,6 +97,40 @@ export function getReadings(instant: Date = new Date()): ReadingSet {
     isOwnDay: false,
     hasReadings: weekEntry !== null,
   };
+}
+
+/**
+ * Every reading day of a cycle year, in the order they fall.
+ *
+ * Walks the liturgical year from Advent to the end of Ordinary Time, taking
+ * every Sunday and every solemnity that carries readings of its own. The
+ * fixed readings come from the common document, the rest from the cycle
+ * document.
+ */
+export function yearEntries(cycle: CycleYear): LectionaryEntry[] {
+  const startYear = CYCLE_START_YEARS[cycle];
+  const year = liturgicalYear(startYear);
+  const end = addDays(year.adventStart, 365);
+
+  const seen = new Set<string>();
+  const entries: LectionaryEntry[] = [];
+
+  for (
+    let day = new Date(year.adventStart.getTime());
+    day < end;
+    day = addDays(day, 1)
+  ) {
+    const position = lectionaryPosition(day);
+    const isNamed = position.slot.startsWith('named:');
+    if (!position.isSunday && !isNamed) continue;
+    if (seen.has(position.slot)) continue;
+    seen.add(position.slot);
+
+    const entry = findEntry(cycle, position.slot);
+    if (entry) entries.push(entry);
+  }
+
+  return entries;
 }
 
 /** Every Sunday of a cycle year, for browsing the year. */

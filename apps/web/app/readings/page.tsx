@@ -4,7 +4,7 @@ import {
   CYCLE_GOSPELS,
   CYCLE_TITLES,
   getReadings,
-  sundayEntriesForCycle,
+  yearEntries,
   type LectionaryEntry,
 } from '@gorosary/content';
 
@@ -36,7 +36,7 @@ export default function ReadingsPage() {
     timeZone: 'UTC',
   });
 
-  const year = sundayEntriesForCycle(position.cycle);
+  const year = yearEntries(position.cycle);
 
   return (
     <>
