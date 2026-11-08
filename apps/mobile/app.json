@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "GoRosary",
+    "slug": "gorosary",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "gorosary",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "backgroundColor": "#faf7f2",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.gorosary.mobile"
+    },
+    "android": {
+      "package": "app.gorosary.mobile",
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}

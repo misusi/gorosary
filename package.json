@@ -1,0 +1,40 @@
+{
+  "name": "gorosary",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GoRosary — the Rosary, novenas, and daily prayers for web and mobile.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "overrides": {
+    "react-native": "0.88.1"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "build:packages": "npm run build --workspace @gorosary/content && npm run build --workspace @gorosary/ui",
+    "build:content": "npm run build --workspace @gorosary/content",
+    "check:content": "npm run check --workspace @gorosary/content",
+    "dev": "npm run build:packages && npm run dev --workspace @gorosary/web",
+    "dev:web": "npm run dev --workspace @gorosary/web",
+    "dev:mobile": "npm run build:packages && npm run dev --workspace @gorosary/mobile",
+    "dev:all": "npm run build:packages && concurrently -n web,mobile -c cyan,magenta \"npm:dev:web\" \"npm:dev:mobile\"",
+    "build": "npm run build:packages && npm run build --workspace @gorosary/web",
+    "test": "npm run test --workspace @gorosary/content",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "clean": "rimraf packages/content/dist packages/content/src/generated packages/ui/dist apps/web/.next"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-native": "0.88.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,160 @@
+# Decisions
+
+Every decision taken so far, and the reasoning. Newest first.
+
+---
+
+## 2026-11-07 — Project foundation
+
+### Monorepo with npm workspaces
+
+**Decision.** A single repository with `apps/` and `packages/`, using npm
+workspaces.
+
+**Why.** The website and the app must show identical prayer text. The cheapest
+way to guarantee that is for both to import the same compiled package — not to
+keep two copies in sync by hand. npm workspaces were chosen over pnpm because
+npm ships with Node and the dependency graph here is small enough that pnpm's
+deduplication is not worth an extra tool.
+
+### Content is Markdown + YAML frontmatter, compiled ahead of time
+
+**Decision.** Prayer text lives in `.md` files with YAML frontmatter. A build
+step validates everything against a Zod schema and writes a single typed
+TypeScript module. The website and the app both import the compiled result.
+
+**Why.** Three constraints in tension:
+
+1. The prayer text has to be *editable by a human* who is not a developer.
+2. The website and the app have to render it identically, including the
+   italic rubrics and the bold headings.
+3. Nothing may fail at runtime for the person praying.
+
+Markdown gives (1). Compiling to a typed module gives (2) and (3), because
+there is no parser in the browser and no chance of a runtime error. MDX was
+rejected because it would drag React DOM into the React Native bundle.
+
+### A hand-written Markdown subset instead of a Markdown library
+
+**Decision.** `packages/content/src/markdown.ts` is about 120 lines and
+supports exactly: paragraphs, `#` headings, `>` rubrics, ordered and unordered
+lists, and `**bold**` / `*italic*`.
+
+**Why.** A full Markdown library renders differently in the browser and in
+React Native, and the content only needs six constructs. Owning the parser
+means the two apps cannot disagree about what a prayer looks like.
+
+### Zod validation at build time, not runtime
+
+**Decision.** Every document is validated when the content is compiled. The
+build fails with the file name and the offending path.
+
+**Why.** A typo in a prayer's frontmatter should be caught in CI, not by a
+person praying at eleven at night. The cost is a build step; the benefit is
+that the shipped content is always valid.
+
+### Navigation in code, and the routes generated from it
+
+**Decision.** `packages/content/src/nav.ts` holds a two-level tree: sections
+(level 1) and documents (level 2). The website serves every path from a single
+`app/[...path]/page.tsx` that resolves against this tree. The app navigates
+the same tree.
+
+**Why.** Adding a prayer should never mean adding a page file. It means
+writing one Markdown file and adding one line to the nav. The build also
+enforces that the two agree in both directions: no document may be orphaned,
+and no nav entry may point at nothing.
+
+### The website is Next.js; the app is Expo
+
+**Decision.** Next.js 15 App Router for the website, Expo SDK 52 (React
+Native) for the app.
+
+**Why.** The website needs real URLs, server rendering, and good indexing —
+Next.js gives that with the least ceremony. The app needs to be on the App
+Store and the Play Store and feel native; Expo gets both iOS and Android from
+one codebase and shares the content package directly. A PWA was rejected
+because it cannot do reliable local notifications, which a prayer app will
+want for a novena reminder.
+
+### Local-first, no accounts
+
+**Decision.** Novena progress is stored in browser storage and AsyncStorage.
+No backend, no auth, no analytics.
+
+**Why.** The product has no need for accounts yet, and an account system is
+the single largest source of complexity, cost, and privacy risk in a project
+this size. The data model is defined so that sync can be added later without a
+content rewrite: the only server-side entity would be a progress record keyed
+by novena id and day.
+
+### Content authored as traditional public-domain prayers
+
+**Decision.** All prayer text follows traditional Catholic wording. Scripture
+references follow the Douay-Rheims.
+
+**Why.** The app must show one fixed published translation, consistently
+across every prayer, so that wording never varies. Traditional prayers are
+public domain, which removes the licensing question entirely.
+
+**Open.** Which published edition the app will name as its single fixed
+translation. Currently the seed text is Douay-Rheims for Scripture with
+traditional wording for the prayers. This is a content-wide pass if it
+changes — much cheaper to decide now than later.
+
+### The mystery rule follows the liturgical season, with the weekly cycle shown alongside
+
+**Decision.** `PRIMARY_RULE = 'liturgical'`. Today's mystery set follows the
+Church's calendar: Joyful in Advent, Christmas and Ordinary Time; Sorrowful in
+Lent and Holy Week; Glorious in the Easter season. Fixed feasts override the
+season — 15 September is the Sorrowful Mysteries, 7 October the Joyful. The
+older weekly cycle (Mon/Sat Joyful, Tue/Fri Sorrowful, Wed/Sun Glorious, Thu
+Luminous) is displayed alongside as an alternative.
+
+**Why.** Both traditions are genuinely in use, and they disagree often enough
+that picking one silently would annoy people. Following the liturgical
+calendar tracks the Church's own year, which is the deeper tradition and the
+more useful default. Showing the weekly answer alongside means nobody opens
+the app on a Friday and thinks it is wrong. The default is one constant, so
+flipping it is trivial.
+
+**Open.** Whether the primary should be the weekly cycle instead.
+
+### "Today" is resolved in the user's timezone
+
+**Decision.** The calendar engine computes in whole UTC days for exact
+arithmetic, but `localToday()` takes the year/month/day from the device's own
+clock and pins them to UTC midnight.
+
+**Why.** A device in New York at 9pm is already on the next day in UTC. Using
+UTC there would tell a Catholic praying the Rosary the wrong mystery — the
+exact kind of small wrongness that makes people stop trusting an app.
+
+**Known limitation.** The website resolves "today" on the server, so the
+server's timezone decides what a visitor sees. The app is correct by
+construction. Closing this on the website means either resolving the day from
+a client-supplied timezone or edge-rendering per region; both are noted in the
+roadmap.
+
+### No bottom tab bar in the app yet
+
+**Decision.** The app currently navigates with a stack: Today → section →
+prayer, with a search screen.
+
+**Why.** A tab bar needs icon assets and a tab dependency, and the priority
+for this phase is content. The nav structure is already there, so adding
+tabs later is a layout change and nothing more.
+
+---
+
+## Open questions for the project owner
+
+1. **Which published edition** of Scripture and the prayers is the app's one
+   fixed translation?
+2. **Liturgical season or weekly cycle** as the primary mystery rule?
+3. **Languages** — English only for now. A second language (Spanish, at
+   least) would mean a `locale` field on every document and a second nav
+   tree; worth deciding before the content doubles.
+4. **Notifications** — daily rosary reminders and novena nudges are the
+   feature most likely to make the app sticky, and the one thing a PWA cannot
+   do reliably.
