@@ -3,6 +3,9 @@
 How the website goes from this repository to the live domain. The pieces are
 already built and tested; what is left is account configuration.
 
+**Nothing is published yet.** This is the current next task — see
+[HANDOFF.md](../HANDOFF.md) for where the project stands.
+
 **The stack:** GitHub holds the code, Railway builds and runs it, Porkbun
 points the domain at it. SSL is issued automatically by Railway.
 
@@ -13,6 +16,11 @@ Railway (runs the Next.js server)
         ↓  Porkbun DNS: ALIAS + TXT records
 gorosary.app  (HTTPS, Let's Encrypt, renewed automatically)
 ```
+
+**Follow the steps in order.** You cannot write the DNS records until Railway
+gives you a target, and you do not want to point a live domain at a service
+that has not been built yet — so verify the Railway-provided address works
+before touching Porkbun.
 
 ---
 
@@ -110,12 +118,12 @@ before it will route traffic to it.
 ## 4. Point the domain at Railway (Porkbun)
 
 Porkbun supports CNAME flattening at the root, which is what an apex domain
-needs. In the Porkbun panel: **Domain Management → Details → Edit → DNS
-Records**.
+needs — no move to Cloudflare. In the Porkbun panel: **Domain Management →
+Details → Edit → DNS Records**.
 
 **a. Delete the parking records first.** Porkbun adds default records for the
-root. An `ALIAS` record cannot coexist with them — delete any `A`/`A`/`CNAME`
-records for host `@` and any `*` wildcard record.
+root and a `*` wildcard. An `ALIAS` record cannot coexist with them — delete
+any `A`/`AAAA`/`CNAME` record for host `@`, and the `*` wildcard.
 
 **b. Add the ALIAS record for the root.**
 
@@ -145,10 +153,16 @@ records for host `@` and any `*` wildcard record.
 | TTL | `600` |
 
 For `www` to actually work it must also be registered as a custom domain on
-the Railway service. If your plan allows only one, use Porkbun's **URL
-Forwarding** instead: *Domain Management → Details → Edit → URL Forwarding*,
-source `gorosary.app`, destination `https://gorosary.app`. Delete the `*`
-wildcard CNAME record first — it collides with the forward.
+the Railway service. The Railway **Trial plan allows only one** custom domain,
+so `gorosary.app` and `www.gorosary.app` count as two. If your plan allows
+only one, use Porkbun's **URL Forwarding** instead: *Domain Management → Details
+→ Edit → URL Forwarding*, source `gorosary.app`, destination
+`https://gorosary.app`. Delete the `*` wildcard CNAME record first — it
+collides with the forward.
+
+**Or use the Porkbun API** if you would rather script it. `packages/content`
+does not need it, and the credentials are best kept out of the repository —
+but the DNS changes are three records, so the panel is usually quicker.
 
 ---
 

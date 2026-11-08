@@ -4,6 +4,10 @@
 first. It points at every other file that matters and explains what each one is
 for.
 
+> **Picking up an existing session?** Read **[HANDOFF.md](HANDOFF.md)** first —
+> it says where the project stands, what is known to be unfinished, and the
+> exact next steps. It also has a copy-pasteable startup prompt.
+
 GoRosary is a Catholic prayer app: a website at **gorosary.app** and a separate
 iOS/Android app, both showing the same content. The Rosary, the novenas, and
 the prayers of the day — one stop, no introductions.
@@ -14,6 +18,7 @@ the prayers of the day — one stop, no introductions.
 
 | # | File | What it is for |
 |---|------|----------------|
+| 0 | [`HANDOFF.md`](HANDOFF.md) | Where the project stands right now, and the next steps. |
 | 1 | `STARTUP.md` | This file. The map of the project. |
 | 2 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Every decision made so far and the reasoning behind it. Read before changing architecture. |
 | 3 | [`docs/CONTENT.md`](docs/CONTENT.md) | **How to write and edit prayer content.** Read this before touching `packages/content/content/`. |
