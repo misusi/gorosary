@@ -26,10 +26,17 @@ be done.
 - The Chaplet of Divine Mercy and the Prayer of the Day
 - Two litanies and the Stations of the Cross
 - The calendar: feasts and fasts, the saints of the year
+- **The Roman Lectionary**: the engine that computes the cycle year and the
+  slot for any date, and the readings themselves — every Sunday of all three
+  cycle years, and the solemnities that keep the same readings every year
 
-**Remaining:** a complete 365-day saint of the day (141 fixed-date
-commemorations are in place), the Eastern Catholic mysteries if wanted, and a
-second language.
+**Remaining:** the weekday readings of Ordinary Time and Lent, which are about
+two thousand dated entries across the three cycle years and need checking
+against the official lectionary rather than being written from memory; the
+full Douay-Rheims text of each reading, which is the next content phase and
+the thing that turns a list of citations into something you can read; a
+complete 365-day saint of the day (141 fixed-date commemorations are in
+place); the Eastern Catholic mysteries if wanted; and a second language.
 
 ## Phase 2 — Making it a habit
 

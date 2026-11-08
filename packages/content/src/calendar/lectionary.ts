@@ -28,6 +28,46 @@ import {
 
 export type CycleYear = 'a' | 'b' | 'c';
 
+/** A representative year whose Advent opens each cycle letter. */
+export const CYCLE_START_YEARS: Record<CycleYear, number> = {
+  a: 2027,
+  b: 2028,
+  c: 2026,
+};
+
+/**
+ * The slots whose readings are the same in every cycle year.
+ *
+ * Their readings live in one document with `cycle: common`. Everything else
+ * depends on which of the three years it is.
+ */
+export const FIXED_SLOTS = new Set([
+  'named:christmas',
+  'named:mary-mother-of-god',
+  'named:epiphany',
+  'named:baptism-of-the-lord',
+  'named:holy-family',
+  'named:assumption',
+  'named:all-saints',
+  'named:immaculate-conception',
+  'named:ash-wednesday',
+  'named:palm-sunday',
+  'named:holy-thursday',
+  'named:good-friday',
+  'named:holy-saturday',
+  'named:easter',
+  'named:ascension',
+  'named:pentecost',
+  'named:trinity',
+  'named:corpus-christi',
+  'named:christmas-26',
+  'named:christmas-27',
+  'named:christmas-28',
+  'named:christmas-29',
+  'named:christmas-30',
+  'named:christmas-31',
+]);
+
 export interface LectionaryPosition {
   /** The day in question, as a UTC midnight date. */
   date: Date;
@@ -339,34 +379,22 @@ export function lectionaryPosition(date: Date): LectionaryPosition {
  * Sundays. A missing Sunday is a hole in the readings, and the build should
  * say so rather than let the page quietly fall back.
  */
-export function sundaySlotsForCycle(cycleStartYear: number): string[] {
-  const year = liturgicalYear(cycleStartYear);
-  const slots: string[] = [];
+export function cycleSundaySlots(cycle: CycleYear): string[] {
+  const year = liturgicalYear(CYCLE_START_YEARS[cycle]);
+  const slots = new Set<string>();
 
-  for (let week = 0; week < 4; week += 1) {
-    slots.push(`advent:${week + 1}:0`);
+  const end = addDays(year.adventStart, 365);
+  for (
+    let day = new Date(year.adventStart.getTime());
+    day < end;
+    day = addDays(day, 1)
+  ) {
+    const position = lectionaryPosition(day);
+    const isNamed = position.slot.startsWith('named:');
+    if (!position.isSunday && !isNamed) continue;
+    if (FIXED_SLOTS.has(position.slot)) continue;
+    slots.add(position.slot);
   }
 
-  slots.push('named:christmas');
-  slots.push('named:baptism-of-the-lord');
-  slots.push('named:holy-family');
-
-  for (let week = 0; week < 6; week += 1) {
-    slots.push(`lent:${week + 1}:0`);
-  }
-
-  slots.push('named:palm-sunday');
-  slots.push('named:easter');
-  slots.push('named:ascension');
-  slots.push('named:pentecost');
-  slots.push('named:trinity');
-  slots.push('named:corpus-christi');
-  slots.push('named:christ-the-king');
-
-  slots.push('named:assumption');
-  slots.push('named:all-saints');
-  slots.push('named:immaculate-conception');
-
-  void cycleStartYear;
-  return slots;
+  return [...slots].sort();
 }

@@ -65,19 +65,24 @@ gorosary/
 │  │  │  ├─ mercy/          ← Chaplet of Divine Mercy, the Prayer of the Day
 │  │  │  ├─ litanies/       ← Litany of Loreto, Litany of the Saints, Stations
 │  │  │  └─ calendar/       ← feasts and fasts, the saints of the year
+│  │  │  └─ readings/       ← the Roman Lectionary, one document per cycle year
 │  │  ├─ src/
 │  │  │  ├─ schema.ts       ← Zod schema: the content contract
 │  │  │  ├─ markdown.ts     ← tiny Markdown parser → shared AST
 │  │  │  ├─ nav.ts          ← navigation tree (level 1 and 2)
 │  │  │  ├─ today.ts        ← assembles "today" from content + calendar
+│  │  │  ├─ readings.ts     ← the readings of the day
 │  │  │  ├─ index.ts        ← the public API both apps import
 │  │  │  └─ calendar/
 │  │  │     ├─ dates.ts     ← UTC date helpers + localToday()
 │  │  │     ├─ liturgical.ts← Easter computus, seasons, the liturgical year
+│  │  │     ├─ lectionary.ts← the cycle year and the slot for any date
 │  │  │     ├─ rules.ts     ← WHICH MYSTERIES ARE PRAYED TODAY
+│  │  │     ├─ day.ts       ← the season, week, colour and fasts of a day
 │  │  │     └─ feasts.ts    ← moveable feasts
 │  │  ├─ scripts/
-│  │  │  └─ build-content.ts ← validates content, writes the compiled module
+│  │  │  ├─ build-content.ts ← validates content, writes the compiled module
+│  │  │  └─ plan-lectionary.ts ← prints the reading slots that need writing
 │  │  └─ dist/              ← compiled output (generated, gitignored)
 │  │
 │  ├─ ui/                   ← design tokens + shared formatting, used by both apps

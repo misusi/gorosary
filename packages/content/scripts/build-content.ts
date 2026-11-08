@@ -19,6 +19,7 @@ import matter from 'gray-matter';
 import { docSchema } from '../src/schema.js';
 import { parseBlocks } from '../src/markdown.js';
 import { NAV } from '../src/nav.js';
+import { cycleSundaySlots } from '../src/calendar/lectionary.js';
 
 const scriptDir = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const packageRoot = resolve(scriptDir, '..');
@@ -106,6 +107,20 @@ for (const file of files) {
   }
 
   docs.push(parsed.data);
+}
+
+// --- lectionary coverage ----------------------------------------------------
+// Every Sunday of a cycle year must have readings. A missing Sunday is a
+// hole in the readings, and the page would quietly fall back to the wrong
+// week's readings, so the build stops.
+for (const doc of docs) {
+  if (doc.kind !== 'readings' || doc.cycle === 'common') continue;
+  const present = new Set(doc.entries.map((entry) => entry.slot));
+  for (const slot of cycleSundaySlots(doc.cycle)) {
+    if (!present.has(slot)) {
+      errors.push(`${doc.id}: no readings for "${slot}"`);
+    }
+  }
 }
 
 // --- duplicates -------------------------------------------------------------

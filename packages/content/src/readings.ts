@@ -36,15 +36,25 @@ function entriesForCycle(cycle: CycleYear | 'common'): LectionaryEntry[] {
   return entries;
 }
 
+/**
+ * Finds the entry for a slot.
+ *
+ * The cycle document is checked first: a few days keep the same Gospel every
+ * year but change their First Reading with the cycle, so the cycle-specific
+ * entry wins over the fixed one.
+ */
 function findEntry(
   cycle: CycleYear | 'common',
   slot: string,
 ): LectionaryEntry | null {
-  for (const doc of content) {
-    if (doc.kind !== 'readings') continue;
-    if (doc.cycle !== cycle) continue;
-    const found = doc.entries.find((entry) => entry.slot === slot);
-    if (found) return found;
+  const cycles: (CycleYear | 'common')[] = [cycle, 'common'];
+  for (const wanted of cycles) {
+    for (const doc of content) {
+      if (doc.kind !== 'readings') continue;
+      if (doc.cycle !== wanted) continue;
+      const found = doc.entries.find((entry) => entry.slot === slot);
+      if (found) return found;
+    }
   }
   return null;
 }

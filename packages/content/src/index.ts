@@ -61,6 +61,9 @@ export {
   cycleYearFor,
   liturgicalStartYear,
   holyFamilyDate,
+  cycleSundaySlots,
+  FIXED_SLOTS,
+  CYCLE_START_YEARS,
 } from './calendar/lectionary.js';
 export type { CycleYear, LectionaryPosition } from './calendar/lectionary.js';
 export {

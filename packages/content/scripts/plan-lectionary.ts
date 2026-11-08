@@ -18,7 +18,10 @@
  */
 import { addDays } from '../src/calendar/dates.js';
 import { liturgicalYear } from '../src/calendar/liturgical.js';
-import { lectionaryPosition } from '../src/calendar/lectionary.js';
+import {
+  FIXED_SLOTS,
+  lectionaryPosition,
+} from '../src/calendar/lectionary.js';
 
 const cycleStartYear = Number(process.argv[2] ?? '2026');
 if (!Number.isFinite(cycleStartYear)) {
@@ -31,33 +34,7 @@ const letters = ['A', 'B', 'C'];
 const letter = letters[((cycleStartYear - 2021) % 3 + 3) % 3] ?? 'A';
 
 /** Slots whose readings are the same in every cycle year. */
-const FIXED_SLOTS = new Set([
-  'named:christmas',
-  'named:mary-mother-of-god',
-  'named:epiphany',
-  'named:baptism-of-the-lord',
-  'named:holy-family',
-  'named:assumption',
-  'named:all-saints',
-  'named:immaculate-conception',
-  'named:ash-wednesday',
-  'named:palm-sunday',
-  'named:holy-thursday',
-  'named:good-friday',
-  'named:holy-saturday',
-  'named:easter',
-  'named:ascension',
-  'named:pentecost',
-  'named:trinity',
-  'named:corpus-christi',
-  // The Christmas weekdays keep the same readings every year.
-  'named:christmas-26',
-  'named:christmas-27',
-  'named:christmas-28',
-  'named:christmas-29',
-  'named:christmas-30',
-  'named:christmas-31',
-]);
+const fixedSlots = FIXED_SLOTS;
 
 console.log(`\nCycle year ${letter} — liturgical year opening Advent ${cycleStartYear}`);
 console.log(`Easter ${year.easter.toISOString().slice(0, 10)}`);
@@ -85,7 +62,7 @@ for (
     slot: position.slot,
     label: position.label,
   };
-  if (FIXED_SLOTS.has(position.slot)) fixedRows.push(row);
+  if (fixedSlots.has(position.slot)) fixedRows.push(row);
   else cycleRows.push(row);
 }
 

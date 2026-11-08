@@ -59,10 +59,53 @@ Then exactly **one** kind-specific key:
 | `litany` | `invocations` | list of invocation lines |
 | `stations` | `stations` | exactly 14, each with `title`, `meditation`, `prayer` |
 | `calendar` | `entries` | fixed-date commemorations |
+| `readings` | `entries` | the readings of a day, keyed by `slot` |
 
 The full shape is defined in
 [`packages/content/src/schema.ts`](../packages/content/src/schema.ts). That file
 is the contract — if you are not sure, read it.
+
+### Readings
+
+The readings of the Roman Lectionary are content too, in
+`content/readings/`. Each document has a `cycle` — `a`, `b`, `c`, or `common`
+— and a list of entries, each keyed by a `slot`:
+
+```yaml
+entries:
+  - slot: ordinary:12:0
+    label: the Twelfth Sunday in Ordinary Time
+    firstReading:
+      reference: Genesis 3:9-15
+      title: The fall of Adam and Eve
+      summary: >
+        One or two sentences on what the reading is about.
+    psalm:
+      reference: Psalm 24:1-2, 3, 5-6
+    secondReading:
+      reference: Romans 5:12-19
+    gospel:
+      reference: Matthew 4:1-11
+```
+
+The slot is the key the engine computes. There are two kinds:
+
+- `season:week:weekday` — a numbered week of a season. `ordinary:12:0` is the
+  Twelfth Sunday in Ordinary Time, `ordinary:12:3` is the Wednesday of that
+  week, `lent:3:0` is the Third Sunday of Lent.
+- `named:feast` — a solemnity that keeps readings of its own, such as
+  `named:easter` or `named:palm-sunday`.
+
+**To find out which slots need writing:**
+
+```bash
+npm run plan --workspace @gorosary/content -- 2026
+```
+
+That prints every slot of a cycle year with the date it falls on, split into
+the ones whose readings never change and the ones that depend on the cycle.
+The build fails if a cycle year is missing any of its Sundays, so a gap in the
+readings cannot slip through.
 
 ---
 
