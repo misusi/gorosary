@@ -22,8 +22,11 @@ OPENER.addheaders = [
 
 def get(url):
     req = urllib.request.Request(url)
-    with OPENER.open(req, timeout=60) as r:
-        return r.read().decode("utf-8", "replace")
+    try:
+        with OPENER.open(req, timeout=60) as r:
+            return r.read().decode("utf-8", "replace")
+    except urllib.error.HTTPError as exc:
+        return exc.read().decode("utf-8", "replace")
 
 
 def leading_zero_bits(digest):
