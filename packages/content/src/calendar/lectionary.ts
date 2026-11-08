@@ -292,7 +292,9 @@ export function lectionaryPosition(date: Date): LectionaryPosition {
         date,
         cycle,
         slot: `advent:${week}:${weekday}`,
-        label: `the ${ordinal(week)} Sunday of Advent`,
+        label: `the ${ordinal(week)} ${
+          weekday === 0 ? 'Sunday' : 'Week'
+        } of Advent`,
         season,
         week,
         weekday,
@@ -319,7 +321,9 @@ export function lectionaryPosition(date: Date): LectionaryPosition {
         date,
         cycle,
         slot: `lent:${week}:${weekday}`,
-        label: `the ${ordinal(week)} Week of Lent`,
+        label: `the ${ordinal(week)} ${
+          weekday === 0 ? 'Sunday' : 'Week'
+        } of Lent`,
         season,
         week,
         weekday,
@@ -348,7 +352,9 @@ export function lectionaryPosition(date: Date): LectionaryPosition {
         label:
           week === 1
             ? 'the First Week of Easter'
-            : `the ${ordinal(week)} Week of Easter`,
+            : `the ${ordinal(week)} ${
+                weekday === 0 ? 'Sunday' : 'Week'
+              } of Easter`,
         season,
         week,
         weekday,
@@ -362,7 +368,10 @@ export function lectionaryPosition(date: Date): LectionaryPosition {
         date,
         cycle,
         slot: `ordinary:${week}:${weekday}`,
-        label: `the ${ordinal(week)} Week of Ordinary Time`,
+        label:
+          weekday === 0
+            ? `the ${ordinal(week)} Sunday in Ordinary Time`
+            : `the ${ordinal(week)} Week of Ordinary Time`,
         season,
         week,
         weekday,
