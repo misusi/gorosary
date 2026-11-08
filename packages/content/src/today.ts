@@ -1,13 +1,18 @@
 import type { Mystery, MysterySetId } from './schema.js';
 import { moveableFeastsFor, type Commemoration } from './calendar/feasts.js';
 import { toIsoDate, localToday } from './calendar/dates.js';
-import { resolveMysteries } from './calendar/rules.js';
+import {
+  MYSTERY_SET_TITLES,
+  resolveMysteries,
+  type MysteryAlternative,
+  type MysterySource,
+} from './calendar/rules.js';
 import { content } from './generated/content.js';
 
 /**
  * "Today" — the landing page of the whole site.
  *
- * The mystery set is decided by the liturgical calendar, then the commemorations
+ * The mystery set is decided by the calendar rules, then the commemorations
  * of the day are collected from both the moveable feasts (computed) and the
  * fixed-date saints (content data).
  */
@@ -21,21 +26,15 @@ export interface TodayRosary {
   set: MysterySetId;
   setTitle: string;
   reason: string;
-  alternative: { set: MysterySetId; reason: string };
-  fromWeeklyCycle: boolean;
+  /** Whether the answer came from a feast, the season, or the day of the week. */
+  source: MysterySource;
+  alternative: MysteryAlternative;
   mysteries: Mystery[];
   commemorations: Commemoration[];
 }
 
-const SET_TITLES: Record<MysterySetId, string> = {
-  joyful: 'Joyful Mysteries',
-  sorrowful: 'Sorrowful Mysteries',
-  glorious: 'Glorious Mysteries',
-  luminous: 'Luminous Mysteries',
-};
-
 export function mysterySetTitle(id: MysterySetId): string {
-  return SET_TITLES[id];
+  return MYSTERY_SET_TITLES[id];
 }
 
 /** Finds the mystery set across every rosary document in the content set. */
@@ -97,10 +96,10 @@ export function getTodayRosary(instant: Date = new Date()): TodayRosary {
     season: resolution.season,
     seasonLabel: resolution.seasonLabel,
     set: resolution.set,
-    setTitle: SET_TITLES[resolution.set],
+    setTitle: resolution.title,
     reason: resolution.reason,
+    source: resolution.source,
     alternative: resolution.alternative,
-    fromWeeklyCycle: resolution.fromWeeklyCycle,
     mysteries: mysteriesFor(resolution.set),
     commemorations: commemorationsFor(date),
   };

@@ -98,27 +98,52 @@ across every prayer, so that wording never varies. Traditional prayers are
 public domain, which removes the licensing question entirely.
 
 **Open.** Which published edition the app will name as its single fixed
-translation. Currently the seed text is Douay-Rheims for Scripture with
-traditional wording for the prayers. This is a content-wide pass if it
-changes — much cheaper to decide now than later.
+translation — settled as the Douay-Rheims, with traditional wording for the
+prayers.
 
-### The mystery rule follows the liturgical season, with the weekly cycle shown alongside
+### The mystery rule is a hybrid of the season and the week
 
-**Decision.** `PRIMARY_RULE = 'liturgical'`. Today's mystery set follows the
-Church's calendar: Joyful in Advent, Christmas and Ordinary Time; Sorrowful in
-Lent and Holy Week; Glorious in the Easter season. Fixed feasts override the
-season — 15 September is the Sorrowful Mysteries, 7 October the Joyful. The
-older weekly cycle (Mon/Sat Joyful, Tue/Fri Sorrowful, Wed/Sun Glorious, Thu
-Luminous) is displayed alongside as an alternative.
+**Decision.** `PRIMARY_RULE = 'hybrid'`. Feasts override everything. Then the
+season of the Church's calendar decides where it has real force — Advent,
+Christmas, Lent, Holy Week, Easter. In Ordinary Time the day of the week
+decides, by the older assignment (Mon/Sat Joyful, Tue/Fri Sorrowful, Wed/Sun
+Glorious, Thu Luminous). Whichever answer is not used is always shown
+alongside, with the reason for it.
 
-**Why.** Both traditions are genuinely in use, and they disagree often enough
-that picking one silently would annoy people. Following the liturgical
-calendar tracks the Church's own year, which is the deeper tradition and the
-more useful default. Showing the weekly answer alongside means nobody opens
-the app on a Friday and thinks it is wrong. The default is one constant, so
-flipping it is trivial.
+**Why.** Two traditions are genuinely in use and they disagree often enough
+that picking one silently would annoy people.
 
-**Open.** Whether the primary should be the weekly cycle instead.
+Pure weekly has a real problem: Ash Wednesday falls on a Wednesday, so
+ordinary time would put the Glorious Mysteries on the day Lent begins;
+Palm Sunday would be Glorious during the Passion; and a Tuesday in Christmas
+week would be Sorrowful. Pius XII endorsed the weekly assignment in *How to
+Pray the Rosary* (1950) and it is what most people learned and expect, but
+applied without exception it ignores the Church's seasons completely.
+
+Pure seasonal has the opposite problem: six months of Ordinary Time and
+Advent and Christmas all resolve to the same five Joyful mysteries, which is
+repetitive enough to wear a daily rosary down.
+
+The hybrid keeps what is true in each. The seasons where the Church's
+penitential or festive character is strong are given to the calendar, and the
+long ordinary stretches get the week's variety. The result is roughly
+forty-seven days of Sorrowful at Lent, fifty of Glorious at Easter, forty of
+Joyful at Christmas, and the Luminous Mysteries on Thursdays for most of the
+year.
+
+**Cost.** It is a compromise, and someone will always prefer one side. But
+both answers are always on screen with their reasons, so nobody is misled, and
+`PRIMARY_RULE` is a one-line switch to 'weekly' or 'liturgical' if the house
+view changes.
+
+### Scripture and prayers follow the Douay-Rheims
+
+**Decision.** Scripture references follow the Douay-Rheims, and the prayers
+use traditional Catholic wording.
+
+**Why.** One fixed published edition, as the project owner chose. The prayers
+themselves are traditional and public domain, so the only licensing question
+is Scripture, and the Douay-Rheims has none.
 
 ### "Today" is resolved in the user's timezone
 
@@ -162,12 +187,11 @@ tabs later is a layout change and nothing more.
 
 ## Open questions for the project owner
 
-1. **Which published edition** of Scripture and the prayers is the app's one
-   fixed translation?
-2. **Liturgical season or weekly cycle** as the primary mystery rule?
-3. **Languages** — English only for now. A second language (Spanish, at
+1. **Languages** — English only for now. A second language (Spanish, at
    least) would mean a `locale` field on every document and a second nav
    tree; worth deciding before the content doubles.
-4. **Notifications** — daily rosary reminders and novena nudges are the
+2. **Notifications** — daily rosary reminders and novena nudges are the
    feature most likely to make the app sticky, and the one thing a PWA cannot
    do reliably.
+3. **Whether the hybrid mystery rule should become pure weekly or pure
+   seasonal** — one constant in `packages/content/src/calendar/rules.ts`.

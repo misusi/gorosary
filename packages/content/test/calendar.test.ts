@@ -157,10 +157,6 @@ describe("today's mysteries", () => {
     assert.equal(resolveMysteries(utcDate(2025, 4, 23)).set, 'glorious');
   });
 
-  it('follows Ordinary Time with the Joyful Mysteries', () => {
-    assert.equal(resolveMysteries(utcDate(2025, 10, 15)).set, 'joyful');
-  });
-
   it('gives the Sorrowful Mysteries on Corpus Christi', () => {
     const resolution = resolveMysteries(utcDate(2025, 6, 19));
     assert.equal(resolution.set, 'sorrowful');
@@ -182,6 +178,55 @@ describe("today's mysteries", () => {
   it('names the weekday correctly', () => {
     assert.equal(resolveMysteries(utcDate(2025, 9, 15)).weekday, 'Monday');
     assert.equal(resolveMysteries(utcDate(2025, 11, 2)).weekday, 'Sunday');
+  });
+
+  describe('the hybrid rule', () => {
+    it('lets the season decide in Advent, even on a Sunday', () => {
+      // 30 November 2025 is the First Sunday of Advent. The weekly cycle
+      // would say Glorious; Advent says Joyful.
+      const resolution = resolveMysteries(utcDate(2025, 11, 30));
+      assert.equal(resolution.set, 'joyful');
+      assert.equal(resolution.source, 'season');
+      assert.equal(resolution.alternative.set, 'glorious');
+    });
+
+    it('lets the season decide in the Christmas season, even on a Tuesday', () => {
+      // 30 December 2025 is a Tuesday. The weekly cycle would say Sorrowful.
+      const resolution = resolveMysteries(utcDate(2025, 12, 30));
+      assert.equal(resolution.set, 'joyful');
+      assert.equal(resolution.source, 'season');
+    });
+
+    it('lets the season decide in Lent, even on a Sunday', () => {
+      // 9 March 2025 is a Sunday in Lent. The weekly cycle would say Glorious.
+      const resolution = resolveMysteries(utcDate(2025, 3, 9));
+      assert.equal(resolution.set, 'sorrowful');
+      assert.equal(resolution.source, 'season');
+    });
+
+    it('lets the season decide at Easter, even on a Monday', () => {
+      // 21 April 2025 is Easter Monday. The weekly cycle would say Joyful.
+      const resolution = resolveMysteries(utcDate(2025, 4, 21));
+      assert.equal(resolution.set, 'glorious');
+      assert.equal(resolution.source, 'season');
+    });
+
+    it('lets the week decide in Ordinary Time', () => {
+      // 15 October 2025 is a Wednesday in Ordinary Time.
+      assert.equal(resolveMysteries(utcDate(2025, 10, 15)).set, 'glorious');
+      assert.equal(resolveMysteries(utcDate(2025, 10, 15)).source, 'week');
+      // 13 October 2025 is a Monday, 14 October a Tuesday.
+      assert.equal(resolveMysteries(utcDate(2025, 10, 13)).set, 'joyful');
+      assert.equal(resolveMysteries(utcDate(2025, 10, 14)).set, 'sorrowful');
+    });
+
+    it('offers the other tradition alongside, always', () => {
+      const inOrdinaryTime = resolveMysteries(utcDate(2025, 10, 15));
+      assert.match(inOrdinaryTime.alternative.reason, /Ordinary Time/);
+
+      const inLent = resolveMysteries(utcDate(2025, 3, 9));
+      assert.match(inLent.alternative.reason, /Sundays traditionally/);
+    });
   });
 });
 

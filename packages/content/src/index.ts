@@ -29,8 +29,16 @@ export {
   FIXED_DATE_OVERRIDES,
   MOVABLE_OVERRIDES,
   PRIMARY_RULE,
+  MYSTERY_SET_TITLES,
+  WEEKLY_TRADITION,
+  SEASON_TRADITION,
 } from './calendar/rules.js';
-export type { MysteryResolution } from './calendar/rules.js';
+export type {
+  MysteryResolution,
+  MysteryAlternative,
+  MysterySource,
+  PrimaryRule,
+} from './calendar/rules.js';
 export {
   liturgicalYear,
   seasonFor,

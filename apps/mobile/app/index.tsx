@@ -65,10 +65,10 @@ export default function TodayScreen() {
           marginBottom: 8,
         }}
       >
-        Today the Church prays the {today.setTitle.toLowerCase()} — {today.reason}.
+        {today.reason}
       </Text>
       <Text style={{ fontSize: 13.5, color: theme.muted, marginBottom: 20 }}>
-        By the older weekly cycle, {today.alternative.reason.toLowerCase()}.
+        Also today — {today.alternative.tradition}: {today.alternative.reason}
       </Text>
 
       {setDoc ? (

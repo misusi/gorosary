@@ -169,17 +169,26 @@ computed, never hardcoded.
    Mysteries (Our Lady of Sorrows), 7 October is the Joyful (Our Lady of the
    Rosary), and so on. The table is `FIXED_DATE_OVERRIDES`.
 2. **Moveable feasts** — Corpus Christi, the Sacred Heart, Holy Saturday.
-3. **The liturgical season** — Joyful in Advent, Christmas and Ordinary Time;
-   Sorrowful in Lent and Holy Week; Glorious in the Easter season.
-4. The **older weekly cycle** (Mon/Sat Joyful, Tue/Fri Sorrowful, Wed/Sun
-   Glorious, Thu Luminous) is always shown alongside as an alternative, because
-   a person praying at home expects to see that answer too.
+3. **The season** — Advent, Christmas, Lent, Holy Week and Easter are given to
+   the Church's calendar, because those are the weeks where the season has real
+   force.
+4. **The day of the week** decides in Ordinary Time — the six months of
+   ordinary weeks, which need the variety. Mon/Sat Joyful, Tue/Fri Sorrowful,
+   Wed/Sun Glorious, Thu Luminous.
 
-To change which tradition wins, edit one line at the top of `rules.ts`:
+Whichever answer is *not* used is always shown underneath, with its reason, so
+nobody is misled either way.
+
+To change the rule, edit one line at the top of `rules.ts`:
 
 ```ts
-export const PRIMARY_RULE: PrimaryRule = 'liturgical'; // or 'weekly'
+export const PRIMARY_RULE: PrimaryRule = 'hybrid'; // or 'liturgical' or 'weekly'
 ```
+
+- `hybrid` — the season decides in Advent, Christmas, Lent, Holy Week and
+  Easter; the week decides in Ordinary Time. **The default.**
+- `liturgical` — the season decides every day of the year.
+- `weekly` — the day of the week decides every day of the year.
 
 ---
 
@@ -202,12 +211,15 @@ export const PRIMARY_RULE: PrimaryRule = 'liturgical'; // or 'weekly'
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the current state, and
 [`docs/DECISIONS.md`](docs/DECISIONS.md) for why things are the way they are.
 
-**Two things need your decision before the app ships:**
+**Two things are still open** — see [`docs/DECISIONS.md`](docs/DECISIONS.md) for
+the full list:
 
-1. **Which published edition of the prayers** the app will use as its single
-   fixed translation. The seed text currently follows the Douay-Rheims for
-   Scripture and traditional wording for the prayers. Changing this is a
-   content-wide pass, not a code change — but it is much cheaper to decide now.
-2. **Whether the mystery rule should follow the liturgical season or the
-   weekly cycle.** The engine supports both and shows both; only the default
-   is a one-line change.
+1. **A second language.** English only for now. Spanish would mean a `locale`
+   field on every document and a second navigation tree; worth deciding before
+   the content doubles.
+2. **Notifications.** Daily rosary reminders and novena nudges are the feature
+   most likely to make the app sticky, and the one thing a PWA cannot do
+   reliably.
+
+The published edition (Douay-Rheims) and the mystery rule (hybrid) have both
+been settled.

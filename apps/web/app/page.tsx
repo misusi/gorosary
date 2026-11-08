@@ -32,12 +32,10 @@ export default function HomePage() {
           </div>
 
           <h1 className="today__title">{today.setTitle}</h1>
-          <p className="today__reason">
-            Today the Church prays the {today.setTitle.toLowerCase()} —{' '}
-            {today.reason}.
-          </p>
+          <p className="today__reason">{today.reason}</p>
           <p className="today__alt">
-            By the older weekly cycle, {today.alternative.reason.toLowerCase()}.
+            Also today — {today.alternative.tradition}:{' '}
+            {today.alternative.reason}
           </p>
 
           <div className="today__actions">
