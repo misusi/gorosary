@@ -16,8 +16,7 @@ const READING_ORDER = [
 export default function ReadingsScreen() {
   const theme = useTheme();
   const readings = getReadings(new Date());
-  const { position } = readings;
-  const entry = readings.entry;
+  const { position, entry } = readings;
 
   const dateLabel = position.date.toLocaleDateString('en-US', {
     weekday: 'long',
@@ -51,24 +50,26 @@ export default function ReadingsScreen() {
           marginBottom: 6,
         }}
       >
-        {readings.isOwnDay ? "Today's Readings" : "This Week's Readings"}
+        Today&rsquo;s Readings
       </Text>
-      <Text
-        style={{
-          fontSize: 16,
-          fontStyle: 'italic',
-          color: theme.inkSoft,
-          marginBottom: 6,
-        }}
-      >
-        {position.label}
-      </Text>
+      {entry?.celebration ? (
+        <Text
+          style={{
+            fontSize: 16,
+            fontStyle: 'italic',
+            color: theme.inkSoft,
+            marginBottom: 6,
+          }}
+        >
+          {entry.celebration}
+        </Text>
+      ) : null}
       <Text style={{ fontSize: 13.5, color: theme.muted, marginBottom: 20 }}>
         {dateLabel} · {CYCLE_TITLES[position.cycle]},{' '}
         {CYCLE_GOSPELS[position.cycle]}
       </Text>
 
-      {!readings.isOwnDay && readings.hasReadings ? (
+      {!readings.hasReadings ? (
         <View
           style={{
             borderLeftWidth: 3,
@@ -81,9 +82,7 @@ export default function ReadingsScreen() {
           }}
         >
           <Text style={{ fontSize: 14.5, lineHeight: 22, color: theme.inkSoft }}>
-            The individual readings for each day of this week are not yet in
-            the app. These are the readings of the week, which is what they are
-            about.
+            The readings for {readings.year} are not in the app yet.
           </Text>
         </View>
       ) : null}
@@ -125,30 +124,6 @@ export default function ReadingsScreen() {
                 >
                   {reading.reference}
                 </Text>
-                {reading.title ? (
-                  <Text
-                    style={{
-                      fontSize: 15.5,
-                      fontStyle: 'italic',
-                      color: theme.inkSoft,
-                      marginTop: 6,
-                    }}
-                  >
-                    {reading.title}
-                  </Text>
-                ) : null}
-                {reading.summary ? (
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 26,
-                      color: theme.inkSoft,
-                      marginTop: 12,
-                    }}
-                  >
-                    {reading.summary}
-                  </Text>
-                ) : null}
               </View>
             );
           })

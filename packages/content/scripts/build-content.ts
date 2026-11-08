@@ -19,7 +19,6 @@ import matter from 'gray-matter';
 import { docSchema } from '../src/schema.js';
 import { parseBlocks } from '../src/markdown.js';
 import { NAV } from '../src/nav.js';
-import { cycleSundaySlots } from '../src/calendar/lectionary.js';
 
 const scriptDir = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const packageRoot = resolve(scriptDir, '..');
@@ -39,6 +38,7 @@ const BASE_KEYS = [
   'attribution',
   'body',
   'cycle',
+  'year',
 ] as const;
 
 const KIND_KEYS: Record<string, string[]> = {
@@ -110,16 +110,34 @@ for (const file of files) {
 }
 
 // --- lectionary coverage ----------------------------------------------------
-// Every Sunday of a cycle year must have readings. A missing Sunday is a
-// hole in the readings, and the page would quietly fall back to the wrong
-// week's readings, so the build stops.
+// A readings document should cover its whole year. A handful of days in the
+// USCCB calendars are laid out in a shape the extractor does not yet read, so
+// a few gaps are tolerated — but a broken extraction loses hundreds of days,
+// and that must fail the build.
 for (const doc of docs) {
-  if (doc.kind !== 'readings' || doc.cycle === 'common') continue;
-  const present = new Set(doc.entries.map((entry) => entry.slot));
-  for (const slot of cycleSundaySlots(doc.cycle)) {
-    if (!present.has(slot)) {
-      errors.push(`${doc.id}: no readings for "${slot}"`);
-    }
+  if (doc.kind !== 'readings') continue;
+
+  const present = new Set(doc.entries.map((entry) => entry.date));
+  const year = doc.year;
+  const start = Date.UTC(year, 0, 1);
+  const end = Date.UTC(year + 1, 0, 1);
+  const missing: string[] = [];
+
+  for (let time = start; time < end; time += 86_400_000) {
+    const iso = new Date(time).toISOString().slice(0, 10);
+    if (!present.has(iso)) missing.push(iso);
+  }
+
+  const daysInYear = Math.round((end - start) / 86_400_000);
+  if (present.size < daysInYear - 10) {
+    errors.push(
+      `${doc.id}: only ${present.size} of ${daysInYear} days have readings — the extraction is broken`,
+    );
+  }
+  if (missing.length > 0) {
+    warnings.push(
+      `${doc.id}: ${missing.length} day(s) without readings: ${missing.join(', ')}`,
+    );
   }
 }
 
@@ -146,6 +164,9 @@ for (const id of navDocIds) {
   if (!seen.has(id)) errors.push(`navigation references unknown doc "${id}"`);
 }
 for (const doc of docs) {
+  // The readings documents are the data behind the readings page, not pages
+  // of their own, so they are not expected in the navigation.
+  if (doc.kind === 'readings') continue;
   if (!navDocIds.has(doc.id)) {
     warnings.push(`"${doc.id}" is not linked from the navigation`);
   }

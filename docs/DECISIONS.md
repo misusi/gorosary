@@ -136,6 +136,41 @@ both answers are always on screen with their reasons, so nobody is misled, and
 `PRIMARY_RULE` is a one-line switch to 'weekly' or 'liturgical' if the house
 view changes.
 
+### The readings are extracted from the USCCB liturgical calendars
+
+**Decision.** The readings are not written by hand. `scripts/usccb-extract.py`
+reads the liturgical calendar PDFs the United States Conference of Catholic
+Bishops publishes for each year, and `scripts/generate-readings.ts` writes
+them into `content/readings/`. The app therefore shows the same readings the
+dioceses of the United States use, for every day including the weekdays.
+
+**Why.** The alternative — writing two thousand dated citations by hand — is
+both weeks of work and a standing chance of a wrong reference, which in a
+prayer app is a real defect rather than a typo. The USCCB publishes about six
+years ahead, which is a reasonable horizon.
+
+**What this changed.** Three things that were wrong before:
+
+- **The cycle year was off by one.** The Advent that opened 2022 is Year A, not
+  2021. The USCCB calendars state the cycle outright ("Sunday Cycle YEAR A —
+  November 30, 2025 to November 22, 2026"), which is what the engine is now
+  checked against. Getting this wrong would have shown the wrong Gospel for
+  three years running.
+- **The readings are keyed by date, not by week.** The lectionary's own
+  numbering of the Sundays of Ordinary Time does not match a simple count, so
+  keying by week would have put the wrong readings on the wrong day. Keying by
+  date removes the whole problem.
+- **The weekday readings are included.** They were originally out of scope,
+  on the grounds that they were too large to author safely. Extracting them
+  made that moot.
+
+**Known limits.** Two or three days a year in the source calendars are laid
+out in a shape the extractor does not yet read, and those days have no
+readings in the app. All Souls is one of them, and that one is correct — the
+lectionary appoints no readings of its own for it. The build warns with the
+exact dates and fails if a year loses more than ten days, which would mean the
+extraction had broken.
+
 ### Scripture and prayers follow the Douay-Rheims
 
 **Decision.** Scripture references follow the Douay-Rheims, and the prayers

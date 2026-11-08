@@ -16,24 +16,25 @@ import { utcDate } from '../src/calendar/dates.js';
 
 describe('the three-year cycle', () => {
   it('begins a new cycle year at Advent', () => {
-    // The Advent that opened 2021 was Year A, and the cycle repeats.
-    assert.equal(cycleYearFor(utcDate(2021, 11, 28)), 'a');
-    assert.equal(cycleYearFor(utcDate(2022, 11, 27)), 'b');
-    assert.equal(cycleYearFor(utcDate(2023, 12, 3)), 'c');
-    assert.equal(cycleYearFor(utcDate(2024, 12, 1)), 'a');
-    assert.equal(cycleYearFor(utcDate(2025, 11, 30)), 'b');
-    assert.equal(cycleYearFor(utcDate(2026, 11, 29)), 'c');
-    assert.equal(cycleYearFor(utcDate(2027, 11, 28)), 'a');
+    // The Advent that opened 2022 was Year A. This is what the USCCB
+    // liturgical calendars state: "Sunday Cycle YEAR A — November 30, 2025
+    // to November 22, 2026", and so on for each year.
+    assert.equal(cycleYearFor(utcDate(2022, 11, 27)), 'a');
+    assert.equal(cycleYearFor(utcDate(2023, 12, 3)), 'b');
+    assert.equal(cycleYearFor(utcDate(2024, 12, 1)), 'c');
+    assert.equal(cycleYearFor(utcDate(2025, 11, 30)), 'a');
+    assert.equal(cycleYearFor(utcDate(2026, 11, 29)), 'b');
+    assert.equal(cycleYearFor(utcDate(2027, 11, 28)), 'c');
+    assert.equal(cycleYearFor(utcDate(2028, 12, 3)), 'a');
   });
 
   it('keeps the same cycle year through the whole liturgical year', () => {
-    const year = liturgicalYear(2026);
     // Before Advent, the year still belongs to the previous Advent.
-    assert.equal(cycleYearFor(utcDate(2026, 6, 1)), 'b');
-    assert.equal(cycleYearFor(utcDate(2026, 11, 28)), 'b');
+    assert.equal(cycleYearFor(utcDate(2026, 6, 1)), 'a');
+    assert.equal(cycleYearFor(utcDate(2026, 11, 28)), 'a');
     // From Advent, the new cycle year starts.
-    assert.equal(cycleYearFor(utcDate(2026, 11, 29)), 'c');
-    assert.equal(cycleYearFor(utcDate(2027, 6, 1)), 'c');
+    assert.equal(cycleYearFor(utcDate(2026, 11, 29)), 'b');
+    assert.equal(cycleYearFor(utcDate(2027, 6, 1)), 'b');
   });
 
   it('finds the year whose Advent opened the liturgical year', () => {

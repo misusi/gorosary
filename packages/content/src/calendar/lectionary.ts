@@ -83,8 +83,15 @@ export interface LectionaryPosition {
   isSunday: boolean;
 }
 
-/** The Advent of 2021 opened Year A. The cycle repeats every three years. */
-const CYCLE_ANCHOR_YEAR = 2021;
+/**
+ * The Advent that opened 2022 was Year A.
+ *
+ * This is taken from the USCCB liturgical calendars, which state the cycle
+ * outright: "Sunday Cycle YEAR A — November 30, 2025 to November 22, 2026" and
+ * so on. The cycle repeats every three years, and a new one begins at the
+ * First Sunday of Advent.
+ */
+const CYCLE_ANCHOR_YEAR = 2022;
 
 const CYCLE_LETTERS: CycleYear[] = ['a', 'b', 'c'];
 

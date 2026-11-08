@@ -67,45 +67,57 @@ is the contract — if you are not sure, read it.
 
 ### Readings
 
-The readings of the Roman Lectionary are content too, in
-`content/readings/`. Each document has a `cycle` — `a`, `b`, `c`, or `common`
-— and a list of entries, each keyed by a `slot`:
+The readings of the Roman Lectionary are content too, in `content/readings/` —
+one document per calendar year, holding the readings of every day of that
+year as the United States Conference of Catholic Bishops sets them.
 
 ```yaml
 entries:
-  - slot: ordinary:12:0
-    label: the Twelfth Sunday in Ordinary Time
+  - date: "2026-11-08"
+    celebration: Thirty-Second Sunday in Ordinary Time
+    colour: green
     firstReading:
-      reference: Genesis 3:9-15
-      title: The fall of Adam and Eve
-      summary: >
-        One or two sentences on what the reading is about.
+      reference: Wisdom 6:12-16
     psalm:
-      reference: Psalm 24:1-2, 3, 5-6
+      reference: Psalm 51
     secondReading:
-      reference: Romans 5:12-19
+      reference: 1 Thessalonians 4:13-18 or 4:13-14
     gospel:
-      reference: Matthew 4:1-11
+      reference: Matthew 25:1-13
 ```
 
-The slot is the key the engine computes. There are two kinds:
+The readings are keyed by date, because that is how the lectionary works: the
+same Sunday falls on a different date each year, and the weekday readings move
+with it.
 
-- `season:week:weekday` — a numbered week of a season. `ordinary:12:0` is the
-  Twelfth Sunday in Ordinary Time, `ordinary:12:3` is the Wednesday of that
-  week, `lent:3:0` is the Third Sunday of Lent.
-- `named:feast` — a solemnity that keeps readings of its own, such as
-  `named:easter` or `named:palm-sunday`.
-
-**To find out which slots need writing:**
+**These documents are generated, not written by hand.** The USCCB publishes a
+liturgical calendar for each year as a PDF; `scripts/usccb-extract.py` reads
+those PDFs into JSON and `scripts/generate-readings.ts` writes the content
+files. To refresh them:
 
 ```bash
-npm run plan --workspace @gorosary/content -- 2026
+# 1. Download the calendars (the USCCB publishes about six years ahead)
+for y in 2024 2025 2026 2027 2028; do
+  curl -sL "https://usccb.org/resources/${y}cal.pdf" -o "usccb-${y}.pdf"
+done
+
+# 2. Read them into JSON
+python scripts/usccb-extract.py <dir-of-pdfs> readings.json
+
+# 3. Write the content files
+npx tsx scripts/generate-readings.ts readings.json content/readings
 ```
 
-That prints every slot of a cycle year with the date it falls on, split into
-the ones whose readings never change and the ones that depend on the cycle.
-The build fails if a cycle year is missing any of its Sundays, so a gap in the
-readings cannot slip through.
+The dates in the YAML must be quoted, or YAML reads them as dates rather than
+strings.
+
+**The cycle year is not the calendar year.** A new cycle year begins at the
+First Sunday of Advent, so the liturgical year that runs from November to
+November is the unit the readings move in. The Advent that opened 2022 was
+Year A, and the cycle repeats every three years. `cycleYearFor` in
+`src/calendar/lectionary.ts` computes this, and the USCCB calendars state it
+outright — "Sunday Cycle YEAR A — November 30, 2025 to November 22, 2026" — so
+the two can be checked against each other.
 
 ---
 

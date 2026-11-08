@@ -116,12 +116,19 @@ export type Reading = z.infer<typeof readingSchema>;
 /**
  * One day's readings.
  *
- * `slot` is the key the calendar engine computes — `ordinary:12:0` for the
- * Twelfth Sunday in Ordinary Time, `named:easter` for Easter Sunday.
+ * Keyed by the date, because that is what the lectionary is: the readings
+ * for a given day in a given year. The Sunday cycle is a property of the
+ * year, not of the day, so two years with the same cycle repeat the same
+ * Sundays but not the same weekdays.
  */
 export const lectionaryEntrySchema = z.object({
-  slot: z.string().min(1),
-  label: z.string().optional(),
+  /** The day, as `YYYY-MM-DD`. */
+  date: z.string().min(1),
+  /** What the day is kept for, e.g. "SECOND SUNDAY IN ORDINARY TIME". */
+  celebration: z.string().optional(),
+  colour: z
+    .enum(['white', 'violet', 'red', 'green', 'black', 'rose'])
+    .optional(),
   firstReading: readingSchema.optional(),
   psalm: readingSchema.optional(),
   secondReading: readingSchema.optional(),
@@ -180,8 +187,8 @@ export const docSchema = z.discriminatedUnion('kind', [
   z.object({
     ...docBase,
     kind: z.literal('readings'),
-    /** `common` holds the weekdays that do not change with the cycle year. */
-    cycle: z.enum(['a', 'b', 'c', 'common']),
+    /** The calendar year this document covers. */
+    year: z.number().int(),
     entries: z.array(lectionaryEntrySchema).min(1),
   }),
 ]);
