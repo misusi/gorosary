@@ -101,7 +101,8 @@ Everything else:
 
 ```bash
 npm run build:content   # validate + compile the prayer content
-npm run check:content   # validate only, and print an inventory with -- --list
+npm run check:content   # validate only, read-only — the CI gate
+npm run content:list    # print every document and the section it belongs to
 npm run dev:all         # website and app together
 npm run build           # production build of the website
 npm run typecheck       # typecheck every workspace

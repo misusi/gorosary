@@ -19,6 +19,7 @@
     "build:packages": "npm run build --workspace @gorosary/content && npm run build --workspace @gorosary/ui",
     "build:content": "npm run build --workspace @gorosary/content",
     "check:content": "npm run check --workspace @gorosary/content",
+    "content:list": "npm run list --workspace @gorosary/content",
     "dev": "npm run build:packages && npm run dev --workspace @gorosary/web",
     "dev:web": "npm run dev --workspace @gorosary/web",
     "dev:mobile": "npm run build:packages && npm run dev --workspace @gorosary/mobile",

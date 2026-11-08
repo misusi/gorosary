@@ -22,6 +22,7 @@
   "scripts": {
     "build": "tsx scripts/build-content.ts && tsc -p tsconfig.json",
     "check": "tsx scripts/build-content.ts --check",
+    "list": "tsx scripts/build-content.ts --list",
     "dev": "tsx watch scripts/build-content.ts",
     "test": "node --import tsx --test \"test/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
