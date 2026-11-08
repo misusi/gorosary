@@ -97,6 +97,18 @@ npm run dev          # builds the content, then starts the website on :3000
 npm run dev:mobile   # starts the Expo app (scan the QR code with Expo Go)
 ```
 
+The website binds to loopback only, so nothing is exposed to your network. To
+test the layout on a real phone, start it on the local network instead:
+
+```bash
+WEB_HOSTNAME=0.0.0.0 npm run dev    # macOS / Linux
+$env:WEB_HOSTNAME='0.0.0.0'; npm run dev   # PowerShell
+```
+
+If port 3000 is already taken — usually by a dev server left running from an
+earlier session — the site starts on the next free port and says so, rather
+than failing with a bare `EADDRINUSE`.
+
 Everything else:
 
 ```bash

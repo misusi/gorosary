@@ -55,6 +55,11 @@ npm run dev:mobile   # the app — scan the QR code with Expo Go
 
 Requires Node 20.11 or newer.
 
+The website binds to loopback only. To try it on a phone, run
+`WEB_HOSTNAME=0.0.0.0 npm run dev` (or `$env:WEB_HOSTNAME='0.0.0.0'` in
+PowerShell). If port 3000 is busy the site moves to the next free port and
+says so, instead of failing with `EADDRINUSE`.
+
 Full command list and the repository map: **[STARTUP.md](./STARTUP.md)**.
 
 ---
