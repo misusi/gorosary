@@ -6,6 +6,7 @@ import {
   getTodayRosary,
 } from '@gorosary/content';
 import { useTheme } from '../components/theme';
+import { TodayCalendar } from '../components/TodayCalendar';
 
 export default function TodayScreen() {
   const theme = useTheme();
@@ -125,42 +126,7 @@ export default function TodayScreen() {
         </>
       ) : null}
 
-      {today.commemorations.length > 0 ? (
-        <>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '600',
-              color: theme.ink,
-              marginTop: 24,
-              marginBottom: 12,
-            }}
-          >
-            Today in the calendar
-          </Text>
-          {today.commemorations.map((commemoration) => (
-            <View
-              key={commemoration.name}
-              style={{
-                borderWidth: 1,
-                borderColor: theme.line,
-                borderRadius: 12,
-                backgroundColor: theme.surface,
-                padding: 16,
-                marginBottom: 10,
-              }}
-            >
-              <Text style={{ fontSize: 16.5, fontWeight: '600', color: theme.ink }}>
-                {commemoration.name}
-              </Text>
-              <Text style={{ fontSize: 13.5, color: theme.muted, marginTop: 3 }}>
-                {commemoration.kind.replace(/-/g, ' ')}
-                {commemoration.note ? ` — ${commemoration.note}` : ''}
-              </Text>
-            </View>
-          ))}
-        </>
-      ) : null}
+      <TodayCalendar day={today.day} commemorations={today.commemorations} />
 
       <Text
         style={{

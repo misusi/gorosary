@@ -1,5 +1,6 @@
 import type { Mystery, MysterySetId } from './schema.js';
 import { moveableFeastsFor, type Commemoration } from './calendar/feasts.js';
+import { describeDay, type DayDescription } from './calendar/day.js';
 import { toIsoDate, localToday } from './calendar/dates.js';
 import {
   MYSTERY_SET_TITLES,
@@ -31,6 +32,8 @@ export interface TodayRosary {
   alternative: MysteryAlternative;
   mysteries: Mystery[];
   commemorations: Commemoration[];
+  /** Everything the Church's calendar says about today. */
+  day: DayDescription;
 }
 
 export function mysterySetTitle(id: MysterySetId): string {
@@ -102,5 +105,6 @@ export function getTodayRosary(instant: Date = new Date()): TodayRosary {
     alternative: resolution.alternative,
     mysteries: mysteriesFor(resolution.set),
     commemorations: commemorationsFor(date),
+    day: describeDay(instant),
   };
 }

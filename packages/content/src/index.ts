@@ -50,6 +50,12 @@ export {
 export type { LiturgicalYear, Season } from './calendar/liturgical.js';
 export { MOVEABLE_FEASTS, moveableFeastsFor } from './calendar/feasts.js';
 export type { Commemoration, CommemorationKind } from './calendar/feasts.js';
+export { describeDay } from './calendar/day.js';
+export type {
+  DayDescription,
+  Fast,
+  LiturgicalColour,
+} from './calendar/day.js';
 export { WEEKDAY_NAMES, toIsoDate, monthDayKey, localToday } from './calendar/dates.js';
 export type { WeekdayName } from './calendar/dates.js';
 

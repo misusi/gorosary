@@ -34,58 +34,23 @@ export function StepRunner({
   if (!step) return null;
 
   const percent = Math.round(((index + 1) / steps.length) * 100);
+  const atStart = index === 0;
+  const atEnd = index === steps.length - 1;
 
   return (
     <div className="runner">
+      {/*
+        The controls sit in a sticky bar at the top of the runner. The point
+        is that they never move: the button you press is always in the same
+        place, whatever length the prayer underneath it happens to be.
+      */}
       <div className="runner__bar">
-        <span className="runner__step">{startLabel}</span>
-        <div
-          className="runner__progress"
-          role="progressbar"
-          aria-valuenow={percent}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label="Prayer progress"
-        >
-          <span style={{ width: `${percent}%` }} />
-        </div>
-        <span>
-          {index + 1} / {steps.length}
-        </span>
-      </div>
-
-      <div className="runner__body">
-        <p className="runner__label">{step.label}</p>
-        {step.text ? (
-          <p className="runner__text">
-            <InlineText text={step.text} />
-          </p>
-        ) : null}
-
-        {step.meditation ? (
-          <p className="runner__text" style={{ marginTop: 18, fontStyle: 'italic' }}>
-            <InlineText text={step.meditation} />
-          </p>
-        ) : null}
-
-        {step.scripture ? (
-          <p className="small muted" style={{ marginTop: 10 }}>
-            {step.scripture}
-          </p>
-        ) : null}
-
-        {step.note ? (
-          <p className="small muted" style={{ marginTop: 12, fontStyle: 'italic' }}>
-            <InlineText text={step.note} />
-          </p>
-        ) : null}
-
         <div className="runner__controls">
           <button
             type="button"
             className="button button--ghost"
             onClick={() => setIndex((value) => Math.max(value - 1, 0))}
-            disabled={index === 0}
+            disabled={atStart}
           >
             Back
           </button>
@@ -93,7 +58,7 @@ export function StepRunner({
             type="button"
             className="button button--primary"
             onClick={() => setIndex((value) => Math.min(value + 1, steps.length - 1))}
-            disabled={index === steps.length - 1}
+            disabled={atEnd}
           >
             Next
           </button>
@@ -105,6 +70,50 @@ export function StepRunner({
             Skip to end
           </button>
         </div>
+
+        <div
+          className="runner__progress"
+          role="progressbar"
+          aria-valuenow={percent}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Prayer progress"
+        >
+          <span style={{ width: `${percent}%` }} />
+        </div>
+
+        <span className="runner__count">
+          {index + 1} / {steps.length}
+        </span>
+      </div>
+
+      <div className="runner__body">
+        <p className="runner__label">{startLabel}</p>
+        <h3 className="runner__step">{step.label}</h3>
+
+        {step.text ? (
+          <p className="runner__text">
+            <InlineText text={step.text} />
+          </p>
+        ) : null}
+
+        {step.meditation ? (
+          <p className="runner__text runner__text--meditation">
+            <InlineText text={step.meditation} />
+          </p>
+        ) : null}
+
+        {step.scripture ? (
+          <p className="small muted" style={{ marginTop: 10 }}>
+            {step.scripture}
+          </p>
+        ) : null}
+
+        {step.note ? (
+          <p className="small muted runner__note">
+            <InlineText text={step.note} />
+          </p>
+        ) : null}
       </div>
     </div>
   );

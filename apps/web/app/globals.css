@@ -521,6 +521,73 @@ main {
   line-height: 1.5;
 }
 
+.card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+
+.card__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card__list li + li {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.card__list strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.card__list span {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.45;
+}
+
+/* Liturgical colour swatch */
+.swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: baseline;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+.swatch--white {
+  background: #fbfaf7;
+}
+.swatch--violet {
+  background: #7a5c9e;
+}
+.swatch--red {
+  background: #a8322f;
+}
+.swatch--green {
+  background: #4a7c52;
+}
+.swatch--black {
+  background: #2b2723;
+}
+.swatch--rose {
+  background: #c98d9e;
+}
+
 /* --- today banner -------------------------------------------------------- */
 
 .today {
@@ -696,27 +763,47 @@ main {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  overflow: hidden;
 }
 
+/*
+ * The controls live in a sticky bar at the top of the runner so that they are
+ * always in the same place — the button you press does not move down as the
+ * prayer gets longer. It sticks just below the site header.
+ */
 .runner__bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 5;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
   border-bottom: 1px solid var(--line);
   background: var(--surface-2);
-  font-size: 14px;
-  color: var(--muted);
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
-.runner__step {
-  font-weight: 650;
-  color: var(--ink);
+.runner__controls {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+
+.runner__controls .button {
+  padding: 6px 12px;
+  font-size: 13.5px;
+  border-radius: 6px;
+}
+
+.runner__controls .button:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .runner__progress {
-  flex: 1;
+  flex: 1 1 120px;
+  min-width: 70px;
   height: 4px;
   border-radius: 2px;
   background: var(--line);
@@ -729,17 +816,34 @@ main {
   transition: width 0.25s ease;
 }
 
+.runner__count {
+  flex: none;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 .runner__body {
-  padding: 26px 26px 30px;
+  padding: 22px 24px 28px;
 }
 
 .runner__label {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
-  margin: 0 0 10px;
+  margin: 0 0 6px;
+}
+
+.runner__step {
+  font-family: var(--serif);
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 16px;
 }
 
 .runner__text {
@@ -749,10 +853,15 @@ main {
   margin: 0;
 }
 
-.runner__controls {
-  display: flex;
-  gap: 10px;
-  margin-top: 24px;
+.runner__text--meditation {
+  margin-top: 18px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.runner__note {
+  margin-top: 12px;
+  font-style: italic;
 }
 
 /* --- novena tracker ------------------------------------------------------ */

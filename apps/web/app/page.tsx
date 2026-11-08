@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getTodayRosary, NAV } from '@gorosary/content';
 import { InlineText } from '@/components/Blocks';
+import { TodayCalendar } from '@/components/TodayCalendar';
 
 export const dynamic = 'force-dynamic';
 
@@ -76,23 +77,7 @@ export default function HomePage() {
           </>
         ) : null}
 
-        {today.commemorations.length > 0 ? (
-          <>
-            <h2 className="section-title">Today in the calendar</h2>
-            <p className="section-lede">The commemorations of this day.</p>
-            <div className="card-grid">
-              {today.commemorations.map((commemoration) => (
-                <div className="card" key={commemoration.name}>
-                  <p className="card__title">{commemoration.name}</p>
-                  <p className="card__desc">
-                    {commemoration.kind.replace(/-/g, ' ')}
-                    {commemoration.note ? ` — ${commemoration.note}` : ''}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : null}
+        <TodayCalendar day={today.day} commemorations={today.commemorations} />
 
         <h2 className="section-title">Everything else</h2>
         <p className="section-lede">
