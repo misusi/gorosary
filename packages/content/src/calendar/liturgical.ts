@@ -1,5 +1,6 @@
 import {
   addDays,
+  daysBetween,
   sundayOnOrAfter,
   utcDate,
 } from './dates.js';
@@ -69,6 +70,46 @@ export function easterDate(year: number): Date {
   const month = Math.floor((h + l - 7 * m + 114) / 31);
   const day = ((h + l - 7 * m + 114) % 31) + 1;
   return utcDate(year, month, day);
+}
+
+/** The Roman Missal gives Ordinary Time thirty-four weeks in the year. */
+const ORDINARY_TIME_WEEKS = 34;
+
+/**
+ * The week of Ordinary Time a date falls in, counted the way the Roman
+ * Missal counts it.
+ *
+ * The weeks run from Sunday to Saturday, and Ordinary Time is numbered 1 to
+ * 34:
+ *
+ *   - the first run begins with the week of the Baptism of the Lord and
+ *     lasts until the week in which Ash Wednesday falls;
+ *   - the second run begins with the week of Pentecost, and is numbered back
+ *     from the end so that the week of Christ the King — the last week of
+ *     Ordinary Time — is always the thirty-fourth.
+ *
+ * Lent and Easter are not Ordinary Time weeks, so the numbers skip over them
+ * and the second run always begins above where the first one ended. This is
+ * the same numbering the Roman Lectionary uses, which is why the readings
+ * for a day and the week named beside them agree.
+ *
+ * It lives here, rather than in the module that draws the page, because two
+ * copies of a calendar rule eventually disagree — and the readings are keyed
+ * by this week number.
+ */
+export function ordinaryTimeWeek(date: Date, year: LiturgicalYear): number {
+  if (date >= year.pentecost) {
+    const weeksToTheEnd = Math.floor(
+      daysBetween(year.pentecost, year.christTheKing) / 7,
+    );
+    const firstWeekOfTheRun = ORDINARY_TIME_WEEKS - weeksToTheEnd;
+
+    return (
+      firstWeekOfTheRun + Math.floor(daysBetween(year.pentecost, date) / 7)
+    );
+  }
+
+  return Math.floor(daysBetween(year.baptismOfTheLord, date) / 7) + 1;
 }
 
 /**

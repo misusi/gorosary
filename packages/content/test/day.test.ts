@@ -9,18 +9,20 @@ import { utcDate } from '../src/calendar/dates.js';
  */
 
 describe('where we are in the liturgical year', () => {
-  it('numbers Ordinary Time across the whole year, not per half', () => {
-    // 8 November 2026. The first stretch of Ordinary Time ran to the fifth
-    // week, so this Sunday in the second stretch is the twenty-ninth.
+  it('numbers Ordinary Time the way the lectionary does', () => {
+    // 8 November 2026. The second run of Ordinary Time is numbered back from
+    // the week of Christ the King, which is the thirty-fourth, so this
+    // Sunday is the thirty-second. The Roman Lectionary calls it the same.
     const day = describeDay(utcDate(2026, 11, 8));
     assert.equal(day.season, 'ordinary');
-    assert.equal(day.weekLabel, 'the Twenty-Ninth Sunday in Ordinary Time');
+    assert.equal(day.weekLabel, 'the Thirty-Second Sunday in Ordinary Time');
   });
 
   it('starts Ordinary Time again at the Baptism of the Lord', () => {
-    // 18 January 2026 is the first Sunday of Ordinary Time.
+    // 11 January 2026 is the Baptism of the Lord, and it opens the first
+    // week of Ordinary Time; the Sunday after it is the second.
     const day = describeDay(utcDate(2026, 1, 18));
-    assert.equal(day.weekLabel, 'the First Sunday in Ordinary Time');
+    assert.equal(day.weekLabel, 'the Second Sunday in Ordinary Time');
   });
 
   it('counts the Sundays of Advent', () => {

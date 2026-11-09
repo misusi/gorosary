@@ -2,13 +2,12 @@ import {
   addDays,
   daysBetween,
   isSameDay,
-  sundayOnOrAfter,
-  sundayOnOrBefore,
 } from './dates.js';
 import {
   type LiturgicalYear,
   type Season,
   liturgicalYear,
+  ordinaryTimeWeek,
   seasonFor,
 } from './liturgical.js';
 import { moveableFeastsFor, type Commemoration } from './feasts.js';
@@ -69,30 +68,6 @@ const COLOUR_LABELS: Record<LiturgicalColour, string> = {
   black: 'Black',
   rose: 'Rose',
 };
-
-/**
- * The Sunday of the week a date falls in, counted the classical way.
- *
- * Ordinary Time is numbered 1 to 34 across the whole year, so the count
- * continues across Lent and Easter rather than restarting after Pentecost.
- */
-function ordinaryTimeWeek(date: Date, year: LiturgicalYear): number {
-  const firstSunday = sundayOnOrAfter(addDays(year.baptismOfTheLord, 1));
-
-  if (date < year.ashWednesday) {
-    return Math.floor(daysBetween(firstSunday, date) / 7) + 1;
-  }
-
-  const lastSundayBeforeLent = sundayOnOrBefore(addDays(year.ashWednesday, -1));
-  const weeksBeforeLent =
-    Math.floor(daysBetween(firstSunday, lastSundayBeforeLent) / 7) + 1;
-
-  const firstSundayAfterPentecost = sundayOnOrAfter(addDays(year.pentecost, 1));
-  const weeksAfterPentecost =
-    Math.floor(daysBetween(firstSundayAfterPentecost, date) / 7) + 1;
-
-  return weeksBeforeLent + weeksAfterPentecost;
-}
 
 function weekLabel(date: Date, year: LiturgicalYear, season: Season): string {
   const isSunday = date.getUTCDay() === 0;
@@ -287,13 +262,18 @@ function fastsFor(date: Date, year: LiturgicalYear): Fast[] {
   return fasts;
 }
 
-export function describeDay(instant: Date): DayDescription {
+/**
+ * Everything the Church's calendar says about one day.
+ *
+ * The argument is a *day*, not an instant: a date pinned to UTC midnight,
+ * the way `localToday()` and `utcDate()` produce it. The engine reads the
+ * year, month and day in UTC, so handing it a raw point in time would
+ * answer for whatever day that instant had reached in UTC — which is a day
+ * ahead for anyone east of Greenwich in the evening.
+ */
+export function describeDay(day: Date): DayDescription {
   const date = new Date(
-    Date.UTC(
-      instant.getUTCFullYear(),
-      instant.getUTCMonth(),
-      instant.getUTCDate(),
-    ),
+    Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate()),
   );
   const year = liturgicalYear(date.getUTCFullYear());
   const season = seasonFor(date);

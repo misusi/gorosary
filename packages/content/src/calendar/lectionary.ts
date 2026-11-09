@@ -3,6 +3,7 @@ import {
   type LiturgicalYear,
   type Season,
   liturgicalYear,
+  ordinaryTimeWeek,
   seasonFor,
 } from './liturgical.js';
 
@@ -127,36 +128,6 @@ const ORDINALS = [
 
 function ordinal(n: number): string {
   return ORDINALS[n - 1] ?? `${n}th`;
-}
-
-/**
- * The numbered weeks of Ordinary Time, counted across the whole year rather
- * than restarting after Pentecost. The lectionary uses the same numbering.
- */
-export function ordinaryTimeWeek(date: Date, year: LiturgicalYear): number {
-  const firstSunday = addDays(year.baptismOfTheLord, 1);
-  const sundayOnOrAfter = (from: Date): Date => {
-    const day = addDays(from, (7 - from.getUTCDay()) % 7);
-    return day;
-  };
-  const sundayOnOrBefore = (from: Date): Date =>
-    addDays(from, -from.getUTCDay());
-
-  const first = sundayOnOrAfter(firstSunday);
-
-  if (date < year.ashWednesday) {
-    return Math.floor(daysBetween(first, date) / 7) + 1;
-  }
-
-  const lastBeforeLent = sundayOnOrBefore(addDays(year.ashWednesday, -1));
-  const weeksBeforeLent =
-    Math.floor(daysBetween(first, lastBeforeLent) / 7) + 1;
-
-  const afterPentecost = sundayOnOrAfter(addDays(year.pentecost, 1));
-  const weeksAfter =
-    Math.floor(daysBetween(afterPentecost, date) / 7) + 1;
-
-  return weeksBeforeLent + weeksAfter;
 }
 
 /**

@@ -105,6 +105,9 @@ export function getTodayRosary(instant: Date = new Date()): TodayRosary {
     alternative: resolution.alternative,
     mysteries: mysteriesFor(resolution.set),
     commemorations: commemorationsFor(date),
-    day: describeDay(instant),
+    // `describeDay` reads the day in UTC, so it has to be given the user's
+    // day and not the instant. Given the instant, the calendar panel would
+    // describe tomorrow from the evening onwards.
+    day: describeDay(date),
   };
 }

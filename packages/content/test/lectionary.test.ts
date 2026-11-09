@@ -81,15 +81,15 @@ describe('the lectionary slot', () => {
   it('numbers the weeks of Lent and Ordinary Time', () => {
     assert.equal(slotAt(2027, 2, 14), 'lent:1:0');
     assert.equal(slotAt(2027, 3, 7), 'lent:4:0');
-    assert.equal(slotAt(2027, 1, 17), 'ordinary:1:0');
-    assert.equal(slotAt(2026, 11, 8), 'ordinary:29:0');
+    assert.equal(slotAt(2027, 1, 17), 'ordinary:2:0');
+    assert.equal(slotAt(2026, 11, 8), 'ordinary:32:0');
   });
 
   it('gives each weekday of a week its own slot', () => {
-    // 9 November 2026 is the Monday of the twenty-ninth week of Ordinary Time.
-    assert.equal(slotAt(2026, 11, 9), 'ordinary:29:1');
-    assert.equal(slotAt(2026, 11, 10), 'ordinary:29:2');
-    assert.equal(slotAt(2026, 11, 14), 'ordinary:29:6');
+    // 9 November 2026 is the Monday of the thirty-second week of Ordinary Time.
+    assert.equal(slotAt(2026, 11, 9), 'ordinary:32:1');
+    assert.equal(slotAt(2026, 11, 10), 'ordinary:32:2');
+    assert.equal(slotAt(2026, 11, 14), 'ordinary:32:6');
   });
 
   it('keeps the Holy Family on the Sunday within the Octave', () => {
