@@ -10,21 +10,20 @@ edition: Douay-Rheims
 attribution: Douay-Rheims Scripture; the historical notes are traditional.
 tags: [daily, creed, apostles, profession-of-faith]
 ---
-## The Creed as Recited in the Mass
+## The Creed of the Apostles
 
 This is the Creed of the Apostles, said at Mass on Sundays and on the other
 days appointed for it, and it is the Creed of the Catechism.
 
-> I believe in one God, the Father almighty, maker of heaven and earth, of all
-> things visible and invisible. I believe in one Lord, Jesus Christ, the only
-> Son of God, who was conceived by the Holy Spirit and was born of the Virgin
-> Mary, who suffered under Pontius Pilate, was crucified, died, and was buried.
-> He descended into hell. On the third day He rose again from the dead. He
-> ascended into heaven and is seated at the right hand of God the Father
-> almighty. He will come again in glory to judge the living and the dead. I
-> believe in the Holy Spirit, the holy catholic Church, the communion of
-> saints, the forgiveness of sins, the resurrection of the body, and the life
-> everlasting. Amen.
+> I believe in God, the Father Almighty, Creator of heaven and earth, and in
+> Jesus Christ, His only Son, our Lord, who was conceived by the Holy Spirit,
+> born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died
+> and was buried; He descended into hell; on the third day He rose again from
+> the dead; He ascended into heaven, and is seated at the right hand of God
+> the Father Almighty; from there He will come to judge the living and the
+> dead. I believe in the Holy Spirit, the Holy Catholic Church, the communion
+> of Saints, the forgiveness of sins, the resurrection of the body, and life
+> everlasting.
 
 ## The Creed of the Councils
 

@@ -134,7 +134,9 @@ https://gorosary.app with a valid certificate. The launch is done.
 
 ## 7. What is left
 
-**Nothing that blocks the launch.** The site is on its own name and serving.
+**Nothing that blocks the launch.** The site is on its own name and serving,
+and the owner is reviewing it page by page — the walk-through is
+**[docs/REVIEW.md](docs/REVIEW.md)**, and their notes come back here.
 
 Two things are worth doing:
 

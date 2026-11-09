@@ -24,6 +24,7 @@ the prayers of the day — one stop, no introductions.
 | 3 | [`docs/CONTENT.md`](docs/CONTENT.md) | **How to write and edit prayer content.** Read this before touching `packages/content/content/`. |
 | 4 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | What is built, what is next, what is deliberately deferred. |
 | 5 | [`docs/DEPLOY.md`](docs/DEPLOY.md) | How the site goes live: GitHub → Railway → Porkbun → gorosary.app. |
+| 6 | [`docs/REVIEW.md`](docs/REVIEW.md) | A walk through every page of the site, for the owner's review. |
 | 6 | [`packages/content/src/schema.ts`](packages/content/src/schema.ts) | The contract every content file must satisfy. |
 | 7 | [`packages/content/src/nav.ts`](packages/content/src/nav.ts) | The navigation tree. The website's routes are generated from it. |
 
