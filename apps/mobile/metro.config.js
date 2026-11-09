@@ -20,6 +20,12 @@ config.resolver.nodeModulesPaths = [
   path.resolve(workspaceRoot, 'node_modules'),
 ];
 
-config.resolver.disableHierarchicalLookup = true;
+/*
+ * Hierarchical lookup stays on. npm does not hoist everything to the root of
+ * a workspace: the packages that only the app needs — expo-router's own
+ * dependencies, for one — are nested inside it, and with the lookup disabled
+ * Metro cannot see them and the bundle fails to resolve them.
+ */
+config.resolver.disableHierarchicalLookup = false;
 
 module.exports = config;

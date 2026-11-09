@@ -43,7 +43,8 @@ This is the phase that decides whether people keep the app.
 
 1. **Pray-along mode** — both apps now have a step runner, and the prayers
    and their order live in `@gorosary/content` so the two are the same
-   prayer. What is left is the part that makes it a habit rather than a
+   prayer. The app bundles for Android, iOS and web, but has never been run
+   on a device. What is left is the part that makes it a habit rather than a
    reader: a way to start the day's Rosary with one tap, and to come back to
    it where you left off.
 2. **Notifications** — a daily rosary reminder at a user-chosen time, and a
@@ -81,8 +82,9 @@ This is the phase that decides whether people keep the app.
 
 12. **SEO** — the website's job is to be found by people searching for a
     prayer. Sitemap, structured data, per-prayer landing pages.
-13. **App Store and Play Store** — icons, screenshots, privacy disclosures,
-    store listings.
+13. **App Store and Play Store** — the app bundles, but there is no EAS
+    project, no icons or screenshots, and no store listing. Icons, privacy
+    disclosures, and the release itself.
 14. **Analytics** — only if the owner wants them, and only with consent.
 
 ---

@@ -57,7 +57,10 @@ the Stations, credited on the pages that use them and in the footer. See
 
 **The app** (`apps/mobile`) — Expo SDK 58, React Native 0.88, Expo Router.
 The same content, with a novena tracker that saves to the device, and its own
-read-along.
+read-along. Six screens: today, the readings, search, a section, and a prayer
+or novena. It bundles for Android, iOS and web — `npx expo export --platform
+android` — and has never been run on a device, and there is no EAS project,
+so it cannot be submitted to a store as it stands.
 
 **The content pipeline** — prayer text is Markdown with YAML frontmatter,
 validated against a Zod schema at build time, and compiled to one typed
