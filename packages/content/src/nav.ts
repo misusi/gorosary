@@ -181,6 +181,12 @@ export const NAV: NavSection[] = [
         description: 'For mothers and for those in need of help.',
       },
       {
+        label: 'Novena to Our Lady, Undoer of Knots',
+        href: '/novenas/our-lady-undoer-of-knots',
+        docId: 'our-lady-undoer-of-knots-novena',
+        description: 'For the loosening of knots, and the grace of her intercession.',
+      },
+      {
         label: 'How to Make a Novena',
         href: '/novenas/how-to-make-a-novena',
         docId: 'how-to-make-a-novena',

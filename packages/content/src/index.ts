@@ -51,6 +51,21 @@ export type { LiturgicalYear, Season } from './calendar/liturgical.js';
 export { MOVEABLE_FEASTS, moveableFeastsFor } from './calendar/feasts.js';
 export type { Commemoration, CommemorationKind } from './calendar/feasts.js';
 export { describeDay } from './calendar/day.js';
+export {
+  APOSTLES_CREED,
+  FINAL_PRAYER,
+  GLORY_BE,
+  HAIL_HOLY_QUEEN,
+  HAIL_MARY,
+  OH_MY_JESUS,
+  OUR_FATHER,
+  SIGN_OF_CROSS,
+  THREE_HAIL_MARY_INTENTIONS,
+  buildChapletSteps,
+  buildNovenaSteps,
+  buildRosarySteps,
+} from './rosary-steps.js';
+export type { RunnerStep } from './rosary-steps.js';
 export type {
   DayColour,
   DayDescription,

@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { RunnerStep } from '@gorosary/content';
 import { InlineText } from './Blocks';
+import { StepRunner } from './StepRunner';
 import { useTheme } from './theme';
 
 const storageKey = (docId: string) => `gorosary:novena:${docId}`;
@@ -11,7 +13,7 @@ export function NovenaTracker({
   days,
 }: {
   docId: string;
-  days: { day: number; title?: string; text: string }[];
+  days: { day: number; title?: string; text: string; steps: RunnerStep[] }[];
 }) {
   const theme = useTheme();
   const [done, setDone] = useState<number[]>([]);
@@ -127,6 +129,12 @@ export function NovenaTracker({
               <Text style={{ fontSize: 16.5, lineHeight: 27, color: theme.ink }}>
                 <InlineText text={day.text} />
               </Text>
+
+              {/* The whole Rosary, to say with the prayer of the day. */}
+              <StepRunner
+                steps={day.steps}
+                startLabel={`Day ${day.day} — with the Rosary`}
+              />
             </View>
           </View>
         );

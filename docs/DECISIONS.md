@@ -303,6 +303,60 @@ exactly that width.
 
 ---
 
+## 2026-11-09 — Praying it properly
+
+### The prayers of the Rosary live with the prayers
+
+**Decision.** The fixed prayers of the Rosary — the Sign of the Cross, the
+Apostles' Creed, the Our Father, the Hail Mary, the Glory Be, the Oh My
+Jesus, the Hail, Holy Queen and the closing prayer — and the order they are
+said in, now live in `@gorosary/content` as `rosary-steps.ts`.
+
+**Why.** They used to live in the website, in `apps/web/lib/prayers.ts`, and
+the website and the app could not both use them without one of them keeping a
+copy. A novena has to include the whole Rosary, and the Rosary has to be the
+same Rosary wherever it is read. One place, in the content package, is the
+only way to be sure of that.
+
+### The Rosary is read along, in the whole
+
+**Decision.** The read-along now begins with the Sign of the Cross, the
+Apostles' Creed, the Our Father, three Hail Marys and the Glory Be. Each
+decade is announced — "The First Mystery — The Annunciation", with the
+scripture and the intention — before the Our Father, the ten Hail Marys, the
+Glory Be and the Oh My Jesus. The Rosary ends with the Hail, Holy Queen, the
+final Hail Mary and Glory Be, the closing prayer, and the Sign of the Cross.
+
+**Why.** The Apostles' Creed was missing, and so was the Oh My Jesus and the
+mystery announced before each decade. A reader was expected to know what to
+say and in what order, which is the one thing the read-along is for.
+
+### A novena is prayed with the Rosary, and both are shown
+
+**Decision.** The novena page's second section is now called **Instructions**,
+and each of the nine days carries its own read-along: the Sign of the Cross,
+the prayer of the day, and then the whole Rosary, with nothing left out.
+
+**Why.** The old section gave only the prayer of the day and left the reader
+to supply the rest from memory. The page had two headings called "The Nine
+Days" — one for the history of the prayers and one for the tracker — which
+was confusing, and the second is now the Instructions.
+
+### The pictures are borrowed, and credited
+
+**Decision.** The twenty paintings of the mysteries come from The Holy Rosary
+gallery and the fourteen of the Stations from Catholic Tradition. Each page
+that shows one carries a credit, and the footer carries them too.
+
+**Why.** The emblems that stood in for them were placeholders, and the site
+is a devotional site: a painting of the Annunciation is worth more than a
+shape. Neither site states a licence for reuse, so the credit is not a
+formality — if the site is ever published commercially, the pictures should
+be relicensed or replaced. The file names follow the content, so replacing
+them is a matter of dropping new files in with the same names.
+
+---
+
 ## Open questions for the project owner
 
 1. **Languages** — English only for now. A second language (Spanish, at

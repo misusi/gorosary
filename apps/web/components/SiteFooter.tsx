@@ -35,6 +35,15 @@ export function SiteFooter() {
           <Link href="/calendar/how-the-mysteries-change">
             how the mysteries change
           </Link>
+          . The paintings are the work of others, and are credited on the pages
+          that use them:{' '}
+          <a href="https://www.theholyrosary.org/rosary_gallery/" rel="noopener noreferrer" target="_blank">
+            The Holy Rosary
+          </a>{' '}
+          and{' '}
+          <a href="http://www.catholictradition.org/Children/stations-cross.htm" rel="noopener noreferrer" target="_blank">
+            Catholic Tradition
+          </a>
           . GoRosary is not affiliated with any religious order or diocese.
         </p>
       </div>

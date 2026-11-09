@@ -613,29 +613,43 @@ main {
   padding-bottom: 44px;
 }
 
-/* The emblem of today's mysteries. */
+/* The picture of today's mysteries. */
 .today__art {
   display: flex;
-  justify-content: flex-start;
-}
-
-.today__art--joyful {
-  color: var(--joyful);
-}
-.today__art--sorrowful {
-  color: var(--sorrowful);
-}
-.today__art--glorious {
-  color: var(--glorious);
-}
-.today__art--luminous {
-  color: var(--luminous);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .mystery-art {
   display: block;
-  width: 84px;
-  height: 84px;
+  width: 132px;
+  height: 176px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  background: var(--surface-2);
+}
+
+.image-credit {
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+
+.image-credit a {
+  color: inherit;
+}
+
+/* The picture that goes with a mystery or a station. */
+.mystery__art {
+  margin-bottom: 14px;
+}
+
+.mystery__art .mystery-art {
+  width: 220px;
+  height: 293px;
 }
 
 @media (min-width: 820px) {
@@ -646,12 +660,12 @@ main {
   }
 
   .today__art {
-    justify-content: flex-end;
+    align-items: flex-end;
   }
 
   .mystery-art {
-    width: 132px;
-    height: 132px;
+    width: 150px;
+    height: 200px;
   }
 }
 
@@ -938,6 +952,11 @@ main {
 }
 .novena-day--done .novena-day__text {
   opacity: 0.62;
+}
+
+/* The read-along for the day, sitting inside the day it belongs to. */
+.novena-day__runner {
+  margin-top: 16px;
 }
 
 .novena-day__check {

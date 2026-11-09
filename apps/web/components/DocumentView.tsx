@@ -1,8 +1,10 @@
 import type { Doc } from '@gorosary/content';
 import { Blocks, InlineText } from './Blocks';
+import { ImageCredit } from './ImageCredit';
+import { MysteryArt } from './MysteryArt';
 import { StepRunner } from './StepRunner';
 import { NovenaTracker } from './NovenaTracker';
-import { buildChapletSteps, buildRosarySteps } from '@/lib/rosary-steps';
+import { buildChapletSteps, buildNovenaSteps, buildRosarySteps } from '@/lib/rosary-steps';
 
 /** Splits "Holy Mary, Mother of God, pray for us." into invocation + response. */
 function splitInvocation(line: string): { invocation: string; response: string } {
@@ -31,6 +33,13 @@ export function DocumentView({ doc }: { doc: Doc }) {
               <div className="stack">
                 {set.mysteries.map((mystery) => (
                   <article className="mystery" key={mystery.n}>
+                    <div className="mystery__art">
+                      <MysteryArt
+                        set={set.id}
+                        n={mystery.n}
+                        title={mystery.title}
+                      />
+                    </div>
                     <div className="mystery__head">
                       <span className="mystery__num">
                         Mystery {mystery.n}
@@ -49,6 +58,9 @@ export function DocumentView({ doc }: { doc: Doc }) {
               </div>
             </section>
           ))}
+          <ImageCredit href="https://www.theholyrosary.org/rosary_gallery/">
+            The Holy Rosary
+          </ImageCredit>
           <div style={{ marginTop: 40 }}>
             <Blocks blocks={doc.body} />
           </div>
@@ -59,9 +71,15 @@ export function DocumentView({ doc }: { doc: Doc }) {
       return (
         <>
           <Blocks blocks={doc.body} />
-          <h2 className="section-title">The Nine Days</h2>
+          <h2 className="section-title">Instructions</h2>
           <div style={{ marginTop: 18 }}>
-            <NovenaTracker docId={doc.id} days={doc.novena.days} />
+            <NovenaTracker
+              docId={doc.id}
+              days={doc.novena.days.map((day) => ({
+                ...day,
+                steps: buildNovenaSteps(day),
+              }))}
+            />
           </div>
         </>
       );
@@ -133,6 +151,15 @@ export function DocumentView({ doc }: { doc: Doc }) {
           <div className="stack" style={{ marginTop: 18 }}>
             {doc.stations.map((station) => (
               <article className="mystery" key={station.n}>
+                <div className="mystery__art">
+                  <img
+                    className="mystery-art"
+                    src={`/images/stations/station-${station.n}.jpg`}
+                    alt={`Station ${station.n}: ${station.title}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
                 <div className="mystery__head">
                   <span className="mystery__num">Station {station.n}</span>
                   <h3 className="mystery__title">{station.title}</h3>
@@ -148,6 +175,9 @@ export function DocumentView({ doc }: { doc: Doc }) {
               </article>
             ))}
           </div>
+          <ImageCredit href="http://www.catholictradition.org/Children/stations-cross.htm">
+            Catholic Tradition
+          </ImageCredit>
         </>
       );
 

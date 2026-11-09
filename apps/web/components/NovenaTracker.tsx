@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { InlineText } from './Blocks';
+import { StepRunner } from './StepRunner';
+import type { RunnerStep } from '@/lib/rosary-steps';
 
 const storageKey = (docId: string) => `gorosary:novena:${docId}`;
 
@@ -22,7 +24,7 @@ export function NovenaTracker({
   days,
 }: {
   docId: string;
-  days: { day: number; title?: string; text: string }[];
+  days: { day: number; title?: string; text: string; steps: RunnerStep[] }[];
 }) {
   const [done, setDone] = useState<number[]>([]);
 
@@ -73,6 +75,19 @@ export function NovenaTracker({
               <p className="novena-day__text">
                 <InlineText text={day.text} />
               </p>
+
+              {/*
+                A novena is not said without the Rosary, so the whole Rosary
+                is here to be read along with — the Creed, the decades, the
+                Hail, Holy Queen and the closing prayer, with nothing left
+                out. The reader is not assumed to know what to say.
+              */}
+              <div className="novena-day__runner">
+                <StepRunner
+                  steps={day.steps}
+                  startLabel={`Day ${day.day} — with the Rosary`}
+                />
+              </div>
             </div>
           </div>
         );

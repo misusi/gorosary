@@ -21,21 +21,41 @@ prayers.
 | Branch | `main`, working tree clean |
 | Commits | 17, latest `7a79d7b` |
 | Tracked files | 137 |
-| Content documents | 47 |
+| Content documents | 48, including thirteen novenas |
 | Readings | 2,538 days, every day of 2022–2028 |
-| Tests | 107 passing |
+| Tests | 122 passing |
 | Typecheck | clean |
 | Production build | succeeds, 48 pages |
 
 **The website** (`apps/web`) — Next.js 16, App Router. The landing page shows
-today's rosary, the five decades with their mysteries, and a "Today in the
-Church's year" panel with the season, the week, the liturgical colour, what is
-kept, and any fast or vigil. A sticky bar at the top of the prayer runner holds
-the Back / Next / Skip controls so they never move. `/readings` shows the
-readings of the day. Search, light and dark, responsive.
+today's rosary, the five decades with their mysteries, the painting of the
+first mystery, and a "Today in the Church's year" panel with the season, the
+week, the liturgical colour, what is kept, and any fast or vigil. A sticky bar
+at the top of the prayer runner holds the Back / Next / Skip controls so they
+never move. `/readings` shows the readings of the day. Search, light and dark,
+responsive.
+
+**The read-along** — the Rosary is walked through in the order the Church
+sets: the Sign of the Cross, the Apostles' Creed, the Our Father, three Hail
+Marys and the Glory Be; then each decade with its mystery announced before it,
+the Our Father, ten Hail Marys, the Glory Be and the Oh My Jesus; then the
+Hail, Holy Queen, the closing prayer and the Sign of the Cross. It is 82
+steps. The prayers and their order live in
+`packages/content/src/rosary-steps.ts`, so the website and the app read the
+same list.
+
+**The novenas** — thirteen of them. Each page has the history of the novena,
+how to pray it, and then an **Instructions** section: the nine days with their
+checkboxes, and under each day a read-along of that day — the Sign of the
+Cross, the prayer of the day, and then the whole Rosary, nothing left out.
+
+**The pictures** — the twenty paintings of the mysteries and the fourteen of
+the Stations, credited on the pages that use them and in the footer. See
+`apps/web/public/images/ATTRIBUTION.md`.
 
 **The app** (`apps/mobile`) — Expo SDK 58, React Native 0.88, Expo Router.
-The same content, with a novena tracker that saves to the device.
+The same content, with a novena tracker that saves to the device, and its own
+read-along.
 
 **The content pipeline** — prayer text is Markdown with YAML frontmatter,
 validated against a Zod schema at build time, and compiled to one typed
@@ -162,8 +182,8 @@ the Church]"` is filed as white; the day is green, and the engine says green.
 ## 9. Loose ends
 
 - A dev server may still be running on **port 3000** from an earlier session,
-  and several on **3213–3216** from this one. `npm run dev` picks the next free
-  port and says so, but stopping the old ones is tidier:
+  and one on **3218** from this one. `npm run dev` picks the next free port
+  and says so, but stopping the old ones is tidier:
   `taskkill /PID <pid> /F`.
 - The `.claude/settings.json` allowlist written earlier covers the npm
   read-only scripts. Interpreter and package-runner wildcards (`python *`,
@@ -182,7 +202,7 @@ Working on GoRosary, at C:\dev2\gorosary — a Catholic prayer website
 
 Read HANDOFF.md first, then STARTUP.md.
 
-The site is built, deployed and running on Railway. 114 tests pass, 47 content
+The site is built, deployed and running on Railway. 122 tests pass, 48 content
 documents, 2,538 days of lectionary readings for 2022-2028, clean typecheck
 and build. The code is on branch main and pushed to github.com/misusi/gorosary.
 The site is live at https://gorosary.app with a valid certificate.

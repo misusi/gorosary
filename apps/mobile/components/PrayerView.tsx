@@ -1,7 +1,8 @@
 import { Text, View } from 'react-native';
-import type { Doc } from '@gorosary/content';
+import { buildNovenaSteps, buildRosarySteps, type Doc } from '@gorosary/content';
 import { Blocks, InlineText } from './Blocks';
 import { NovenaTracker } from './NovenaTracker';
+import { StepRunner } from './StepRunner';
 import { useTheme } from './theme';
 
 export function PrayerView({ doc }: { doc: Doc }) {
@@ -31,6 +32,11 @@ export function PrayerView({ doc }: { doc: Doc }) {
                   {set.theme}
                 </Text>
               ) : null}
+
+              <StepRunner
+                steps={buildRosarySteps(set)}
+                startLabel={set.title}
+              />
 
               {set.mysteries.map((mystery) => (
                 <View
@@ -111,9 +117,15 @@ export function PrayerView({ doc }: { doc: Doc }) {
               marginBottom: 12,
             }}
           >
-            The Nine Days
+            Instructions
           </Text>
-          <NovenaTracker docId={doc.id} days={doc.novena.days} />
+          <NovenaTracker
+            docId={doc.id}
+            days={doc.novena.days.map((day) => ({
+              ...day,
+              steps: buildNovenaSteps(day),
+            }))}
+          />
         </View>
       );
 

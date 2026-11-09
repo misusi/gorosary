@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getTodayRosary, NAV } from '@gorosary/content';
 import { InlineText } from '@/components/Blocks';
+import { ImageCredit } from '@/components/ImageCredit';
 import { MysteryArt } from '@/components/MysteryArt';
 import { TodayCalendar } from '@/components/TodayCalendar';
 
@@ -58,7 +59,14 @@ export default function HomePage() {
           </div>
 
           <div className={`today__art today__art--${today.set}`}>
-            <MysteryArt set={today.set} />
+            <MysteryArt
+              set={today.set}
+              n={1}
+              title={today.mysteries[0]?.title}
+            />
+            <ImageCredit href="https://www.theholyrosary.org/rosary_gallery/">
+              The Holy Rosary
+            </ImageCredit>
           </div>
         </div>
       </section>

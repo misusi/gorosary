@@ -67,11 +67,13 @@ This is the phase that decides whether people keep the app.
    actually use more than one device.
 10. **Languages** — Spanish first. Needs a `locale` field on every document
     and a second navigation tree.
-11. **Images throughout the site** — a picture for each set of mysteries, for
-    the seasons, and for the feasts, so that a page can be recognised at a
-    glance and the prayers feel like they belong to something. The mystery
-    sets are drawn as emblems for now, and real pictures can replace them
-    without the pages changing.
+11. **Images throughout the site** — the twenty pictures of the mysteries and
+    the fourteen of the Stations are in, from [The Holy Rosary](https://www.theholyrosary.org/rosary_gallery/)
+    and [Catholic Tradition](http://www.catholictradition.org/Children/stations-cross.htm),
+    credited on the pages that use them. What is still missing is a picture
+    for each of the seasons and for the feasts, so that a page can be
+    recognised at a glance. Neither site states a licence for reuse — see
+    `apps/web/public/images/ATTRIBUTION.md`.
 
 ## Phase 4 — Reach
 
