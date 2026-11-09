@@ -30,13 +30,12 @@ be done.
   slot for any date, and the readings themselves — every Sunday of all three
   cycle years, and the solemnities that keep the same readings every year
 
-**Remaining:** the weekday readings of Ordinary Time and Lent, which are about
-two thousand dated entries across the three cycle years and need checking
-against the official lectionary rather than being written from memory; the
-full Douay-Rheims text of each reading, which is the next content phase and
-the thing that turns a list of citations into something you can read; a
-complete 365-day saint of the day (141 fixed-date commemorations are in
-place); the Eastern Catholic mysteries if wanted; and a second language.
+**Remaining:** the readings of the years outside 2022–2028, which the
+USCCB publishes the same way and would be extracted the same way; the full
+Douay-Rheims text of each reading, which is the next content phase and the
+thing that turns a list of citations into something you can read; a complete
+365-day saint of the day (141 fixed-date commemorations are in place); the
+Eastern Catholic mysteries if wanted; and a second language.
 
 ## Phase 2 — Making it a habit
 
@@ -84,9 +83,10 @@ This is the phase that decides whether people keep the app.
 | Issue | Where | Notes |
 |---|---|---|
 | The website resolves "today" in the server's timezone | `apps/web/app/page.tsx` | The app is correct by construction. Fix by resolving the day from a client-supplied timezone, or edge-rendering per region. |
+| A push does not redeploy the site | Railway | The Railway GitHub App is not installed on the repository, so there are no webhooks. Install it, or deploy with `railway up --detach --service gorosary`. |
+| `railway.json` is deprecated | repo root | Railway wants `.railway/railway.ts` instead. The file keeps working until 1 December 2026; see `docs/DEPLOY.md` §7. |
 | No prayer runner in the app | `apps/mobile` | The web has `StepRunner`; the native equivalent is Phase 2 item 1. |
 | The saint of the day covers 141 fixed-date commemorations | `content/calendar/saints-of-the-year.md` | Enough to be useful, not a full calendar. The remaining days of the year still need entries. |
-| No tests | everywhere | The calendar engine is the thing that must be right. It needs tests before anything else ships. |
 | `packages/ui` holds only tokens | `packages/ui/src/index.ts` | Shared React components would need a DOM and a native variant. Not worth it until there is real duplication. |
 
 ---

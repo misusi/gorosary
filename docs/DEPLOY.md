@@ -3,8 +3,10 @@
 How the website goes from this repository to the live domain. The pieces are
 already built and tested; what is left is account configuration.
 
-**Nothing is published yet.** This is the current next task — see
-[HANDOFF.md](../HANDOFF.md) for where the project stands.
+**The site is deployed.** The repository is on GitHub, the service is running
+on Railway, and `gorosary.app` is attached to it. What is left is the DNS at
+Porkbun — see [HANDOFF.md](../HANDOFF.md) §7 for the exact records, which
+Railway issues when the domain is added.
 
 **The stack:** GitHub holds the code, Railway builds and runs it, Porkbun
 points the domain at it. SSL is issued automatically by Railway.
@@ -26,7 +28,8 @@ before touching Porkbun.
 
 ## 1. Push to GitHub
 
-The repository does not exist yet. From the project root:
+The repository exists: `github.com/misusi/gorosary`, public, with `main` as
+the branch. A new repository would be made from the project root with:
 
 ```bash
 gh repo create gorosary --public --source=. --remote=origin --push \
@@ -49,6 +52,15 @@ nothing else needs configuring:
 
 The start command binds `0.0.0.0` because Railway reaches the service from
 outside the container, and it reads the `PORT` Railway sets automatically.
+
+> **Deploying is not the same as pushing.** The repository is attached to the
+> Railway service, but the Railway GitHub App is not installed on it, so a push
+> does not trigger a build. Install the App on the repository, or deploy by
+> hand:
+>
+> ```bash
+> railway up --detach --service gorosary
+> ```
 
 ---
 

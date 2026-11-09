@@ -220,6 +220,43 @@ tabs later is a layout change and nothing more.
 
 ---
 
+## 2026-11-08 — Going live
+
+### The weeks of Ordinary Time are numbered as the Roman Missal numbers them
+
+**Decision.** The weeks of Ordinary Time run from Sunday to Saturday and are
+numbered 1 to 34. The first run opens with the week of the Baptism of the
+Lord; the second opens with the week of Pentecost and is numbered back from
+the end, so that the week of Christ the King is the thirty-fourth. Lent and
+Easter are not Ordinary Time weeks, so the numbers skip over them.
+
+**Why.** The readings and the week named beside them have to agree. The
+readings come from the USCCB liturgical calendars, which name the week for
+every Sunday — "Thirty-second Sunday In Ordinary Time" — and the calendar
+engine works the week out from the computus instead. When the two disagreed,
+the home page called 8 November 2026 the twenty-ninth week while the readings
+page, quoting the USCCB, called it the thirty-second. The site was
+contradicting itself on the same day.
+
+**How it is kept honest.** The rule lived in two copies, in `day.ts` and in
+`lectionary.ts`, and two copies of a calendar rule eventually disagree. There
+is now one, in `liturgical.ts`, and
+`packages/content/test/ordinary-time.test.ts` checks every week the USCCB
+names in 2022–2028 against it.
+
+### The website's start command lives in the root `package.json`
+
+**Decision.** The root `package.json` carries a `start` script, the same
+command `railway.json` carries in `deploy.startCommand`.
+
+**Why.** Railway's current builder does not read `deploy.startCommand` out of
+`railway.json` — it looks for a `start` script in the root `package.json`,
+and a monorepo root has none by default. The first deploy failed with "No
+start command detected". Keeping both means the site starts whether Railway
+reads the file or the script.
+
+---
+
 ## Open questions for the project owner
 
 1. **Languages** — English only for now. A second language (Spanish, at
