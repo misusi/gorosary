@@ -69,6 +69,13 @@ Railway will detect the monorepo. Check that the service it created has:
 If Railway's own GitHub integration offers to deploy on every push to `main`,
 accept it — the site will then redeploy itself whenever you change a prayer.
 
+> **The start command lives in the root `package.json`, not only in
+> `railway.json`.** Railway's current builder (Railpack) does not read
+> `deploy.startCommand` out of `railway.json` — it looks for a `start` script
+> in the root `package.json`, and a monorepo root has none by default. The
+> root `package.json` therefore carries the same command, so the site starts
+> whether Railway reads the file or the script. Keep the two in step.
+
 ### Or from the command line
 
 ```bash
@@ -104,11 +111,19 @@ Railway then shows you **two** records it needs:
 | Type | Name | Value |
 |---|---|---|
 | `CNAME` | `@` | e.g. `g05ns7.up.railway.app` |
-| `TXT` | `_railway` (shown by Railway) | a long verification string |
+| `TXT` | `_railway-verify` | `railway-verify=<a long hash>` |
 
 **Both are required.** With only the CNAME, the domain resolves but returns
 `404` — Railway checks the TXT record to confirm you actually own the domain
 before it will route traffic to it.
+
+The CLI prints both records along with the values it expects, so read them off
+the output rather than guessing:
+
+```bash
+railway domain gorosary.app --service gorosary
+railway domain status 7f4d235b-2383-48d6-8472-a63660999ed3
+```
 
 > The Trial plan allows **one** custom domain, so `gorosary.app` and
 > `www.gorosary.app` count as two. See the note on `www` below.
@@ -139,8 +154,8 @@ any `A`/`AAAA`/`CNAME` record for host `@`, and the `*` wildcard.
 | Field | Value |
 |---|---|
 | Type | `TXT` |
-| Host | whatever Railway showed — usually `_railway` |
-| Answer | the verification string Railway gave you |
+| Host | whatever Railway showed — `_railway-verify` |
+| Answer | the `railway-verify=<hash>` string Railway gave you |
 | TTL | `600` |
 
 **d. Add `www`.**
@@ -205,9 +220,31 @@ curl -I https://gorosary.app
 |---|---|
 | `404` on the custom domain, CNAME resolves | The `TXT` verification record is missing or not yet propagated. |
 | Certificate not issued | `TXT` record still propagating, or the `www` record is masking the apex. |
+| Build fails with `No start command detected` | Railway's builder wants a `start` script in the **root** `package.json`, not only `deploy.startCommand` in `railway.json`. Add it and redeploy. |
 | "Another next dev server is already running" | A dev server was left running locally. See `STARTUP.md`. |
 | Build fails on Railway | The build needs dev dependencies — `typescript` and `tsx` are devDependencies and are installed during the build. Make sure the root directory is the repo root, not `apps/web`. |
 | Port already in use locally | `npm run dev` now finds the next free port and says so. |
+| `Config as Code (railway.json) is deprecated` | Railway is moving to Infrastructure as Code. See the note below. |
+
+---
+
+## 7. `railway.json` is deprecated
+
+Railway has deprecated Config as Code (`railway.json`) in favour of
+Infrastructure as Code (`.railway/railway.ts`). The file keeps working until
+**1 December 2026**, after which it stops being read.
+
+To migrate:
+
+```bash
+railway config migrate --apply --show   # writes .railway/railway.ts
+railway config migrate cutover           # the service now reads the .ts file
+railway config migrate --delete-files    # only after the cutover
+```
+
+The cutover is reversible with `railway config migrate undo`. Commit
+`.railway/railway.ts` alongside the deletion of `railway.json` so the two never
+disagree.
 
 ---
 
