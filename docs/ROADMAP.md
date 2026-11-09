@@ -83,7 +83,6 @@ This is the phase that decides whether people keep the app.
 | Issue | Where | Notes |
 |---|---|---|
 | The website resolves "today" in the server's timezone | `apps/web/app/page.tsx` | The app is correct by construction. Fix by resolving the day from a client-supplied timezone, or edge-rendering per region. |
-| A push does not redeploy the site | Railway | The Railway GitHub App is installed on the repository but no webhook has appeared, so a push changes nothing. Install or reconnect it from the dashboard, or deploy with `railway up --detach --service gorosary`. |
 | The liturgical colour disagrees with the readings page on about a third of the days | `packages/content/src/calendar/day.ts` | The engine gives the colour of the weekday; USCCB gives the colour of the celebration kept. The counts are in `HANDOFF.md` §8. It is a decision about canon as much as code. |
 | `railway.json` is deprecated | repo root | Railway wants `.railway/railway.ts` instead. The file keeps working until 1 December 2026; see `docs/DEPLOY.md` §7. |
 | No prayer runner in the app | `apps/mobile` | The web has `StepRunner`; the native equivalent is Phase 2 item 1. |

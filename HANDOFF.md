@@ -88,11 +88,11 @@ https://gorosary.app with a valid certificate. The launch is done.
 
 ## 6. Known limits, so they are not rediscovered
 
-- **Pushes do not redeploy the site.** The repository is attached to the
-  Railway service and the Railway GitHub App is installed on it, but no
-  webhook has appeared on the repository yet, so a push still changes
-  nothing. Until it does, deploy with `railway up --detach --service gorosary`
-  after each change.
+- **A push redeploys the site.** Verified: a push to `main` built commit
+  `34c28cc` and deployed it. The one thing that was needed was installing
+  the Railway GitHub App on the repository and *then* re-running
+  `railway service source connect --repo misusi/gorosary --branch main
+  --service gorosary` — the App alone does not wire up the trigger.
 - **`railway.json` is deprecated.** Railway wants Infrastructure as Code
   (`.railway/railway.ts`) instead. The file keeps working until
   **1 December 2026**, and the CLI prints a warning on every command. The
@@ -193,7 +193,8 @@ Two things are worth doing:
 2. Migrating railway.json to .railway/railway.ts, which Railway has
    deprecated. The file keeps working until 1 December 2026.
 
-Also: a push still does not redeploy the site. The Railway GitHub App is
-installed on the repository but no webhook has appeared, so deploy with
-`railway up --detach --service gorosary` until that changes.
+Also: a push redeploys the site. It needed the Railway GitHub App installed
+on the repository and then `railway service source connect --repo
+misusi/gorosary --branch main --service gorosary` re-run — the App alone does
+not wire up the trigger.
 ```

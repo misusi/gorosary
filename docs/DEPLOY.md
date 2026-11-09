@@ -53,10 +53,16 @@ nothing else needs configuring:
 The start command binds `0.0.0.0` because Railway reaches the service from
 outside the container, and it reads the `PORT` Railway sets automatically.
 
-> **Deploying is not the same as pushing.** The repository is attached to the
-> Railway service, but the Railway GitHub App is not installed on it, so a push
-> does not trigger a build. Install the App on the repository, or deploy by
-> hand:
+> **Deploying is not the same as pushing.** For a push to `main` to build,
+> the Railway GitHub App has to be installed on the repository *and* the
+> source connected afterwards — installing the App alone does not wire up the
+> trigger:
+>
+> ```bash
+> railway service source connect --repo misusi/gorosary --branch main --service gorosary
+> ```
+>
+> Until that is done, or if the trigger ever stops, deploy by hand:
 >
 > ```bash
 > railway up --detach --service gorosary
