@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getTodayRosary, NAV } from '@gorosary/content';
 import { InlineText } from '@/components/Blocks';
+import { MysteryArt } from '@/components/MysteryArt';
 import { TodayCalendar } from '@/components/TodayCalendar';
 
 export const dynamic = 'force-dynamic';
@@ -26,32 +27,38 @@ export default function HomePage() {
     <>
       <section className="today">
         <div className="wrap today__card">
-          <div className="today__meta">
-            <span className="pill pill--season">{today.seasonLabel}</span>
-            <span className="pill">{today.weekday}</span>
-            <span className="pill">{dateLabel}</span>
+          <div className="today__body">
+            <div className="today__meta">
+              <span className="pill pill--season">{today.seasonLabel}</span>
+              <span className="pill">{today.weekday}</span>
+              <span className="pill">{dateLabel}</span>
+            </div>
+
+            <h1 className="today__title">{today.setTitle}</h1>
+            <p className="today__reason">{today.reason}</p>
+            <p className="today__alt">
+              Also today — {today.alternative.tradition}:{' '}
+              {today.alternative.reason}
+            </p>
+
+            <div className="today__actions">
+              <Link className="button button--primary" href={SET_HREF[today.set] ?? '/rosary'}>
+                Pray the Rosary
+              </Link>
+              <Link className="button button--ghost" href="/readings">
+                Readings
+              </Link>
+              <Link className="button button--ghost" href="/novenas">
+                Novenas
+              </Link>
+              <Link className="button button--ghost" href="/daily/morning">
+                Daily prayers
+              </Link>
+            </div>
           </div>
 
-          <h1 className="today__title">{today.setTitle}</h1>
-          <p className="today__reason">{today.reason}</p>
-          <p className="today__alt">
-            Also today — {today.alternative.tradition}:{' '}
-            {today.alternative.reason}
-          </p>
-
-          <div className="today__actions">
-            <Link className="button button--primary" href={SET_HREF[today.set] ?? '/rosary'}>
-              Pray the Rosary
-            </Link>
-            <Link className="button button--ghost" href="/readings">
-              Readings
-            </Link>
-            <Link className="button button--ghost" href="/novenas">
-              Novenas
-            </Link>
-            <Link className="button button--ghost" href="/daily/morning">
-              Daily prayers
-            </Link>
+          <div className={`today__art today__art--${today.set}`}>
+            <MysteryArt set={today.set} />
           </div>
         </div>
       </section>

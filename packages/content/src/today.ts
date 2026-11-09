@@ -92,6 +92,7 @@ export function getTodayRosary(instant: Date = new Date()): TodayRosary {
   // `instant` is a point in time; the day we reason about is the user's day.
   const date = localToday(instant);
   const resolution = resolveMysteries(date);
+  const commemorations = commemorationsFor(date);
   return {
     date: resolution.date,
     iso: toIsoDate(date),
@@ -104,10 +105,11 @@ export function getTodayRosary(instant: Date = new Date()): TodayRosary {
     source: resolution.source,
     alternative: resolution.alternative,
     mysteries: mysteriesFor(resolution.set),
-    commemorations: commemorationsFor(date),
+    commemorations,
     // `describeDay` reads the day in UTC, so it has to be given the user's
     // day and not the instant. Given the instant, the calendar panel would
-    // describe tomorrow from the evening onwards.
-    day: describeDay(date),
+    // describe tomorrow from the evening onwards. The commemorations go
+    // with it, because a saint's feast brings its own liturgical colour.
+    day: describeDay(date, commemorations),
   };
 }

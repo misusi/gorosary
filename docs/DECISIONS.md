@@ -257,6 +257,52 @@ reads the file or the script.
 
 ---
 
+## 2026-11-09 — What the day looks like
+
+### The colour card shows both colours
+
+**Decision.** The liturgical colour of a day can be two colours, and when it
+is, both are shown: the colour of the celebration kept today first, and the
+colour of the weekday of the season beneath it. The words that go with each
+colour live in the content package, so the website and the phone cannot
+drift apart on them.
+
+**Why.** The engine works out the colour of the *weekday* — green in Ordinary
+Time, violet in Lent, white at Christmas. USCCB's calendar gives the colour
+of the *celebration kept*. On a saint's feast in Ordinary Time the two
+answers are white and green, and the site was contradicting itself: the
+readings page quoted the USCCB and the home page said otherwise. Showing
+both is true of the day, and it stops the site arguing with its own lectionary.
+
+**What still disagrees.** The readings content carries a `colour` field taken
+from the USCCB calendars, and on about six hundred days it is the colour of
+an *optional* memorial rather than of the day — `"Weekday green/ [Saint
+Hilary…]"` is filed as white. That is a bug in the extractor, not in the
+engine, and it can only be fixed by re-running it over the PDFs.
+
+### The mystery sets are drawn, not photographed
+
+**Decision.** Each set of mysteries has an emblem, drawn in the stylesheet's
+own colour so that it is legible in light and dark, and it is the emblem
+rather than a photograph that stands for the set.
+
+**Why.** The site has no pictures yet, and the alternative was to have none
+at all on the page that most people will look at first. Drawing them keeps
+them small, sharp at any size, and honest about what they are. When there
+are real pictures, one component changes and the pages do not.
+
+### The full navigation needs a thousand pixels
+
+**Decision.** The seven section links are only shown when the window is wider
+than 1000 pixels; below that they are reached from the menu.
+
+**Why.** The links are `nowrap` and the header is one row, so between about
+nine hundred and a thousand pixels they pushed the search and theme buttons
+off the right edge of the screen. A split-screen window on a laptop is
+exactly that width.
+
+---
+
 ## Open questions for the project owner
 
 1. **Languages** — English only for now. A second language (Spanish, at

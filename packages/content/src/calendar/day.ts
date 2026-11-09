@@ -39,11 +39,25 @@ export interface DayDescription {
   seasonLabel: string;
   /** Where in the season we are, e.g. "the Third Sunday of Advent". */
   weekLabel: string;
-  colour: LiturgicalColour;
-  colourLabel: string;
+  /**
+   * The colours of the day.
+   *
+   * The celebration kept today brings its own colour, and the weekday of the
+   * season keeps its colour underneath it. Both are shown when they differ.
+   */
+  colours: DayColour[];
   commemorations: Commemoration[];
   fasts: Fast[];
   vigils: Commemoration[];
+}
+
+/** One of the colours of the day, with the words that go with it. */
+export interface DayColour {
+  colour: LiturgicalColour;
+  /** "White" */
+  label: string;
+  /** "The colour of joy — Christ, the saints, and the Blessed Virgin." */
+  note: string;
 }
 
 const ORDINALS = [
@@ -67,6 +81,21 @@ const COLOUR_LABELS: Record<LiturgicalColour, string> = {
   green: 'Green',
   black: 'Black',
   rose: 'Rose',
+};
+
+/**
+ * What each colour means.
+ *
+ * The words live here rather than in the apps, so that the website and the
+ * phone cannot drift apart on the one sentence that explains the colour.
+ */
+const COLOUR_NOTES: Record<LiturgicalColour, string> = {
+  white: 'The colour of joy — Christ, the saints, and the Blessed Virgin.',
+  violet: 'The colour of preparation and penance.',
+  red: 'The colour of the Spirit, of the Passion, and of martyrs.',
+  green: 'The colour of Ordinary Time — growth, hope, and the kingdom.',
+  black: 'The colour of mourning, for the dead.',
+  rose: 'The colour of the third Sunday of Lent, halfway through the fast.',
 };
 
 function weekLabel(date: Date, year: LiturgicalYear, season: Season): string {
@@ -120,47 +149,109 @@ function weekLabel(date: Date, year: LiturgicalYear, season: Season): string {
   }
 }
 
-function colourFor(
+/**
+ * The colour of the weekday itself, whatever is kept on it.
+ *
+ * This is the colour of the season: green in Ordinary Time, violet in
+ * Advent and Lent, white at Christmas and Easter, red through the Passion.
+ */
+function weekdayColour(
   date: Date,
   year: LiturgicalYear,
   season: Season,
-  commemorations: Commemoration[],
 ): LiturgicalColour {
-  if (isSameDay(date, year.allSaints)) return 'white';
-  if (date.getUTCMonth() === 10 && date.getUTCDate() === 2) return 'black';
-
   switch (season) {
     case 'ordinary':
       return 'green';
     case 'advent':
       return 'violet';
     case 'lent': {
-      if (isSameDay(date, year.palmSunday)) return 'red';
-      if (isSameDay(date, year.goodFriday)) return 'red';
-      if (isSameDay(date, year.holyThursday)) return 'white';
       // Laetare Sunday, the fourth Sunday of Lent.
       const fourthSunday = addDays(year.ashWednesday, 4 + 7 * 3);
-      if (isSameDay(date, fourthSunday)) return 'rose';
-      return 'violet';
+      return isSameDay(date, fourthSunday) ? 'rose' : 'violet';
     }
-    case 'holy-week': {
-      if (isSameDay(date, year.holyThursday)) return 'white';
-      return 'red';
-    }
+    case 'holy-week':
+      return isSameDay(date, year.holyThursday) ? 'white' : 'red';
     case 'easter':
       return isSameDay(date, year.pentecost) ? 'red' : 'white';
     case 'christmas':
     default:
-      // Feasts of martyrs are celebrated in red.
-      if (
-        commemorations.some((entry) =>
-          /martyr|Passion of/i.test(`${entry.name} ${entry.note ?? ''}`),
-        )
-      ) {
-        return 'red';
-      }
       return 'white';
   }
+}
+
+/**
+ * The colour of the celebration kept today, if there is one.
+ *
+ * A solemnity or a feast always brings its colour. An obligatory memorial
+ * brings one only on an ordinary weekday of Ordinary Time: in Advent,
+ * Christmas, Lent and Easter the season is kept instead, and the memorial
+ * is only mentioned.
+ */
+function celebrationColour(
+  date: Date,
+  year: LiturgicalYear,
+  season: Season,
+  commemorations: Commemoration[],
+): LiturgicalColour | null {
+  // All Saints and All Souls are known by their date, so the engine can
+  // answer for them without the content.
+  if (isSameDay(date, year.allSaints)) return 'white';
+  // All Souls' Day is the one commemoration of the dead, and it is black.
+  if (date.getUTCMonth() === 10 && date.getUTCDate() === 2) return 'black';
+
+  const feast = commemorations.find(
+    (entry) => entry.kind === 'solemnity' || entry.kind === 'feast',
+  );
+  if (feast) return colourOf(feast);
+
+  if (season === 'ordinary' && date.getUTCDay() !== 0) {
+    const memorial = commemorations.find((entry) => entry.kind === 'memorial');
+    if (memorial) return colourOf(memorial);
+  }
+
+  return null;
+}
+
+/** The colour a particular celebration is kept in. */
+function colourOf(entry: Commemoration): LiturgicalColour {
+  const text = `${entry.name} ${entry.note ?? ''}`;
+  // Martyrs are celebrated in red, and so are Pentecost and the Sacred
+  // Heart, which are the work of the Spirit and of the love that was
+  // pierced.
+  if (/martyr|Passion of|Pentecost|Sacred Heart/i.test(text)) return 'red';
+  return 'white';
+}
+
+/**
+ * The colours of the day, in the order they should be shown.
+ *
+ * The celebration kept today brings its own colour, and the weekday of the
+ * season keeps its colour underneath it: an ordinary weekday in Ordinary
+ * Time is green, and a saint's feast kept on that weekday is white. Both are
+ * true of the day, so both are shown — the celebration's colour first, and
+ * one entry alone when they are the same colour.
+ */
+function coloursFor(
+  date: Date,
+  year: LiturgicalYear,
+  season: Season,
+  commemorations: Commemoration[],
+): DayColour[] {
+  const weekday = weekdayColour(date, year, season);
+  const celebration = celebrationColour(date, year, season, commemorations);
+
+  const colour = (value: LiturgicalColour): DayColour => ({
+    colour: value,
+    label: COLOUR_LABELS[value],
+    note: COLOUR_NOTES[value],
+  });
+
+  if (celebration === null || celebration === weekday) {
+    return [colour(weekday)];
+  }
+
+  return [colour(celebration), colour(weekday)];
 }
 
 function vigilsFor(date: Date, year: LiturgicalYear): Commemoration[] {
@@ -270,15 +361,22 @@ function fastsFor(date: Date, year: LiturgicalYear): Fast[] {
  * year, month and day in UTC, so handing it a raw point in time would
  * answer for whatever day that instant had reached in UTC — which is a day
  * ahead for anyone east of Greenwich in the evening.
+ *
+ * The commemorations may be given, because the fixed-date saints live in
+ * the content and only the caller can reach them. Without them the day is
+ * described with the feasts that move with Easter, which is enough for
+ * everything but the colour of a saint's feast.
  */
-export function describeDay(day: Date): DayDescription {
+export function describeDay(
+  day: Date,
+  kept?: Commemoration[],
+): DayDescription {
   const date = new Date(
     Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate()),
   );
   const year = liturgicalYear(date.getUTCFullYear());
   const season = seasonFor(date);
-  const commemorations = moveableFeastsFor(date);
-  const colour = colourFor(date, year, season, commemorations);
+  const commemorations = kept ?? moveableFeastsFor(date);
 
   return {
     date,
@@ -292,8 +390,7 @@ export function describeDay(day: Date): DayDescription {
       ordinary: 'Ordinary Time',
     }[season],
     weekLabel: weekLabel(date, year, season),
-    colour,
-    colourLabel: COLOUR_LABELS[colour],
+    colours: coloursFor(date, year, season, commemorations),
     commemorations,
     fasts: fastsFor(date, year),
     vigils: vigilsFor(date, year),

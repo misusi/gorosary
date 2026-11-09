@@ -52,6 +52,7 @@ export { MOVEABLE_FEASTS, moveableFeastsFor } from './calendar/feasts.js';
 export type { Commemoration, CommemorationKind } from './calendar/feasts.js';
 export { describeDay } from './calendar/day.js';
 export type {
+  DayColour,
   DayDescription,
   Fast,
   LiturgicalColour,

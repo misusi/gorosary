@@ -67,14 +67,19 @@ This is the phase that decides whether people keep the app.
    actually use more than one device.
 10. **Languages** — Spanish first. Needs a `locale` field on every document
     and a second navigation tree.
+11. **Images throughout the site** — a picture for each set of mysteries, for
+    the seasons, and for the feasts, so that a page can be recognised at a
+    glance and the prayers feel like they belong to something. The mystery
+    sets are drawn as emblems for now, and real pictures can replace them
+    without the pages changing.
 
 ## Phase 4 — Reach
 
-11. **SEO** — the website's job is to be found by people searching for a
+12. **SEO** — the website's job is to be found by people searching for a
     prayer. Sitemap, structured data, per-prayer landing pages.
-12. **App Store and Play Store** — icons, screenshots, privacy disclosures,
+13. **App Store and Play Store** — icons, screenshots, privacy disclosures,
     store listings.
-13. **Analytics** — only if the owner wants them, and only with consent.
+14. **Analytics** — only if the owner wants them, and only with consent.
 
 ---
 

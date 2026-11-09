@@ -116,51 +116,54 @@ Two things are worth doing:
 **Migrate `railway.json` to `.railway/railway.ts`** before 1 December 2026 —
 see [docs/DEPLOY.md](docs/DEPLOY.md) §7.
 
-**Look at the liturgical colour.** The colour card on the home page and the
-colour on the readings page disagree on roughly a third of the days, because
-the engine computes the colour of the *weekday* and USCCB's calendar gives
-the colour of the *celebration*. A saint's memorial on an ordinary weekday
-takes the day in USCCB's reckoning and is white; the engine leaves the
-weekday green. The measurements are in §8.
+**Fix the extractor's colour field.** The colour in the readings content is
+the colour of an *optional* memorial on about six hundred days, rather than
+the colour of the day — `"Weekday green/ [Saint Hilary…]"` is filed as white.
+The engine is right about those days and the content is wrong. Fixing it
+means re-running `packages/content/scripts/usccb-extract.py` over the USCCB
+PDFs; see [docs/CONTENT.md](docs/CONTENT.md). See §8.
 
 ---
 
 ## 8. The liturgical colour, measured
 
-Comparing `describeDay(...).colour` against the `colour` field USCCB
-publishes for every day of 2022–2028:
+The colour card on the home page now shows **both** colours when they differ:
+the colour of the celebration kept today, and the colour of the weekday of the
+season beneath it. The engine works out the weekday's colour; the celebration
+brings its own.
+
+Comparing the engine's primary colour against the `colour` field USCCB
+publishes for every day of 2022–2028, the agreement went from **55% to 69%**.
+The remaining disagreement is nearly all one thing, and it is in the content
+rather than the engine:
 
 | USCCB → engine | Days | What it is |
 |---|---|---|
-| white → green | 758 | saints' memorials and feasts on ordinary weekdays |
-| red → green | 218 | martyrs' memorials on ordinary weekdays |
-| white → violet | 73 | days in the Christmas season |
-| red → white | 35 | |
-| violet → red | 21 | |
-| violet → rose | 7 | Laetare Sunday |
-| white → red | 7 | |
-| white → black | 7 | All Souls' Day |
+| white → green | 492 | the extractor took an optional memorial's colour |
+| red → green | 105 | the same, for martyrs |
+| white → violet | 55 | the same, in Advent and Christmas |
+| red → white | 55 | the extractor took a saint's colour on a feast |
+| green → white | 15 | an obligatory memorial the engine reads as optional |
+| violet → red | 20 | Holy Week, where the extractor took the season's colour |
+| white → red | 11 | |
+| violet → white | 11 | |
 
-The classes that agree — green → green (605), white → white (425), violet →
-violet (352), red → red (21) — are the Sundays and the solemnities, where
-both agree that the feast takes the day.
+The classes that agree — green → green (579), white → white (529), violet →
+violet (343), red → red (66) — are the Sundays, the solemnities and the
+ordinary weekdays.
 
-The disagreement is not random: it is the difference between two different
-questions. USCCB gives the colour of the **celebration that is kept**; the
-engine gives the colour of the **weekday**. Whether a saint's memorial takes
-the weekday in Ordinary Time is a question of canon, and the engine currently
-answers it one way and USCCB another.
-
-The fix is not a one-liner, and it is a content decision as much as a code
-one, so it is written down here rather than changed unilaterally.
+The largest class is the extractor's: it reads the first colour word it finds
+on the line, and on a day with an optional memorial that is the memorial's
+colour, not the day's. `"Weekday green/ [Saint Hilary, Bishop and Doctor of
+the Church]"` is filed as white; the day is green, and the engine says green.
 
 ---
 
 ## 9. Loose ends
 
 - A dev server may still be running on **port 3000** from an earlier session,
-  and one on **3211** from this one. `npm run dev` picks the next free port
-  and says so, but stopping the old ones is tidier:
+  and several on **3213–3216** from this one. `npm run dev` picks the next free
+  port and says so, but stopping the old ones is tidier:
   `taskkill /PID <pid> /F`.
 - The `.claude/settings.json` allowlist written earlier covers the npm
   read-only scripts. Interpreter and package-runner wildcards (`python *`,
@@ -179,17 +182,17 @@ Working on GoRosary, at C:\dev2\gorosary — a Catholic prayer website
 
 Read HANDOFF.md first, then STARTUP.md.
 
-The site is built, deployed and running on Railway. 107 tests pass, 47 content
+The site is built, deployed and running on Railway. 114 tests pass, 47 content
 documents, 2,538 days of lectionary readings for 2022-2028, clean typecheck
 and build. The code is on branch main and pushed to github.com/misusi/gorosary.
 The site is live at https://gorosary.app with a valid certificate.
 
 Two things are worth doing:
 
-1. The liturgical colour on the home page and the colour on the readings page
-   disagree on about a third of the days, because the engine gives the colour
-   of the weekday and USCCB gives the colour of the celebration. HANDOFF.md
-   §8 has the measurements. It is a content decision as much as a code one.
+1. Fixing the extractor's colour field in the readings content. On about six
+   hundred days it holds the colour of an optional memorial rather than the
+   colour of the day, so the readings page disagrees with the calendar panel.
+   The engine is right; the content is wrong. HANDOFF.md §8 has the numbers.
 2. Migrating railway.json to .railway/railway.ts, which Railway has
    deprecated. The file keeps working until 1 December 2026.
 

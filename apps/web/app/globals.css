@@ -588,6 +588,13 @@ main {
   background: #c98d9e;
 }
 
+/* Two colours can apply to one day: the celebration's, and the weekday's. */
+.colour + .colour {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
 /* --- today banner -------------------------------------------------------- */
 
 .today {
@@ -595,8 +602,57 @@ main {
   background: linear-gradient(180deg, var(--bg-alt), var(--bg));
 }
 
+/* The horizontal padding belongs to `.wrap`. Setting it here with the
+   shorthand would wipe it out and let the text run to the edge of a
+   narrow window. */
 .today__card {
-  padding: 40px 0 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 26px;
+  padding-top: 40px;
+  padding-bottom: 44px;
+}
+
+/* The emblem of today's mysteries. */
+.today__art {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.today__art--joyful {
+  color: var(--joyful);
+}
+.today__art--sorrowful {
+  color: var(--sorrowful);
+}
+.today__art--glorious {
+  color: var(--glorious);
+}
+.today__art--luminous {
+  color: var(--luminous);
+}
+
+.mystery-art {
+  display: block;
+  width: 84px;
+  height: 84px;
+}
+
+@media (min-width: 820px) {
+  .today__card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .today__art {
+    justify-content: flex-end;
+  }
+
+  .mystery-art {
+    width: 132px;
+    height: 132px;
+  }
 }
 
 .today__meta {
@@ -1194,12 +1250,6 @@ main {
   body {
     font-size: 16.5px;
   }
-  .nav {
-    display: none;
-  }
-  .menu-button {
-    display: inline-flex;
-  }
   .prose {
     font-size: 17.5px;
   }
@@ -1214,7 +1264,19 @@ main {
   }
 }
 
-@media (min-width: 781px) {
+/* The seven sections need about a thousand pixels beside the logo and the
+   buttons. Below that they are reached from the menu instead, rather than
+   pushing the search and theme buttons off the edge. */
+@media (max-width: 1000px) {
+  .nav {
+    display: none;
+  }
+  .menu-button {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1001px) {
   .menu-panel {
     display: none;
   }

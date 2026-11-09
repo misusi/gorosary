@@ -1,17 +1,12 @@
 import { Text, View } from 'react-native';
-import type { Commemoration, DayDescription } from '@gorosary/content';
+import type {
+  Commemoration,
+  DayDescription,
+  LiturgicalColour,
+} from '@gorosary/content';
 import { useTheme } from './theme';
 
-const COLOUR_NOTES: Record<DayDescription['colour'], string> = {
-  white: 'The colour of joy — Christ, the saints, and the Blessed Virgin.',
-  violet: 'The colour of preparation and penance.',
-  red: 'The colour of the Spirit, of the Passion, and of martyrs.',
-  green: 'The colour of Ordinary Time — growth, hope, and the kingdom.',
-  black: 'The colour of mourning, for the dead.',
-  rose: 'The colour of the third Sunday of Lent, halfway through the fast.',
-};
-
-const SWATCH: Record<DayDescription['colour'], string> = {
+const SWATCH: Record<LiturgicalColour, string> = {
   white: '#fbfaf7',
   violet: '#7a5c9e',
   red: '#a8322f',
@@ -84,23 +79,27 @@ export function TodayCalendar({
 
       <View style={box}>
         <Text style={label}>LITURGICAL COLOUR</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <View
-            style={{
-              width: 11,
-              height: 11,
-              borderRadius: 6,
-              backgroundColor: SWATCH[day.colour],
-              marginRight: 8,
-              borderWidth: 1,
-              borderColor: theme.line,
-            }}
-          />
-          <Text style={title}>{day.colourLabel}</Text>
-        </View>
-        <Text style={{ color: theme.muted, fontSize: 14, marginTop: 3 }}>
-          {COLOUR_NOTES[day.colour]}
-        </Text>
+        {day.colours.map((entry) => (
+          <View key={entry.colour} style={{ marginBottom: 8 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View
+                style={{
+                  width: 11,
+                  height: 11,
+                  borderRadius: 6,
+                  backgroundColor: SWATCH[entry.colour],
+                  marginRight: 8,
+                  borderWidth: 1,
+                  borderColor: theme.line,
+                }}
+              />
+              <Text style={title}>{entry.label}</Text>
+            </View>
+            <Text style={{ color: theme.muted, fontSize: 14, marginTop: 3 }}>
+              {entry.note}
+            </Text>
+          </View>
+        ))}
       </View>
 
       <View style={box}>

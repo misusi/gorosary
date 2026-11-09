@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { describeDay } from '../src/calendar/day.js';
 import { utcDate } from '../src/calendar/dates.js';
+import type { Commemoration } from '../src/calendar/feasts.js';
 
 /**
  * The home page tells a person where they are in the Church's year. These
@@ -93,32 +94,118 @@ describe('where we are in the liturgical year', () => {
 });
 
 describe('the liturgical colour', () => {
+  /** The colours of a day, as a list of names. */
+  const colours = (
+    year: number,
+    month: number,
+    day: number,
+    kept?: Commemoration[],
+  ) => describeDay(utcDate(year, month, day), kept).colours.map((c) => c.colour);
+
   it('is green in Ordinary Time', () => {
-    assert.equal(describeDay(utcDate(2026, 11, 8)).colour, 'green');
+    assert.deepEqual(colours(2026, 11, 8), ['green']);
   });
 
   it('is violet in Advent and Lent', () => {
-    assert.equal(describeDay(utcDate(2026, 11, 29)).colour, 'violet');
-    assert.equal(describeDay(utcDate(2026, 2, 22)).colour, 'violet');
+    assert.deepEqual(colours(2026, 11, 29), ['violet']);
+    assert.deepEqual(colours(2026, 2, 22), ['violet']);
   });
 
   it('is white at Christmas and Easter', () => {
-    assert.equal(describeDay(utcDate(2026, 12, 25)).colour, 'white');
-    assert.equal(describeDay(utcDate(2026, 4, 5)).colour, 'white');
+    assert.deepEqual(colours(2026, 12, 25), ['white']);
+    assert.deepEqual(colours(2026, 4, 5), ['white']);
   });
 
   it('is red for the Passion and for Pentecost', () => {
-    assert.equal(describeDay(utcDate(2026, 3, 29)).colour, 'red');
-    assert.equal(describeDay(utcDate(2026, 4, 3)).colour, 'red');
-    assert.equal(describeDay(utcDate(2026, 5, 24)).colour, 'red');
+    assert.deepEqual(colours(2026, 3, 29), ['red']);
+    assert.deepEqual(colours(2026, 4, 3), ['red']);
+    assert.deepEqual(colours(2026, 5, 24), ['red']);
   });
 
   it('is white for the Mass of the Lord’s Supper', () => {
-    assert.equal(describeDay(utcDate(2026, 4, 2)).colour, 'white');
+    assert.deepEqual(colours(2026, 4, 2), ['white']);
   });
 
   it('is black on All Souls’ Day', () => {
-    assert.equal(describeDay(utcDate(2026, 11, 2)).colour, 'black');
+    assert.deepEqual(colours(2026, 11, 2), ['black', 'green']);
+  });
+
+  it('shows the celebration’s colour above the colour of the weekday', () => {
+    // 17 November 2026 is an ordinary Tuesday in Ordinary Time, and St.
+    // Anthony Abbot's memorial is kept on it: the day is white, and the
+    // weekday it falls on is green.
+    const kept = [
+      {
+        name: 'St. Anthony, Abbot',
+        kind: 'memorial' as const,
+      },
+    ];
+    assert.deepEqual(colours(2026, 11, 17, kept), ['white', 'green']);
+  });
+
+  it('shows a martyr’s memorial in red above the colour of the weekday', () => {
+    const kept = [
+      {
+        name: 'St. Agnes, Virgin and Martyr',
+        kind: 'memorial' as const,
+      },
+    ];
+    assert.deepEqual(colours(2026, 1, 21, kept), ['red', 'green']);
+  });
+
+  it('gives a feast its own colour above the colour of the weekday', () => {
+    // 9 November 2026 is the Dedication of the Lateran Basilica, a feast in
+    // Ordinary Time: the day is white, and the weekday it falls on is green.
+    const kept = [
+      {
+        name: 'Dedication of the Lateran Basilica',
+        kind: 'feast' as const,
+        note: 'The cathedral of Rome.',
+      },
+    ];
+    assert.deepEqual(colours(2026, 11, 9, kept), ['white', 'green']);
+  });
+
+  it('shows only one colour when the two agree', () => {
+    // A feast of the Lord at Christmas is white, and Christmas is white too.
+    const kept = [
+      {
+        name: 'The Nativity of the Lord',
+        kind: 'solemnity' as const,
+      },
+    ];
+    assert.deepEqual(colours(2026, 12, 25, kept), ['white']);
+  });
+
+  it('shows a martyr’s feast in red', () => {
+    const kept = [
+      {
+        name: 'St. Lawrence, Deacon and Martyr',
+        kind: 'feast' as const,
+      },
+    ];
+    assert.deepEqual(colours(2026, 8, 10, kept), ['red', 'green']);
+  });
+
+  it('leaves the weekday’s colour alone for an optional memorial', () => {
+    // An optional memorial is only mentioned; the weekday is kept.
+    const kept = [
+      {
+        name: 'St. Elizabeth Ann Seton, Religious',
+        kind: 'optional-memorial' as const,
+      },
+    ];
+    assert.deepEqual(colours(2026, 11, 10, kept), ['green']);
+  });
+
+  it('does not give an ordinary memorial the day in Lent', () => {
+    const kept = [
+      {
+        name: 'St. Lucy, Virgin and Martyr',
+        kind: 'memorial' as const,
+      },
+    ];
+    assert.deepEqual(colours(2026, 12, 13, kept), ['violet']);
   });
 });
 

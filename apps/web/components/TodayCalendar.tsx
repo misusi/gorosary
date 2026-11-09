@@ -1,15 +1,6 @@
 import Link from 'next/link';
 import type { Commemoration, DayDescription } from '@gorosary/content';
 
-const COLOUR_NOTES: Record<DayDescription['colour'], string> = {
-  white: 'The colour of joy — Christ, the saints, and the Blessed Virgin.',
-  violet: 'The colour of preparation and penance.',
-  red: 'The colour of the Spirit, of the Passion, and of martyrs.',
-  green: 'The colour of Ordinary Time — growth, hope, and the kingdom.',
-  black: 'The colour of mourning, for the dead.',
-  rose: 'The colour of the third Sunday of Lent, halfway through the fast.',
-};
-
 function kindLabel(kind: string): string {
   return kind.replace(/-/g, ' ');
 }
@@ -44,14 +35,18 @@ export function TodayCalendar({
 
         <div className="card">
           <p className="card__label">Liturgical colour</p>
-          <p className="card__title">
-            <span
-              className={`swatch swatch--${day.colour}`}
-              aria-hidden="true"
-            />
-            {day.colourLabel}
-          </p>
-          <p className="card__desc">{COLOUR_NOTES[day.colour]}</p>
+          {day.colours.map((entry) => (
+            <div className="colour" key={entry.colour}>
+              <p className="card__title">
+                <span
+                  className={`swatch swatch--${entry.colour}`}
+                  aria-hidden="true"
+                />
+                {entry.label}
+              </p>
+              <p className="card__desc">{entry.note}</p>
+            </div>
+          ))}
         </div>
 
         <div className="card">
