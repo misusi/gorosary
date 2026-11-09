@@ -135,8 +135,7 @@ function ordinal(n: number): string {
  * It begins with the Sign of the Cross, the Apostles' Creed, the Our Father,
  * the three Hail Marys and the Glory Be; goes through the five decades, each
  * with its mystery announced before it; and ends with the Hail, Holy Queen,
- * the final Hail Mary and Glory Be, the closing prayer, and the Sign of the
- * Cross.
+ * the closing prayer, and the Sign of the Cross.
  */
 export function buildRosarySteps(set: MysterySet): RunnerStep[] {
   const steps: RunnerStep[] = [
@@ -149,8 +148,6 @@ export function buildRosarySteps(set: MysterySet): RunnerStep[] {
   });
 
   steps.push({ label: 'Hail, Holy Queen', text: HAIL_HOLY_QUEEN });
-  steps.push({ label: 'Final Hail Mary', text: HAIL_MARY });
-  steps.push({ label: 'Glory Be', text: GLORY_BE });
   steps.push({
     label: 'A Prayer to Close',
     text: FINAL_PRAYER,
@@ -194,8 +191,6 @@ export function buildNovenaSteps(day: {
     ...threeHailMarys(),
     ...buildRosaryDecades(),
     { label: 'Hail, Holy Queen', text: HAIL_HOLY_QUEEN },
-    { label: 'Final Hail Mary', text: HAIL_MARY },
-    { label: 'Glory Be', text: GLORY_BE },
     { label: 'A Prayer to Close', text: FINAL_PRAYER },
     {
       label: 'The Sign of the Cross',

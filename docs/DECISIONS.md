@@ -325,11 +325,17 @@ Apostles' Creed, the Our Father, three Hail Marys and the Glory Be. Each
 decade is announced — "The First Mystery — The Annunciation", with the
 scripture and the intention — before the Our Father, the ten Hail Marys, the
 Glory Be and the Oh My Jesus. The Rosary ends with the Hail, Holy Queen, the
-final Hail Mary and Glory Be, the closing prayer, and the Sign of the Cross.
+closing prayer, and the Sign of the Cross.
 
 **Why.** The Apostles' Creed was missing, and so was the Oh My Jesus and the
 mystery announced before each decade. A reader was expected to know what to
 say and in what order, which is the one thing the read-along is for.
+
+**A note on the count.** This leaves fifty-three Hail Marys in the Rosary —
+fifty in the decades and three at the beginning — rather than the traditional
+fifty-four, whose last is said after the Hail, Holy Queen. The pages that
+describe the Rosary say so plainly rather than quietly keeping the old
+number.
 
 ### A novena is prayed with the Rosary, and both are shown
 

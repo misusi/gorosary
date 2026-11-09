@@ -71,19 +71,17 @@ describe('the read-along of the Rosary', () => {
   });
 
   it('ends with the Hail, Holy Queen, the closing prayer and the sign of the cross', () => {
-    assert.deepEqual(labels(steps).slice(-5), [
+    assert.deepEqual(labels(steps).slice(-3), [
       'Hail, Holy Queen',
-      'Final Hail Mary',
-      'Glory Be',
       'A Prayer to Close',
       'The Sign of the Cross',
     ]);
   });
 
-  it('has eighty-two steps', () => {
-    // 3 + 3 + 1 before the decades, 14 in each of the five decades, and 5
+  it('has eighty steps', () => {
+    // 3 + 3 + 1 before the decades, 14 in each of the five decades, and 3
     // after them.
-    assert.equal(steps.length, 82);
+    assert.equal(steps.length, 80);
   });
 
   it('carries the meditation on the tenth Hail Mary of each decade', () => {
@@ -120,5 +118,10 @@ describe('the read-along of a novena day', () => {
     ]) {
       assert.ok(all.includes(wanted), `${wanted} is missing`);
     }
+  });
+
+  it('says the whole Rosary and nothing after it', () => {
+    assert.equal(steps.length, 76);
+    assert.equal(steps[steps.length - 1]?.label, 'The Sign of the Cross');
   });
 });

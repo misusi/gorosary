@@ -31,9 +31,9 @@ than an hour once a month.
 5. One **Glory Be**.
 6. Five decades, each made of one **Our Father**, ten **Hail Marys**, and one **Glory Be**, with a mystery to meditate on.
 7. The **Hail, Holy Queen**.
-8. A final **Hail Mary**, a final **Glory Be**, and a short prayer.
+8. A short prayer to close, and the Sign of the Cross.
 
-That is the whole Rosary. Fifty-four Hail Marys, five Our Fathers, five Glory
+That is the whole Rosary. Fifty-three Hail Marys, five Our Fathers, five Glory
 Bes, one Hail Holy Queen, and the prayers at either end.
 
 ## Why the Rosary is shaped this way
@@ -41,7 +41,7 @@ Bes, one Hail Holy Queen, and the prayers at either end.
 - **The fifty Hail Marys** stand for the fifty years of the Blessed Virgin Mary's life. Fifty decades of the angel's words, counted bead by bead, are meant to be a lifetime placed at the service of her Son.
 - **The five Our Fathers** are one for each of the five decades. The prayer Christ taught His disciples is said once at the head of every decade, so that each group of ten Hail Marys is set within the Our Father and cannot be said as though it were mere repetition.
 - **The five Glory Bes** close the five decades. The Glory Be is built upon the scriptural canticle, and that canticle contains five Glories: the threefold "Holy, Holy, Holy" of Isaiah and of the Apocalypse, the "Worthy is the Lamb" of the Book of Revelation, and the "Amen" with which the doxology of the Epistle of Jude is closed.
-- **The three Hail Marys at the beginning and the one at the end** make fifty-four in all, a number long associated with the fifty-four Hail Marys traditionally said in a day, one for each year of Mary's life.
+- **The three Hail Marys at the beginning** are for the three theological virtues, and the fifty in the decades make fifty-three in all.
 
 ## 1. The Sign of the Cross
 
@@ -127,7 +127,7 @@ arrangement it works out like this:
 3. On the next three beads, the three **Hail Marys**.
 4. On the next single bead, the **Our Father** for the first decade, followed by the **ten Hail Marys** of that decade.
 5. On the next single bead, the **Our Father** for the second decade, and the same again for the third, fourth, and fifth.
-6. On the last three beads, the **Hail, Holy Queen**, the final **Hail Mary**, and the final **Glory Be**.
+6. On the last bead, the **Hail, Holy Queen**.
 
 ### What to meditate on in each decade
 
@@ -171,15 +171,9 @@ Virgin Mary:
 
 > Salve, Regina, mater misericordiae; vita, dulcedo, et spes nostra, Salve. Ad te clamamus exsules filii Evae; ad te suspiramus gementes et flentes in hac lacrimarum valle. Eia ergo, advocata nostra, illos tuos misericordes oculos ad nos converte. Et Jesum, benedictum fructum ventris tui, nobis post hoc exsilium ostende. O clemens, O pia, O dulcis Virgo Maria.
 
-## 8. The final prayers
+## 8. The final prayer
 
-Say one final **Hail Mary**, and then the final **Glory Be**.
-
-> Hail, Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.
-
-> Glory be to the Father, and to the Son, and to the Holy Spirit, as it was in the beginning, is now, and shall ever be. Amen. Amen. Amen.
-
-Then close with a short prayer. Say the words you mean. Something like this,
+Close with a short prayer. Say the words you mean. Something like this,
 in your own manner:
 
 > O God, whose mercy is infinite and whose gifts are without price, grant us, by the prayers of the Blessed Virgin Mary and of all the saints, to walk this day in the way of your will, and to love you with all our heart. Amen.
@@ -197,5 +191,5 @@ the distraction, or simply return to the mystery and begin again with the
 next Hail Mary.
 
 If you miss a mystery, do not stop; pick it up the next time. If you must
-break off, end with the Hail, Holy Queen and the final Glory Be, and you have
+break off, end with the Hail, Holy Queen and a short prayer, and you have
 not lost the prayer. The Rosary is a lifetime of prayer, not a performance.

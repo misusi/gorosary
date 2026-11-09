@@ -21,7 +21,7 @@ be done.
 ## Phase 1 — Content ✅ (in progress)
 
 - The Rosary: overview, four mystery sets, how to pray, reflections
-- Twelve novenas and how to make one
+- Thirteen novenas and how to make one
 - Thirteen daily prayers
 - The Chaplet of Divine Mercy and the Prayer of the Day
 - Two litanies and the Stations of the Cross
@@ -41,9 +41,11 @@ Eastern Catholic mysteries if wanted; and a second language.
 
 This is the phase that decides whether people keep the app.
 
-1. **Pray-along mode** — the website has a step runner; the app needs the same,
-   with the mystery text on screen and a tap-to-advance. This is the single
-   most important feature still missing.
+1. **Pray-along mode** — both apps now have a step runner, and the prayers
+   and their order live in `@gorosary/content` so the two are the same
+   prayer. What is left is the part that makes it a habit rather than a
+   reader: a way to start the day's Rosary with one tap, and to come back to
+   it where you left off.
 2. **Notifications** — a daily rosary reminder at a user-chosen time, and a
    nudge on day 1 and day 9 of a novena. This is why the app is native and
    not a PWA.
@@ -90,9 +92,8 @@ This is the phase that decides whether people keep the app.
 | Issue | Where | Notes |
 |---|---|---|
 | The website resolves "today" in the server's timezone | `apps/web/app/page.tsx` | The app is correct by construction. Fix by resolving the day from a client-supplied timezone, or edge-rendering per region. |
-| The liturgical colour disagrees with the readings page on about a third of the days | `packages/content/src/calendar/day.ts` | The engine gives the colour of the weekday; USCCB gives the colour of the celebration kept. The counts are in `HANDOFF.md` §8. It is a decision about canon as much as code. |
+| The liturgical colour disagrees with the readings page on about a third of the days | `packages/content/src/calendar/day.ts` | The card now shows both the colour of the celebration kept and the colour of the weekday, so the site no longer contradicts itself. The engine agrees with USCCB's printed colour on 69% of the days; the rest is a bug in the readings extractor, which files an optional memorial's colour as the colour of the day. See `HANDOFF.md` §8. |
 | `railway.json` is deprecated | repo root | Railway wants `.railway/railway.ts` instead. The file keeps working until 1 December 2026; see `docs/DEPLOY.md` §7. |
-| No prayer runner in the app | `apps/mobile` | The web has `StepRunner`; the native equivalent is Phase 2 item 1. |
 | The saint of the day covers 141 fixed-date commemorations | `content/calendar/saints-of-the-year.md` | Enough to be useful, not a full calendar. The remaining days of the year still need entries. |
 | `packages/ui` holds only tokens | `packages/ui/src/index.ts` | Shared React components would need a DOM and a native variant. Not worth it until there is real duplication. |
 

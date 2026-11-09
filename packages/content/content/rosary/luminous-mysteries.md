@@ -119,9 +119,10 @@ one **Glory Be**. For each of the five decades, pray one Hail Mary while you
 contemplate the mystery, and one Hail Mary for each of the ten Hail Marys that
 follow.
 
-After each decade, say the **Glory Be** and a short **Hail Mary** with the
-intention of the mystery you are praying. After the fifth decade, say the
-**Hail, Holy Queen**, and finish with a final **Hail Mary** and **Glory Be**.
+Each mystery is announced before its decade, and its intention is prayed with the
+tenth **Hail Mary**. After each decade, say the **Glory Be** and the **Oh My
+Jesus**. After the fifth decade, say the **Hail, Holy Queen**, and close with a
+short prayer.
 
 These five mysteries are gathered around the One who reveals Himself publicly.
 Pray them with attention, and do not let the fifth of them pass without a

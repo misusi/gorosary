@@ -4,7 +4,7 @@ kind: prayer
 section: rosary
 title: The Rosary
 subtitle: A meditation on the life and mysteries of Jesus Christ
-summary: The Rosary is fifty-four Hail Marys and five decades of meditation on the life of Christ, wrapped around the Our Father and the Hail Mary.
+summary: The Rosary is fifty-three Hail Marys and five decades of meditation on the life of Christ, wrapped around the Our Father and the Hail Mary.
 order: 1
 edition: Douay-Rheims
 attribution: Traditional Catholic prayer.
@@ -22,12 +22,12 @@ decade. Around them go the **Our Father**, said once at the beginning of each
 decade, the **Glory Be**, said at the end of each decade, and the **Hail, Holy
 Queen** at the end of the Rosary.
 
-## Why fifty-four Hail Marys
+## Why so many Hail Marys
 
 There are fifty Hail Marys in the decades, plus three after the Glory Be at the
-start (the "three Hail Marys of the Rosary"), plus one after the Hail, Holy Queen
-at the end. Fifty-four in total, echoing the fifty-four Hail Marys traditionally
-said in a day — one for each year of the life of the Blessed Virgin Mary.
+start (the "three Hail Marys of the Rosary"). Fifty-three in all, said slowly,
+and not as mere repetition. The fifty in the decades stand for the fifty years
+of the Blessed Virgin Mary's life.
 
 ## The four sets of mysteries
 
@@ -58,7 +58,7 @@ determined by the liturgical calendar.
 6. For each of the five decades: say one **Our Father**, ten **Hail Marys** with
    a meditation between each decade, then one **Glory Be**.
 7. Say the **Hail, Holy Queen**.
-8. Say one final **Hail Mary**, one **Glory Be**, and a short prayer.
+8. Say a short prayer to close, and make the **Sign of the Cross**.
 
 ## A note on attention
 

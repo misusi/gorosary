@@ -23,7 +23,7 @@ forms are traditional, and both are said in the Church.
 - **After each decade of the Rosary.** This is its most familiar use. After the Our Father and the ten Hail Marys of a decade, the Glory Be is said once, and the mystery is pondered.
 - **After the Our Father**, in the place where the Praise stands at the head of the prayer. The Preface of the Mass is a hymn of praise to God the Father sung at the opening of the Canon, and the doxology takes that place of praise wherever the Preface is not sung.
 - **At the end of a prayer.** Very many traditional prayers close with the Glory Be, and the **Sign of the Cross** is made with it.
-- **In the Rosary itself**, after the three Hail Marys of the beginning, and after the final Hail Mary at the end.
+- **In the Rosary itself**, after the three Hail Marys of the beginning, and at the close of each decade.
 - After the **Hail Mary**, at the close of the **Angelus** and the **Regina Coeli**.
 
 ## The Variations

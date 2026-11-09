@@ -39,8 +39,10 @@ responsive.
 sets: the Sign of the Cross, the Apostles' Creed, the Our Father, three Hail
 Marys and the Glory Be; then each decade with its mystery announced before it,
 the Our Father, ten Hail Marys, the Glory Be and the Oh My Jesus; then the
-Hail, Holy Queen, the closing prayer and the Sign of the Cross. It is 82
-steps. The prayers and their order live in
+Hail, Holy Queen, the closing prayer and the Sign of the Cross. It is 80
+steps, and fifty-three Hail Marys — the traditional Rosary has fifty-four,
+whose last is said after the Hail, Holy Queen, and this one does not. The
+prayers and their order live in
 `packages/content/src/rosary-steps.ts`, so the website and the app read the
 same list.
 
