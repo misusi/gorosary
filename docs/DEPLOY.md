@@ -129,6 +129,13 @@ Railway then shows you **two** records it needs:
 `404` — Railway checks the TXT record to confirm you actually own the domain
 before it will route traffic to it.
 
+> **The TXT value is the whole string, `railway-verify=` and the hash
+> together — not the domain ID.** The domain ID that `railway domain status`
+> prints is for identifying the domain to Railway; pasting it as the TXT
+> value leaves the domain unverified, and Railway then serves a placeholder
+> certificate, so the browser warns and `curl` fails with
+> `SEC_E_WRONG_PRINCIPAL`.
+
 The CLI prints both records along with the values it expects, so read them off
 the output rather than guessing:
 
@@ -167,7 +174,7 @@ any `A`/`AAAA`/`CNAME` record for host `@`, and the `*` wildcard.
 |---|---|
 | Type | `TXT` |
 | Host | whatever Railway showed — `_railway-verify` |
-| Answer | the `railway-verify=<hash>` string Railway gave you |
+| Answer | the `railway-verify=<hash>` string Railway gave you — the whole thing, not the domain ID |
 | TTL | `600` |
 
 **d. Add `www`.**

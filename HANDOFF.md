@@ -130,6 +130,12 @@ Porkbun.
 railway domain status 7f4d235b-2383-48d6-8472-a63660999ed3
 ```
 
+> **The answer is the whole string `railway-verify=<hash>` — not the domain
+> ID.** The ID in that command identifies the domain to Railway; pasting it
+> as the TXT value leaves the domain unverified, and Railway then serves a
+> placeholder certificate, so the browser warns and `curl` fails with
+> `SEC_E_WRONG_PRINCIPAL`.
+
 Both records are required. With only the CNAME the domain resolves but returns
 **404**, because Railway checks the TXT to confirm the domain is yours.
 
