@@ -62,11 +62,10 @@ States Conference of Catholic Bishops publishes, not written by hand. See
 | Service | `gorosary`, environment `production` |
 | Project ID | `bb837eaa-5cd6-484b-b860-d88c32a238e0` |
 | Service ID | `a466e007-b557-4ca1-afb9-17bba336026c` |
-| Domain | `gorosary.app`, attached and `ACTIVE`, waiting on its TXT record |
+| Domain | `gorosary.app`, attached, **verified**, with a valid Let's Encrypt certificate |
 
-The service is **Online** and serving the current build. The domain resolves
-nowhere yet — the DNS has not been changed at Porkbun. That is the only thing
-left before the site is on its own name.
+The service is **Online**, the domain is **verified**, and the site answers on
+https://gorosary.app with a valid certificate. The launch is done.
 
 ## 4. Decided, with the reasoning in [docs/DECISIONS.md](docs/DECISIONS.md)
 
@@ -90,10 +89,10 @@ left before the site is on its own name.
 ## 6. Known limits, so they are not rediscovered
 
 - **Pushes do not redeploy the site.** The repository is attached to the
-  Railway service, but the Railway GitHub App is not installed on the repo, so
-  there are no webhooks and a push changes nothing. Until that is fixed,
-  deploy with `railway up --detach --service gorosary` after each change. See
-  §8.
+  Railway service and the Railway GitHub App is installed on it, but no
+  webhook has appeared on the repository yet, so a push still changes
+  nothing. Until it does, deploy with `railway up --detach --service gorosary`
+  after each change.
 - **`railway.json` is deprecated.** Railway wants Infrastructure as Code
   (`.railway/railway.ts`) instead. The file keeps working until
   **1 December 2026**, and the CLI prints a warning on every command. The
@@ -108,66 +107,52 @@ left before the site is on its own name.
 
 ---
 
-## 7. Next task: point the domain at Railway
+## 7. What is left
 
-**Everything else is done.** The site is built, deployed and running; the
-custom domain is attached to the service. It needs the two DNS records at
-Porkbun.
+**Nothing that blocks the launch.** The site is on its own name and serving.
 
-**In Porkbun** (Domain Management → Details → Edit → DNS Records):
-
-1. **Delete the parking records first.** There is an `A` record for the root
-   (currently `207.207.210.215`, and `207.207.210.43`) and a `CNAME` wildcard
-   for `*` → `ss1-sixie.porkbun.com`. That wildcard is currently answering for
-   `www` and `_railway-verify` as well, and an `ALIAS` record cannot coexist
-   with any of them.
-2. **Add the `ALIAS - CNAME flattening` record for the root**: host blank
-   (blank means the root domain), answer `tfms4fav.up.railway.app`, TTL 600.
-3. **Add the `TXT` record**: host `_railway-verify`, TTL 600, and the answer
-   Railway gives. Read it off, rather than copying it from anywhere:
-
-```bash
-railway domain status 7f4d235b-2383-48d6-8472-a63660999ed3
-```
-
-> **The answer is the whole string `railway-verify=<hash>` — not the domain
-> ID.** The ID in that command identifies the domain to Railway; pasting it
-> as the TXT value leaves the domain unverified, and Railway then serves a
-> placeholder certificate, so the browser warns and `curl` fails with
-> `SEC_E_WRONG_PRINCIPAL`.
-
-Both records are required. With only the CNAME the domain resolves but returns
-**404**, because Railway checks the TXT to confirm the domain is yours.
-
-Then:
-
-```bash
-curl -I https://gorosary.app
-```
-
-Railway issues the Let's Encrypt certificate once the TXT is seen; the domain
-turns green in **Service → Settings → Networking → Custom Domains**.
-
-> **One custom domain only.** The Trial plan counts `gorosary.app` and
-> `www.gorosary.app` as two, and the first is spent. If `www` is wanted, use
-> Porkbun's **URL Forwarding** for `www.gorosary.app` → `https://gorosary.app`
-> — and delete the `*` wildcard CNAME first, because it collides with the
-> forward.
-
----
-
-## 8. Two things worth doing next
-
-**Install the Railway GitHub App on the repository**, so that pushing to
-`main` redeploys the site. Open
-`github.com/misusi/gorosary` → Settings → Integrations and services → GitHub
-Apps → install **Railway** on this repository only. Until that is done,
-`railway service source connect --repo misusi/gorosary --service gorosary`
-fails with "You do not have access to this resource", and every change needs
-`railway up --detach --service gorosary` by hand.
+Two things are worth doing:
 
 **Migrate `railway.json` to `.railway/railway.ts`** before 1 December 2026 —
 see [docs/DEPLOY.md](docs/DEPLOY.md) §7.
+
+**Look at the liturgical colour.** The colour card on the home page and the
+colour on the readings page disagree on roughly a third of the days, because
+the engine computes the colour of the *weekday* and USCCB's calendar gives
+the colour of the *celebration*. A saint's memorial on an ordinary weekday
+takes the day in USCCB's reckoning and is white; the engine leaves the
+weekday green. The measurements are in §8.
+
+---
+
+## 8. The liturgical colour, measured
+
+Comparing `describeDay(...).colour` against the `colour` field USCCB
+publishes for every day of 2022–2028:
+
+| USCCB → engine | Days | What it is |
+|---|---|---|
+| white → green | 758 | saints' memorials and feasts on ordinary weekdays |
+| red → green | 218 | martyrs' memorials on ordinary weekdays |
+| white → violet | 73 | days in the Christmas season |
+| red → white | 35 | |
+| violet → red | 21 | |
+| violet → rose | 7 | Laetare Sunday |
+| white → red | 7 | |
+| white → black | 7 | All Souls' Day |
+
+The classes that agree — green → green (605), white → white (425), violet →
+violet (352), red → red (21) — are the Sundays and the solemnities, where
+both agree that the feast takes the day.
+
+The disagreement is not random: it is the difference between two different
+questions. USCCB gives the colour of the **celebration that is kept**; the
+engine gives the colour of the **weekday**. Whether a saint's memorial takes
+the weekday in Ordinary Time is a question of canon, and the engine currently
+answers it one way and USCCB another.
+
+The fix is not a one-liner, and it is a content decision as much as a code
+one, so it is written down here rather than changed unilaterally.
 
 ---
 
@@ -197,17 +182,18 @@ Read HANDOFF.md first, then STARTUP.md.
 The site is built, deployed and running on Railway. 107 tests pass, 47 content
 documents, 2,538 days of lectionary readings for 2022-2028, clean typecheck
 and build. The code is on branch main and pushed to github.com/misusi/gorosary.
+The site is live at https://gorosary.app with a valid certificate.
 
-Two things are left:
+Two things are worth doing:
 
-1. The DNS at Porkbun, so gorosary.app points at Railway: delete the parking
-   A record and the * wildcard CNAME, then add an ALIAS - CNAME flattening
-   record for the root pointing at tfms4fav.up.railway.app, plus a TXT record
-   for _railway-verify with the value Railway gave. Without the TXT the
-   domain resolves but returns 404.
-2. Installing the Railway GitHub App on the repository, so a push redeploys
-   the site. Until then, deploy with `railway up --detach --service gorosary`.
+1. The liturgical colour on the home page and the colour on the readings page
+   disagree on about a third of the days, because the engine gives the colour
+   of the weekday and USCCB gives the colour of the celebration. HANDOFF.md
+   §8 has the measurements. It is a content decision as much as a code one.
+2. Migrating railway.json to .railway/railway.ts, which Railway has
+   deprecated. The file keeps working until 1 December 2026.
 
-Also worth doing before 1 December 2026: migrate railway.json to
-.railway/railway.ts, which Railway has deprecated.
+Also: a push still does not redeploy the site. The Railway GitHub App is
+installed on the repository but no webhook has appeared, so deploy with
+`railway up --detach --service gorosary` until that changes.
 ```
