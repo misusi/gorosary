@@ -608,9 +608,9 @@ main {
 .today__card {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 26px;
-  padding-top: 40px;
-  padding-bottom: 44px;
+  row-gap: 16px;
+  padding-top: 18px;
+  padding-bottom: 30px;
 }
 
 /* --- the rosary section of the home page ----------------------------------- */
@@ -716,8 +716,11 @@ main {
   }
 }
 
-/* The way in, said plainly. */
-.today__hub__cta {
+/* The way in, said plainly, and centred under the painting. The rule is
+   made specific enough to beat `.button` further down the file. */
+.today__hub__art .today__hub__cta {
+  display: flex;
+  width: 100%;
   margin-top: 14px;
   justify-content: center;
 }
@@ -736,7 +739,24 @@ main {
   background: var(--surface);
 }
 
+.mystery-line__toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
 .mystery-line__title {
+  grid-column: 1;
+  grid-row: 1;
   display: block;
   font-family: var(--serif);
   font-size: 15px;
@@ -746,10 +766,35 @@ main {
 }
 
 .mystery-line__scripture {
+  grid-column: 1;
+  grid-row: 2;
   display: block;
   font-size: 12.5px;
   color: var(--muted);
-  margin-top: 3px;
+}
+
+.mystery-line__arrow {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.mystery-line__toggle:hover .mystery-line__title {
+  color: var(--accent);
+}
+
+.mystery-line__verses {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.mystery-line__verses-empty {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--muted);
 }
 
 /* --- the home page, on a wide screen -------------------------------------- */
@@ -784,22 +829,37 @@ main {
     gap: 10px;
   }
 
+  /* Centred under the painting, rather than hanging off its left edge. */
+  .today__hub__art .today__hub__cta {
+    width: fit-content;
+    margin: 14px auto 0;
+  }
+
   .mystery-line {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 22px;
     padding: 15px 18px;
   }
 
+  .mystery-line__toggle {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: baseline;
+    gap: 22px;
+  }
+
   .mystery-line__title {
+    grid-column: 1;
+    grid-row: 1;
     font-size: 17px;
   }
 
   .mystery-line__scripture {
-    margin-top: 0;
+    grid-column: 2;
+    grid-row: 1;
     text-align: right;
-    flex: none;
+  }
+
+  .mystery-line__arrow {
+    grid-column: 3;
+    grid-row: 1;
   }
 }
 
@@ -813,6 +873,15 @@ main {
 
 .home__section > :first-child {
   margin-top: 0;
+}
+
+/* The section title brings no margin of its own here. */
+.home__section .section-title {
+  margin-top: 0;
+}
+
+.home__section .card-grid:last-child {
+  margin-bottom: 0;
 }
 
 .home__section:last-child {

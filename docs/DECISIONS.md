@@ -449,6 +449,17 @@ the first screen. On a touch screen a tap leaves a hover state behind, so
 the words over the painting are hidden where there is no pointer, and the
 button says it instead.
 
+### The five mysteries open to show their Scripture
+
+**Decision.** Each of the five mysteries is a card that opens to show the
+text of its passage, with an arrow that says whether it is open.
+
+**Why.** The home page names the mysteries but sends the reader away to read
+them. Since the Bible is in the app, the passage can be read there and then,
+rather than in a second place. The verses are found on the server and passed
+in: the Bible is far too large to carry in a browser's memory for the sake of
+five passages.
+
 ---
 
 ## Open questions for the project owner

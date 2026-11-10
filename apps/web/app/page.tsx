@@ -4,10 +4,12 @@ import {
   getReadings,
   getTodayRosary,
   NAV,
+  readingText,
 } from '@gorosary/content';
 import { InlineText } from '@/components/Blocks';
 import { ImageCredit } from '@/components/ImageCredit';
 import { MysteryArt } from '@/components/MysteryArt';
+import { MysteryList } from '@/components/MysteryList';
 import { TimezoneSync } from '@/components/TimezoneSync';
 import { TodayCalendar } from '@/components/TodayCalendar';
 import { visitorTimeZone } from '@/lib/timezone';
@@ -105,18 +107,14 @@ export default async function HomePage() {
             </ImageCredit>
           </div>
 
-          <div className="today__hub__mysteries">
-            {today.mysteries.map((mystery) => (
-              <div className="mystery-line" key={mystery.n}>
-                <span className="mystery-line__title">
-                  {mystery.n}. {mystery.title}
-                </span>
-                <span className="mystery-line__scripture">
-                  {mystery.scripture}
-                </span>
-              </div>
-            ))}
-          </div>
+          <MysteryList
+            mysteries={today.mysteries.map((mystery) => ({
+              n: mystery.n,
+              title: mystery.title,
+              scripture: mystery.scripture,
+              verses: readingText(mystery.scripture) ?? [],
+            }))}
+          />
         </div>
       </section>
 
