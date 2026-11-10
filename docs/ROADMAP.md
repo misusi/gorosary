@@ -72,8 +72,10 @@ This is the phase that decides whether people keep the app.
    praying for.
 10. **Sync** — anonymous, key-based, no accounts. Only worth doing if people
     actually use more than one device.
-11. **Languages** — Spanish first. Needs a `locale` field on every document
-    and a second navigation tree.
+11. **Translations into other languages** — Spanish first, and then the
+    languages the readers actually ask for. Every document needs a `locale`
+    field and the site needs a second navigation tree, so this is worth
+    deciding before the content doubles rather than after.
 12. **Images throughout the site** — the twenty pictures of the mysteries and
     the fourteen of the Stations are in, from [The Holy Rosary](https://www.theholyrosary.org/rosary_gallery/)
     and [Catholic Tradition](http://www.catholictradition.org/Children/stations-cross.htm),
