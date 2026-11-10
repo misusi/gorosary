@@ -28,12 +28,14 @@ prayers.
 | Production build | succeeds, 48 pages |
 
 **The website** (`apps/web`) — Next.js 16, App Router. The landing page is
-divided into sections: today's rosary (the painting of the first mystery on
-the left, the five mysteries on the right, the painting a link to today's
-rosary), the readings of the day, the novenas being made now, the prayers of
-the day, the calendar, and the rest of the site. A sticky bar at the top of
-the prayer runner holds the Back / Next / Skip controls so they never move.
-`/readings` shows the readings of the day. Search, light and dark, responsive.
+divided into sections: today's rosary (the painting of the first mystery, with
+the five mysteries beneath it, the whole painting a link to today's rosary),
+the readings of the day, the novenas being made now, the prayers of the day,
+and the calendar. A sticky bar at the top of the prayer runner holds the
+Back / Next / Skip controls so they never move. `/readings` shows the day's
+readings **in full**, from the Douay-Rheims, which is in the content package
+as `bible/douay-rheims.json` and read with `readingText()`. Search, light and
+dark, responsive.
 
 **The read-along** — the Rosary is walked through in the order the Church
 sets: the Sign of the Cross, the Apostles' Creed, the Our Father, three Hail

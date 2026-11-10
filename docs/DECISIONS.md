@@ -411,6 +411,44 @@ and the calendar panel are read side by side, they have to agree.
 
 ---
 
+## 2026-11-09 — The text of the readings, and the shape of the home page
+
+### The readings are read, not only cited
+
+**Decision.** The complete Douay-Rheims is in the content package, and the
+readings page shows the text of every reading alongside its citation.
+
+**Why.** A citation is a direction, not a reading. The Bible is in the public
+domain, and the lectionary's citations are regular enough to be read: a book
+and a chapter, a list of verses, a second chapter after a semicolon, and the
+letters that say a verse runs on. The psalms needed one translation, because
+the lectionary counts them as the Hebrew does and the Douay-Rheims counts
+them as the Vulgate does.
+
+### The mobile and the wide layouts are drawn separately
+
+**Decision.** The home page has a narrow layout and a wide layout, not one
+that merely reflows. On a phone the painting of the first mystery takes the
+whole width and the five mysteries sit beneath it; on a wide screen the
+painting stands beside the title and the mysteries, so the two columns come
+to about the same height.
+
+**Why.** A phone is a thumb-first thing and a desktop is not. The two
+columns on a phone made the painting small and the page busy; the painting
+wants to be the first thing you see.
+
+### The picture and the words beneath it are the way in
+
+**Decision.** The painting, and the "Pray the Rosary" beneath it, are one
+link to today's rosary, with the words said on the picture itself on a
+pointer.
+
+**Why.** The four buttons that used to sit under the title took the reader
+nowhere that the page did not already go, and they pushed the painting out of
+the first screen.
+
+---
+
 ## Open questions for the project owner
 
 1. **Languages** — English only for now. A second language (Spanish, at

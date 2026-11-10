@@ -6,6 +6,7 @@ import {
   availableReadingYears,
   getReadings,
   yearEntries,
+  readingText,
 } from '@gorosary/content';
 
 export const metadata: Metadata = {
@@ -97,10 +98,21 @@ export default function ReadingsPage() {
             {READING_ORDER.map(({ key, label }) => {
               const reading = entry[key];
               if (!reading) return null;
+              const text = readingText(reading.reference);
               return (
                 <article className="reading" key={key}>
                   <p className="reading__kind">{label}</p>
                   <p className="reading__ref">{reading.reference}</p>
+                  {text ? (
+                    <div className="reading__text">
+                      {text.map((verse) => (
+                        <p className="verse" key={verse.verse}>
+                          <span className="verse__number">{verse.verse}</span>
+                          {verse.text}
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
                 </article>
               );
             })}
@@ -143,3 +155,4 @@ export default function ReadingsPage() {
     </>
   );
 }
+

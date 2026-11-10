@@ -31,11 +31,14 @@ be done.
   cycle years, and the solemnities that keep the same readings every year
 
 **Remaining:** the readings of the years outside 2022–2028, which the
-USCCB publishes the same way and would be extracted the same way; the full
-Douay-Rheims text of each reading, which is the next content phase and the
-thing that turns a list of citations into something you can read; a complete
+USCCB publishes the same way and would be extracted the same way; a complete
 365-day saint of the day (141 fixed-date commemorations are in place); the
 Eastern Catholic mysteries if wanted; and a second language.
+
+The **text of the readings** is now in the app: the whole Douay-Rheims, from
+Project Gutenberg, with the lectionary's own citations worked out, so that
+"1 Samuel 9:1-4, 17-19; 10:1a" finds its verses. `/readings` shows the
+reading in full.
 
 ## Phase 2 — Making it a habit
 

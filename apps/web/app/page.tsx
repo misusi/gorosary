@@ -9,8 +9,8 @@ import { InlineText } from '@/components/Blocks';
 import { ImageCredit } from '@/components/ImageCredit';
 import { MysteryArt } from '@/components/MysteryArt';
 import { TimezoneSync } from '@/components/TimezoneSync';
-import { visitorTimeZone } from '@/lib/timezone';
 import { TodayCalendar } from '@/components/TodayCalendar';
+import { visitorTimeZone } from '@/lib/timezone';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,57 +58,57 @@ export default async function HomePage() {
   return (
     <>
       <TimezoneSync serverDate={today.iso} />
+
       <section className="today">
         <div className="wrap today__card">
           <div className="today__head">
-            <div className="today__meta">
-              <span className="pill pill--season">{today.seasonLabel}</span>
-              <span className="pill">{dateLabel}</span>
-            </div>
-
+            <p className="eyebrow today__eyebrow">Today&rsquo;s Rosary</p>
             <h1 className="today__title">{today.setTitle}</h1>
-            <p className="today__reason">{today.reason}</p>
           </div>
 
           {/*
-            The painting on the left and the five decades on the right. The
-            whole of the left half goes to today's rosary, so a reader can
-            see what is being prayed and start it without hunting.
+            The painting, and the words beneath it, are one link: they are the
+            way into today's rosary, so they are made to look like it.
           */}
-          <div className="today__hub">
-            <Link className="today__hub__art" href={rosaryHref}>
-              <MysteryArt
-                set={today.set}
-                n={1}
-                title={today.mysteries[0]?.title}
-              />
+          <div className="today__hub__art">
+            <Link
+              className="today__hub__link"
+              href={rosaryHref}
+              aria-label={`Pray the Rosary — the ${today.setTitle}`}
+            >
+              <span className="today__hub__frame">
+                <MysteryArt
+                  set={today.set}
+                  n={1}
+                  title={today.mysteries[0]?.title}
+                />
+                <span className="today__hub__overlay" aria-hidden="true">
+                  Pray the Rosary
+                </span>
+              </span>
               <span className="today__hub__cta">
                 <span className="today__hub__cta-label">Pray the Rosary</span>
                 <span className="today__hub__cta-sub">{today.setTitle}</span>
               </span>
             </Link>
 
-            <div className="today__hub__mysteries">
-              {today.mysteries.map((mystery) => (
-                <Link
-                  className="mystery-line"
-                  href={rosaryHref}
-                  key={mystery.n}
-                >
-                  <span className="mystery-line__title">
-                    {mystery.n}. {mystery.title}
-                  </span>
-                  <span className="mystery-line__scripture">
-                    {mystery.scripture}
-                  </span>
-                </Link>
-              ))}
-            </div>
+            <ImageCredit href="https://www.theholyrosary.org/rosary_gallery/">
+              The Holy Rosary
+            </ImageCredit>
           </div>
 
-          <ImageCredit href="https://www.theholyrosary.org/rosary_gallery/">
-            The Holy Rosary
-          </ImageCredit>
+          <div className="today__hub__mysteries">
+            {today.mysteries.map((mystery) => (
+              <Link className="mystery-line" href={rosaryHref} key={mystery.n}>
+                <span className="mystery-line__title">
+                  {mystery.n}. {mystery.title}
+                </span>
+                <span className="mystery-line__scripture">
+                  {mystery.scripture}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -147,7 +147,9 @@ export default async function HomePage() {
                 ) : null}
               </dl>
               <p className="small" style={{ marginTop: 12 }}>
-                <Link href="/readings">The readings of the day →</Link>
+                <Link href="/readings">
+                  Read the readings of the day, in full →
+                </Link>
               </p>
             </>
           ) : (
@@ -208,26 +210,7 @@ export default async function HomePage() {
             commemorations={today.commemorations}
           />
         </section>
-
-        <section className="home__section">
-          <h2 className="section-title">Everything else</h2>
-          <p className="section-lede">
-            The prayer of the traditional Catholic life, in one place.
-          </p>
-          <div className="card-grid">
-            {NAV.filter((section) => section.id !== 'today').map((section) => (
-              <Link className="card" href={section.href} key={section.id}>
-                <p className="card__title">{section.label}</p>
-                <p className="card__desc">
-                  <InlineText text={section.description} />
-                </p>
-              </Link>
-            ))}
-          </div>
-        </section>
       </div>
     </>
   );
 }
-
-
