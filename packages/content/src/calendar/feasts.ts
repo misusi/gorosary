@@ -115,7 +115,7 @@ export const MOVEABLE_FEASTS: MoveableFeast[] = [
   {
     name: 'Solemnity of the Most Sacred Heart of Jesus',
     kind: 'solemnity',
-    date: (year) => shift(year.corpusChristi, 6),
+    date: (year) => year.sacredHeart,
   },
   {
     name: 'Solemnity of Christ the King',

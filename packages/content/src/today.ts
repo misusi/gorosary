@@ -1,7 +1,9 @@
 import type { Mystery, MysterySetId } from './schema.js';
 import { moveableFeastsFor, type Commemoration } from './calendar/feasts.js';
 import { describeDay, type DayDescription } from './calendar/day.js';
-import { toIsoDate, localToday } from './calendar/dates.js';
+import { toIsoDate, localToday, daysBetween, utcDate } from './calendar/dates.js';
+import { liturgicalYear } from './calendar/liturgical.js';
+import { findNavDoc } from './nav.js';
 import {
   MYSTERY_SET_TITLES,
   resolveMysteries,
@@ -86,6 +88,85 @@ export function fixedFeastsFor(date: Date): Commemoration[] {
 
 export function commemorationsFor(date: Date): Commemoration[] {
   return [...moveableFeastsFor(date), ...fixedFeastsFor(date)];
+}
+
+export interface CurrentNovena {
+  id: string;
+  title: string;
+  href: string;
+  /** Which day of the novena it is, counting the first as the first. */
+  day: number;
+  /** How many days the novena runs for. */
+  duration: number;
+  patron: string;
+  occasion?: string;
+}
+
+/**
+ * The novenas that are being made today.
+ *
+ * A novena is begun on a fixed day of the year — St. Joseph's on the
+ * fifteenth of March, St. Jude's on the twenty-eighth of October — or, for
+ * the two that follow the Easter cycle, on the solemnity itself. It is then
+ * said for nine days.
+ */
+export function currentNovenas(date: Date): CurrentNovena[] {
+  const running: CurrentNovena[] = [];
+
+  for (const doc of content) {
+    if (doc.kind !== 'novena') continue;
+
+    const start = novenaStart(doc.novena.begins, date, doc.novena.duration);
+    if (!start) continue;
+
+    const elapsed = daysBetween(start, date);
+    if (elapsed < 0 || elapsed >= doc.novena.duration) continue;
+
+    running.push({
+      id: doc.id,
+      title: doc.title,
+      href: findNavDoc(doc.id)?.href ?? '/novenas',
+      day: elapsed + 1,
+      duration: doc.novena.duration,
+      patron: doc.novena.patron,
+      ...(doc.novena.occasion ? { occasion: doc.novena.occasion } : {}),
+    });
+  }
+
+  return running.sort((a, b) => a.title.localeCompare(b.title));
+}
+
+/**
+ * The day a novena is begun, or null when it is not begun on a fixed day.
+ *
+ * A novena begun late in December runs into January, so the start of the
+ * previous year is tried as well.
+ */
+function novenaStart(
+  begins: string | undefined,
+  date: Date,
+  duration: number,
+): Date | null {
+  if (!begins) return null;
+
+  const year = date.getUTCFullYear();
+
+  if (begins === 'pentecost') {
+    return liturgicalYear(year).pentecost;
+  }
+
+  if (begins === 'sacred-heart') {
+    return liturgicalYear(year).sacredHeart;
+  }
+
+  const [month, day] = begins.split('-').map(Number);
+  const thisYear = utcDate(year, month ?? 1, day ?? 1);
+  const lastYear = utcDate(year - 1, month ?? 1, day ?? 1);
+
+  // A novena begun late in December runs into January, so the start of the
+  // previous year is tried as well.
+  const elapsed = daysBetween(lastYear, date);
+  return elapsed >= 0 && elapsed < duration ? lastYear : thisYear;
 }
 
 export function getTodayRosary(instant: Date = new Date()): TodayRosary {

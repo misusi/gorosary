@@ -72,7 +72,7 @@ describe('the lectionary slot', () => {
     assert.equal(slotAt(2027, 5, 6), 'named:ascension');
     assert.equal(slotAt(2027, 5, 16), 'named:pentecost');
     assert.equal(slotAt(2027, 5, 23), 'named:trinity');
-    assert.equal(slotAt(2027, 5, 27), 'named:corpus-christi');
+    assert.equal(slotAt(2027, 5, 30), 'named:corpus-christi');
     assert.equal(slotAt(2027, 8, 15), 'named:assumption');
     assert.equal(slotAt(2027, 11, 1), 'named:all-saints');
     assert.equal(slotAt(2027, 11, 21), 'named:christ-the-king');

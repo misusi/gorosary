@@ -103,7 +103,8 @@ The dates this page depends on are not fixed. Easter is the first Sunday after
 the first full moon on or after the vernal equinox, and from Easter every
 movable feast of the year follows: Ash Wednesday forty-six days before it,
 Palm Sunday a week before it, Ascension thirty-nine days after it, Pentecost
-forty-nine days after it, Corpus Christi sixty days after it.
+forty-nine days after it, Trinity Sunday fifty-six days after it, and Corpus
+Christi the Sunday after that, with the Sacred Heart on the Friday following.
 
 GoRosary calculates this rather than storing it, so the rosary on any date in
 any year is right without anyone updating a table.

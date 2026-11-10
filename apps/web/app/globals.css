@@ -636,6 +636,8 @@ main {
 .image-credit {
   margin: 8px 0 0;
   font-size: 12px;
+  font-style: italic;
+  opacity: 0.75;
 }
 
 .image-credit a {
@@ -652,21 +654,169 @@ main {
   height: 293px;
 }
 
+/* --- the home page, on a phone -------------------------------------------- */
+
+/*
+ * On a narrow screen the rosary is the first thing on the page: the painting
+ * on the left, the five decades on the right, both halves of the width.
+ */
+.today__hub {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.today__hub__art {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.today__hub__art .mystery-art {
+  width: 100%;
+  height: auto;
+}
+
+.today__hub__cta {
+  display: block;
+  margin-top: 10px;
+}
+
+.today__hub__cta-label {
+  display: block;
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.today__hub__cta-sub {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.today__hub__mysteries {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mystery-line {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+}
+
+.mystery-line__title {
+  display: block;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.mystery-line__scripture {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* --- the home page, on a wide screen -------------------------------------- */
+
 @media (min-width: 820px) {
   .today__card {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 48px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
   }
 
-  .today__art {
-    align-items: flex-end;
+  .today__hub {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 44px;
   }
 
-  .mystery-art {
-    width: 150px;
-    height: 200px;
+  .today__hub__art .mystery-art {
+    width: 100%;
+    max-width: 380px;
   }
+
+  .today__hub__mysteries {
+    gap: 10px;
+  }
+
+  .mystery-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 16px;
+  }
+
+  .mystery-line__title {
+    font-size: 17px;
+  }
+
+  .mystery-line__scripture {
+    margin-top: 0;
+    text-align: right;
+    flex: none;
+  }
+}
+
+/* --- the sections of the home page ---------------------------------------- */
+
+.home__section {
+  padding: 34px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.home__section:last-child {
+  border-bottom: none;
+  padding-bottom: 56px;
+}
+
+.day-readings {
+  margin: 18px 0 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.day-readings__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 16px;
+}
+
+.day-readings__row + .day-readings__row {
+  border-top: 1px solid var(--line);
+}
+
+.day-readings__row dt {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.day-readings__row dd {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  text-align: right;
 }
 
 .today__meta {
@@ -1292,6 +1442,10 @@ main {
   }
   .menu-button {
     display: inline-flex;
+  }
+  /* With the links gone, the buttons belong at the right of the logo. */
+  .header__actions {
+    margin-left: auto;
   }
 }
 

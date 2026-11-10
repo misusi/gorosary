@@ -120,7 +120,7 @@ describe('the movable feasts of the liturgical year', () => {
   it('derives Pentecost, Trinity and Corpus Christi', () => {
     assert.equal(year.pentecost.toISOString().slice(0, 10), '2025-06-08');
     assert.equal(year.trinitySunday.toISOString().slice(0, 10), '2025-06-15');
-    assert.equal(year.corpusChristi.toISOString().slice(0, 10), '2025-06-19');
+    assert.equal(year.corpusChristi.toISOString().slice(0, 10), '2025-06-22');
   });
 
   it('puts Christ the King on the last Sunday before Advent', () => {
@@ -158,7 +158,7 @@ describe("today's mysteries", () => {
   });
 
   it('gives the Sorrowful Mysteries on Corpus Christi', () => {
-    const resolution = resolveMysteries(utcDate(2025, 6, 19));
+    const resolution = resolveMysteries(utcDate(2025, 6, 22));
     assert.equal(resolution.set, 'sorrowful');
     assert.match(resolution.reason, /Body and Blood of Christ/);
   });

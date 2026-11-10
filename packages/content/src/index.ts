@@ -24,6 +24,8 @@ export {
   fixedFeastsFor,
 } from './today.js';
 export type { TodayRosary } from './today.js';
+export { currentNovenas } from './today.js';
+export type { CurrentNovena } from './today.js';
 export {
   resolveMysteries,
   FIXED_DATE_OVERRIDES,

@@ -13,6 +13,7 @@ novena:
   patron: St. Patrick
   occasion: The conversion of Ireland and the removal of scourge
   duration: 9
+  begins: "03-17"
   days:
     - day: 1
       title: St. Patrick, apostle of Ireland

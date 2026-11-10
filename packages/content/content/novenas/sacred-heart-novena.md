@@ -13,6 +13,7 @@ novena:
   patron: The Sacred Heart of Jesus
   occasion: The love of God and the family of His Sacred Heart
   duration: 9
+  begins: "sacred-heart"
   days:
     - day: 1
       title: The Sacred Heart of Jesus, the heart of love

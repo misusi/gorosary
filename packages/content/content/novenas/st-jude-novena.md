@@ -13,6 +13,7 @@ novena:
   patron: St. Jude the Apostle
   occasion: Desperate and difficult cases
   duration: 9
+  begins: "10-28"
   days:
     - day: 1
       title: St. Jude, apostle of our Lord

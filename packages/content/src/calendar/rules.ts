@@ -184,7 +184,7 @@ export const MOVABLE_OVERRIDES: MovableOverride[] = [
     id: 'sacred-heart',
     set: 'sorrowful',
     sentence: 'Today is the Most Sacred Heart of Jesus.',
-    matches: (year, date) => isSameDay(date, addDaysSafe(year.corpusChristi, 6)),
+    matches: (year, date) => isSameDay(date, year.sacredHeart),
   },
   {
     id: 'holy-saturday',

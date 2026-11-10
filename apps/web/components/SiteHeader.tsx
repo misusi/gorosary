@@ -49,6 +49,23 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // A tap outside the menu closes it, as a menu should.
+  useEffect(() => {
+    if (!open) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+      if (target.closest('.menu-panel') || target.closest('.menu-button')) {
+        return;
+      }
+      setOpen(false);
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [open]);
+
   const currentSection = NAV.find((section) =>
     section.docs.some((doc) => doc.href === pathname),
   )?.id;

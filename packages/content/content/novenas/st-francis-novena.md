@@ -13,6 +13,7 @@ novena:
   patron: St. Francis of Assisi
   occasion: Peace, poverty, and the healing of divisions
   duration: 9
+  begins: "10-04"
   days:
     - day: 1
       title: St. Francis, the humble seraph

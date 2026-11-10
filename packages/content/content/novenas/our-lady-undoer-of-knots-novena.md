@@ -13,6 +13,7 @@ novena:
   patron: Our Lady, Undoer of Knots
   occasion: The loosening of knots, and the grace of her intercession
   duration: 9
+  begins: "09-08"
   days:
     - day: 1
       title: Theotokos, keeper of the unbreakable bond

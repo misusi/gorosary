@@ -13,6 +13,7 @@ novena:
   patron: Our Lady of the Rosary
   occasion: Grace, family, and the spread of the Rosary
   duration: 9
+  begins: "10-07"
   days:
     - day: 1
       title: Our Lady of the Rosary, Star of the Sea

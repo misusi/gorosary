@@ -68,9 +68,6 @@ export default function TodayScreen() {
       >
         {today.reason}
       </Text>
-      <Text style={{ fontSize: 13.5, color: theme.muted, marginBottom: 20 }}>
-        Also today — {today.alternative.tradition}: {today.alternative.reason}
-      </Text>
 
       {setDoc ? (
         <Link

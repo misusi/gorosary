@@ -363,6 +363,54 @@ them is a matter of dropping new files in with the same names.
 
 ---
 
+## 2026-11-09 — The home page
+
+### The home page is a set of sections, and the rosary is the first of them
+
+**Decision.** The landing page is divided into sections: today's rosary, the
+readings of the day, the novenas being made now, the prayers of the day, the
+calendar, and the rest of the site. The rosary section carries the painting
+of the first mystery on the left and the five mysteries on the right, and the
+whole of the painting is a link to today's rosary. The four buttons that used
+to sit under the title are gone; each of those sections is on the page now.
+
+**Why.** The buttons took the reader nowhere that the page did not already
+go, and they pushed the painting up out of the first screen. On a phone the
+painting and the five mysteries are side by side, so the reader can see what
+is being prayed without scrolling.
+
+### The mobile and the wide layouts are drawn separately
+
+**Decision.** The home page has a narrow layout and a wide layout, not one
+that merely reflows: the painting fills its column on a phone and sits on
+the left of the page on a wide screen.
+
+**Why.** A phone and a desktop are different objects. The narrow layout is
+thumb-first, and the wide layout has room for the painting to be large.
+
+### The weekday is no longer shown twice, and the alternative reading is gone
+
+**Decision.** The date on the home page no longer carries a separate pill
+for the weekday, and the "Also today — the Church's calendar" line is
+removed.
+
+**Why.** The date already says the weekday. The alternative reading confused
+people: it looked like a second answer to the same question rather than the
+other tradition.
+
+### Corpus Christi and the Sacred Heart are where the USCCB says they are
+
+**Decision.** Corpus Christi is the Sunday after Trinity Sunday, and the
+Sacred Heart is the Friday after that.
+
+**Why.** The engine had them as the Thursday after Trinity and six days
+later, which is what the Roman Missal says before the transfer. But the
+USCCB liturgical calendars — the ones the readings come from — have them on
+the Sunday and the Friday, in every year the site covers. Since the readings
+and the calendar panel are read side by side, they have to agree.
+
+---
+
 ## Open questions for the project owner
 
 1. **Languages** — English only for now. A second language (Spanish, at

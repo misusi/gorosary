@@ -42,6 +42,7 @@ export interface LiturgicalYear {
   pentecost: Date;
   trinitySunday: Date;
   corpusChristi: Date;
+  sacredHeart: Date;
   christTheKing: Date;
   baptismOfTheLord: Date;
   epiphany: Date;
@@ -134,7 +135,13 @@ export function baptismOfTheLord(year: number): Date {
 
 export function liturgicalYear(year: number): LiturgicalYear {
   const easter = easterDate(year);
-  const corpusChristi = addDays(easter, 60);
+  const trinitySunday = addDays(easter, 56);
+  // The octave of Trinity Sunday begins with Trinity Sunday, so Corpus
+  // Christi is transferred to the Sunday after it, and the Sacred Heart is
+  // the Friday after that. These are the dates the USCCB liturgical
+  // calendars give, and they are what the readings are keyed to.
+  const corpusChristi = addDays(trinitySunday, 7);
+  const sacredHeart = addDays(trinitySunday, 12);
 
   return {
     year,
@@ -146,8 +153,9 @@ export function liturgicalYear(year: number): LiturgicalYear {
     holySaturday: addDays(easter, -1),
     ascension: addDays(easter, 39),
     pentecost: addDays(easter, 49),
-    trinitySunday: addDays(easter, 56),
+    trinitySunday,
     corpusChristi,
+    sacredHeart,
     // Christ the King is celebrated on the last Sunday of Ordinary Time —
     // the Sunday immediately before the First Sunday of Advent.
     christTheKing: addDays(adventStart(year), -7),

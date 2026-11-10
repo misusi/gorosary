@@ -53,12 +53,16 @@ Check these once; then they need not be checked again.
       came from.
 - [ ] **The breadcrumbs.** On any page below the home page, the trail at the
       top shows where you are and the links work.
-- [ ] **The left-hand column on a wide screen.** The list of sections in the
-      same section. The current page is marked. Does it help or clutter?
+- [ ] **The right-hand column on a wide screen.** The list of the other pages
+      in the same section. The current page is marked. Does it help or
+      clutter?
 - [ ] **Reading on a phone.** Take any paragraph of prayer text. Is the line
       length comfortable, or is it too long or too short?
 - [ ] **Text size.** Does the prayer text feel the right size next to the
       surrounding text?
+- [ ] **Large text.** There is not yet a way to make the text bigger for
+      older readers. That is on the roadmap; this is the place to say how it
+      should work.
 
 **Notes:**
 

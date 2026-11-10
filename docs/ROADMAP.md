@@ -64,13 +64,17 @@ This is the phase that decides whether people keep the app.
 7. **Audio** — recorded or spoken prayer, and at minimum a text size and
    reading-speed control for the elderly, who are a large part of this
    audience.
-8. **Intention journal** — private, local, exportable. What a person is
+8. **Larger text** — a button that makes the prayer text bigger for anyone
+   who needs it, kept between visits. The text is the point of the site, and
+   the audience includes a great many people whose eyes are not what they
+   were.
+9. **Intention journal** — private, local, exportable. What a person is
    praying for.
-9. **Sync** — anonymous, key-based, no accounts. Only worth doing if people
-   actually use more than one device.
-10. **Languages** — Spanish first. Needs a `locale` field on every document
+10. **Sync** — anonymous, key-based, no accounts. Only worth doing if people
+    actually use more than one device.
+11. **Languages** — Spanish first. Needs a `locale` field on every document
     and a second navigation tree.
-11. **Images throughout the site** — the twenty pictures of the mysteries and
+12. **Images throughout the site** — the twenty pictures of the mysteries and
     the fourteen of the Stations are in, from [The Holy Rosary](https://www.theholyrosary.org/rosary_gallery/)
     and [Catholic Tradition](http://www.catholictradition.org/Children/stations-cross.htm),
     credited on the pages that use them. What is still missing is a picture
@@ -80,12 +84,12 @@ This is the phase that decides whether people keep the app.
 
 ## Phase 4 — Reach
 
-12. **SEO** — the website's job is to be found by people searching for a
+13. **SEO** — the website's job is to be found by people searching for a
     prayer. Sitemap, structured data, per-prayer landing pages.
-13. **App Store and Play Store** — the app bundles, but there is no EAS
+14. **App Store and Play Store** — the app bundles, but there is no EAS
     project, no icons or screenshots, and no store listing. Icons, privacy
     disclosures, and the release itself.
-14. **Analytics** — only if the owner wants them, and only with consent.
+15. **Analytics** — only if the owner wants them, and only with consent.
 
 ---
 

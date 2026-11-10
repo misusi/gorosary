@@ -13,6 +13,7 @@ novena:
   patron: St. Anthony of Padua
   occasion: The return of what is lost
   duration: 9
+  begins: "06-13"
   days:
     - day: 1
       title: St. Anthony, the finder of lost things

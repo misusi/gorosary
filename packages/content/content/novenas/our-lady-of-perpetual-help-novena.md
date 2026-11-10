@@ -13,6 +13,7 @@ novena:
   patron: Our Lady of Perpetual Help
   occasion: Mothers, the young, and those in need of help
   duration: 9
+  begins: "06-24"
   days:
     - day: 1
       title: Our Lady of Perpetual Help, the perpetual help of Christians

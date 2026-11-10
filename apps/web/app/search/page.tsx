@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { findNavDoc, getDoc, searchDocs } from '@gorosary/content';
+import { SearchField } from '@/components/SearchField';
 
 export const metadata: Metadata = {
   title: 'Search',
@@ -34,27 +35,7 @@ export default async function SearchPage({
           <label className="sr-only" htmlFor="q">
             Search GoRosary
           </label>
-          <div style={{ display: 'flex', gap: 10, maxWidth: 560 }}>
-            <input
-              id="q"
-              name="q"
-              type="search"
-              defaultValue={query}
-              placeholder="St. Jude, sorrowful, Angelus, litany…"
-              style={{
-                flex: 1,
-                padding: '12px 14px',
-                fontSize: 16,
-                borderRadius: 8,
-                border: '1px solid var(--line)',
-                background: 'var(--surface)',
-                color: 'var(--ink)',
-              }}
-            />
-            <button type="submit" className="button button--primary">
-              Search
-            </button>
-          </div>
+          <SearchField value={query} />
         </form>
 
         {query ? (

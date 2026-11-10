@@ -13,6 +13,7 @@ novena:
   patron: St. Michael the Archangel
   occasion: Protection of the Church and of the faithful
   duration: 9
+  begins: "09-29"
   days:
     - day: 1
       title: St. Michael, prince of the heavenly host

@@ -19,21 +19,21 @@ prayers.
 | | |
 |---|---|
 | Branch | `main`, working tree clean |
-| Commits | 17, latest `7a79d7b` |
+| Commits | 18, latest `5a7d9d5` |
 | Tracked files | 137 |
 | Content documents | 48, including thirteen novenas |
 | Readings | 2,538 days, every day of 2022–2028 |
-| Tests | 122 passing |
+| Tests | 128 passing |
 | Typecheck | clean |
 | Production build | succeeds, 48 pages |
 
-**The website** (`apps/web`) — Next.js 16, App Router. The landing page shows
-today's rosary, the five decades with their mysteries, the painting of the
-first mystery, and a "Today in the Church's year" panel with the season, the
-week, the liturgical colour, what is kept, and any fast or vigil. A sticky bar
-at the top of the prayer runner holds the Back / Next / Skip controls so they
-never move. `/readings` shows the readings of the day. Search, light and dark,
-responsive.
+**The website** (`apps/web`) — Next.js 16, App Router. The landing page is
+divided into sections: today's rosary (the painting of the first mystery on
+the left, the five mysteries on the right, the painting a link to today's
+rosary), the readings of the day, the novenas being made now, the prayers of
+the day, the calendar, and the rest of the site. A sticky bar at the top of
+the prayer runner holds the Back / Next / Skip controls so they never move.
+`/readings` shows the readings of the day. Search, light and dark, responsive.
 
 **The read-along** — the Rosary is walked through in the order the Church
 sets: the Sign of the Cross, the Apostles' Creed, the Our Father, three Hail

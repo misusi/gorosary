@@ -21,7 +21,7 @@ export function TodayCalendar({
 
   return (
     <section>
-      <h2 className="section-title">Today in the Church&rsquo;s year</h2>
+      <h2 className="section-title">Calendar</h2>
       <p className="section-lede">
         Where the calendar of the Church has brought us today.
       </p>
@@ -50,7 +50,7 @@ export function TodayCalendar({
         </div>
 
         <div className="card">
-          <p className="card__label">Kept today</p>
+          <p className="card__label">Observed today</p>
           {kept ? (
             <ul className="card__list">
               {commemorations.map((entry) => (

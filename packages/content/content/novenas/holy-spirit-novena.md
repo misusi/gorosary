@@ -13,6 +13,7 @@ novena:
   patron: The Holy Spirit
   occasion: The gifts and fruits of the Holy Spirit
   duration: 9
+  begins: "pentecost"
   days:
     - day: 1
       title: Holy Spirit, giver of grace

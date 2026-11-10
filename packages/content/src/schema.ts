@@ -65,6 +65,14 @@ export const novenaSchema = z.object({
   patron: z.string().min(1),
   occasion: z.string().optional(),
   duration: z.number().int().min(1).max(30),
+  /**
+   * When the novena is traditionally begun: `MM-DD` for a fixed day, or the
+   * name of a solemnity that moves with Easter.
+   */
+  begins: z
+    .string()
+    .regex(/^(\d{2}-\d{2}|pentecost|sacred-heart)$/)
+    .optional(),
   days: z.array(
     z.object({
       day: z.number().int().min(1),

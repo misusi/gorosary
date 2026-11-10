@@ -13,6 +13,7 @@ novena:
   patron: Our Lady of the Snows
   occasion: Protection in times of trouble
   duration: 9
+  begins: "08-05"
   days:
     - day: 1
       title: Our Lady of the Snows, the snow-white Queen of Heaven

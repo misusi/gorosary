@@ -13,6 +13,7 @@ novena:
   patron: St. Joseph
   occasion: Workers, families, and those who provide
   duration: 9
+  begins: "03-15"
   days:
     - day: 1
       title: St. Joseph, the man of silence

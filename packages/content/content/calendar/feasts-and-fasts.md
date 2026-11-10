@@ -157,7 +157,7 @@ old way of saying that God comes first.
 - The Ascension - the fortieth day of Easter
 - Pentecost - the fiftieth day of Easter, when the Holy Spirit comes
 - Trinity Sunday - the Sunday after Pentecost
-- Corpus Christi - the Thursday after Trinity Sunday
+- Corpus Christi - the Sunday after Trinity Sunday
 - Christ the King - the last Sunday of Ordinary Time
 
 And between the fixed and the movable days there stands the whole calendar of
