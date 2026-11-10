@@ -8,6 +8,8 @@ import {
   yearEntries,
   readingText,
 } from '@gorosary/content';
+import { TimezoneSync } from '@/components/TimezoneSync';
+import { visitorTimeZone } from '@/lib/timezone';
 
 export const metadata: Metadata = {
   title: "Today's Readings",
@@ -33,8 +35,9 @@ const COLOUR_TEXT: Record<string, string> = {
   rose: 'The colour of the third Sunday of Lent, halfway through the fast.',
 };
 
-export default function ReadingsPage() {
-  const readings = getReadings(new Date());
+export default async function ReadingsPage() {
+  const timeZone = await visitorTimeZone();
+  const readings = getReadings(new Date(), timeZone);
   const { position, entry } = readings;
   const years = availableReadingYears();
 
@@ -50,6 +53,8 @@ export default function ReadingsPage() {
 
   return (
     <>
+      <TimezoneSync serverDate={position.date.toISOString().slice(0, 10)} />
+
       <div className="page-head">
         <div className="wrap">
           <nav className="breadcrumbs" aria-label="Breadcrumb">
