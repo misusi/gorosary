@@ -725,13 +725,18 @@ main {
   justify-content: center;
 }
 
-.today__hub__mysteries {
+.expandable {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.mystery-line {
+/* The readings of the day, a little below the line that names them. */
+.home__readings {
+  margin-top: 18px;
+}
+
+.expandable__item {
   display: block;
   padding: 10px 12px;
   border: 1px solid var(--line);
@@ -739,7 +744,7 @@ main {
   background: var(--surface);
 }
 
-.mystery-line__toggle {
+.expandable__toggle {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
@@ -754,7 +759,7 @@ main {
   cursor: pointer;
 }
 
-.mystery-line__title {
+.expandable__title {
   grid-column: 1;
   grid-row: 1;
   display: block;
@@ -765,7 +770,7 @@ main {
   line-height: 1.25;
 }
 
-.mystery-line__scripture {
+.expandable__detail {
   grid-column: 1;
   grid-row: 2;
   display: block;
@@ -773,7 +778,7 @@ main {
   color: var(--muted);
 }
 
-.mystery-line__arrow {
+.expandable__arrow {
   grid-column: 2;
   grid-row: 1;
   font-size: 18px;
@@ -781,17 +786,17 @@ main {
   color: var(--muted);
 }
 
-.mystery-line__toggle:hover .mystery-line__title {
+.expandable__toggle:hover .expandable__title {
   color: var(--accent);
 }
 
-.mystery-line__verses {
+.expandable__verses {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid var(--line);
 }
 
-.mystery-line__verses-empty {
+.expandable__empty {
   margin: 0;
   font-size: 13.5px;
   color: var(--muted);
@@ -826,6 +831,9 @@ main {
 
   .today__hub__mysteries {
     grid-area: mysteries;
+  }
+
+  .expandable {
     gap: 10px;
   }
 
@@ -835,29 +843,29 @@ main {
     margin: 14px auto 0;
   }
 
-  .mystery-line {
+  .expandable__item {
     padding: 15px 18px;
   }
 
-  .mystery-line__toggle {
+  .expandable__toggle {
     grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: baseline;
     gap: 22px;
   }
 
-  .mystery-line__title {
+  .expandable__title {
     grid-column: 1;
     grid-row: 1;
     font-size: 17px;
   }
 
-  .mystery-line__scripture {
+  .expandable__detail {
     grid-column: 2;
     grid-row: 1;
     text-align: right;
   }
 
-  .mystery-line__arrow {
+  .expandable__arrow {
     grid-column: 3;
     grid-row: 1;
   }
@@ -886,44 +894,9 @@ main {
 
 .home__section:last-child {
   border-bottom: none;
-  padding-bottom: 56px;
+  padding-bottom: 0;
 }
 
-.day-readings {
-  margin: 18px 0 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  overflow: hidden;
-}
-
-.day-readings__row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 11px 16px;
-}
-
-.day-readings__row + .day-readings__row {
-  border-top: 1px solid var(--line);
-}
-
-.day-readings__row dt {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.day-readings__row dd {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 16px;
-  color: var(--ink);
-  text-align: right;
-}
 
 .today__meta {
   display: flex;
@@ -1591,3 +1564,4 @@ main {
     display: none;
   }
 }
+

@@ -9,7 +9,7 @@ import {
 import { InlineText } from '@/components/Blocks';
 import { ImageCredit } from '@/components/ImageCredit';
 import { MysteryArt } from '@/components/MysteryArt';
-import { MysteryList } from '@/components/MysteryList';
+import { ExpandableList } from '@/components/ExpandableList';
 import { TimezoneSync } from '@/components/TimezoneSync';
 import { TodayCalendar } from '@/components/TodayCalendar';
 import { visitorTimeZone } from '@/lib/timezone';
@@ -107,14 +107,16 @@ export default async function HomePage() {
             </ImageCredit>
           </div>
 
-          <MysteryList
-            mysteries={today.mysteries.map((mystery) => ({
-              n: mystery.n,
-              title: mystery.title,
-              scripture: mystery.scripture,
-              verses: readingText(mystery.scripture) ?? [],
-            }))}
-          />
+          <div className="today__hub__mysteries">
+            <ExpandableList
+              items={today.mysteries.map((mystery) => ({
+                key: String(mystery.n),
+                title: `${mystery.n}. ${mystery.title}`,
+                detail: mystery.scripture,
+                verses: readingText(mystery.scripture) ?? [],
+              }))}
+            />
+          </div>
         </div>
       </section>
 
@@ -126,35 +128,50 @@ export default async function HomePage() {
               <p className="section-lede">
                 {entry.celebration ?? 'The readings of the day'}
               </p>
-              <dl className="day-readings">
-                {entry.firstReading ? (
-                  <div className="day-readings__row">
-                    <dt>First Reading</dt>
-                    <dd>{entry.firstReading.reference}</dd>
-                  </div>
-                ) : null}
-                {entry.psalm ? (
-                  <div className="day-readings__row">
-                    <dt>Responsorial Psalm</dt>
-                    <dd>{entry.psalm.reference}</dd>
-                  </div>
-                ) : null}
-                {entry.secondReading ? (
-                  <div className="day-readings__row">
-                    <dt>Second Reading</dt>
-                    <dd>{entry.secondReading.reference}</dd>
-                  </div>
-                ) : null}
-                {entry.gospel ? (
-                  <div className="day-readings__row">
-                    <dt>Gospel</dt>
-                    <dd>{entry.gospel.reference}</dd>
-                  </div>
-                ) : null}
-              </dl>
+              <div className="home__readings">
+                <ExpandableList
+                  items={[
+                    entry.firstReading
+                      ? {
+                          key: 'first',
+                          title: 'First Reading',
+                          detail: entry.firstReading.reference,
+                          verses: readingText(entry.firstReading.reference) ?? [],
+                        }
+                      : null,
+                    entry.psalm
+                      ? {
+                          key: 'psalm',
+                          title: 'Responsorial Psalm',
+                          detail: entry.psalm.reference,
+                          verses: readingText(entry.psalm.reference) ?? [],
+                        }
+                      : null,
+                    entry.secondReading
+                      ? {
+                          key: 'second',
+                          title: 'Second Reading',
+                          detail: entry.secondReading.reference,
+                          verses:
+                            readingText(entry.secondReading.reference) ?? [],
+                        }
+                      : null,
+                    entry.gospel
+                      ? {
+                          key: 'gospel',
+                          title: 'Gospel',
+                          detail: entry.gospel.reference,
+                          verses: readingText(entry.gospel.reference) ?? [],
+                        }
+                      : null,
+                  ].filter(
+                    (item): item is NonNullable<typeof item> => item !== null,
+                  )}
+                />
+              </div>
               <p className="small" style={{ marginTop: 12 }}>
                 <Link href="/readings">
-                  Read the readings of the day, in full →
+                  See the rest of the year&rsquo;s readings →
                 </Link>
               </p>
             </>
@@ -220,3 +237,4 @@ export default async function HomePage() {
     </>
   );
 }
+
