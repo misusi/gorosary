@@ -66,8 +66,12 @@ export function SiteHeader() {
     return () => document.removeEventListener('pointerdown', onPointerDown);
   }, [open]);
 
-  const currentSection = NAV.find((section) =>
-    section.docs.some((doc) => doc.href === pathname),
+  // The section a page belongs to — either the section's own landing page, or
+  // one of its documents.
+  const currentSection = NAV.find(
+    (section) =>
+      section.href === pathname ||
+      section.docs.some((doc) => doc.href === pathname),
   )?.id;
 
   return (

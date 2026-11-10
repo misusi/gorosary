@@ -36,8 +36,11 @@ function readingsDocFor(year: number) {
   );
 }
 
-export function getReadings(instant: Date = new Date()): ReadingSet {
-  const date = localToday(instant);
+export function getReadings(
+  instant: Date = new Date(),
+  timeZone?: string,
+): ReadingSet {
+  const date = localToday(instant, timeZone);
   const position = lectionaryPosition(date);
   const year = date.getUTCFullYear();
   const doc = readingsDocFor(year);
@@ -81,3 +84,4 @@ export const CYCLE_GOSPELS: Record<CycleYear, string> = {
 };
 
 export { CYCLE_START_YEARS, liturgicalYear };
+

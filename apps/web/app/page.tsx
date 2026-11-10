@@ -8,6 +8,8 @@ import {
 import { InlineText } from '@/components/Blocks';
 import { ImageCredit } from '@/components/ImageCredit';
 import { MysteryArt } from '@/components/MysteryArt';
+import { TimezoneSync } from '@/components/TimezoneSync';
+import { visitorTimeZone } from '@/lib/timezone';
 import { TodayCalendar } from '@/components/TodayCalendar';
 
 export const dynamic = 'force-dynamic';
@@ -38,9 +40,10 @@ const DAILY_PRAYERS = [
   },
 ];
 
-export default function HomePage() {
-  const today = getTodayRosary(new Date());
-  const readings = getReadings(new Date());
+export default async function HomePage() {
+  const timeZone = await visitorTimeZone();
+  const today = getTodayRosary(new Date(), timeZone);
+  const readings = getReadings(new Date(), timeZone);
   const novenas = currentNovenas(today.date);
   const rosaryHref = SET_HREF[today.set] ?? '/rosary';
   const dateLabel = today.date.toLocaleDateString('en-US', {
@@ -54,6 +57,7 @@ export default function HomePage() {
 
   return (
     <>
+      <TimezoneSync serverDate={today.iso} />
       <section className="today">
         <div className="wrap today__card">
           <div className="today__head">
@@ -225,4 +229,5 @@ export default function HomePage() {
     </>
   );
 }
+
 

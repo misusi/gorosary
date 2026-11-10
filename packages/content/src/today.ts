@@ -169,9 +169,12 @@ function novenaStart(
   return elapsed >= 0 && elapsed < duration ? lastYear : thisYear;
 }
 
-export function getTodayRosary(instant: Date = new Date()): TodayRosary {
+export function getTodayRosary(
+  instant: Date = new Date(),
+  timeZone?: string,
+): TodayRosary {
   // `instant` is a point in time; the day we reason about is the user's day.
-  const date = localToday(instant);
+  const date = localToday(instant, timeZone);
   const resolution = resolveMysteries(date);
   const commemorations = commemorationsFor(date);
   return {
@@ -194,3 +197,4 @@ export function getTodayRosary(instant: Date = new Date()): TodayRosary {
     day: describeDay(date, commemorations),
   };
 }
+

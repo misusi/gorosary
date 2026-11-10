@@ -81,6 +81,20 @@ export function monthDayKey(date: Date): string {
  * So we take the local year/month/day from the instant and pin them to UTC
  * midnight, giving the engine a stable day while keeping the user's day.
  */
-export function localToday(now: Date = new Date()): Date {
-  return utcDate(now.getFullYear(), now.getMonth() + 1, now.getDate());
+export function localToday(now: Date = new Date(), timeZone?: string): Date {
+  if (!timeZone) {
+    return utcDate(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  }
+
+  // The day as it is in the visitor's own timezone.
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(now);
+  const part = (type: string) =>
+    Number(parts.find((entry) => entry.type === type)?.value ?? 0);
+
+  return utcDate(part('year'), part('month'), part('day'));
 }
