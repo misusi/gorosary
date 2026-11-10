@@ -437,15 +437,17 @@ to about the same height.
 columns on a phone made the painting small and the page busy; the painting
 wants to be the first thing you see.
 
-### The picture and the words beneath it are the way in
+### The picture and the button beneath it are the way in
 
-**Decision.** The painting, and the "Pray the Rosary" beneath it, are one
-link to today's rosary, with the words said on the picture itself on a
-pointer.
+**Decision.** The painting is a link to today's rosary, and a button under it
+says plainly where it goes — "Pray the Joyful Mysteries". The words over the
+painting appear only where there is a mouse to hover with.
 
 **Why.** The four buttons that used to sit under the title took the reader
 nowhere that the page did not already go, and they pushed the painting out of
-the first screen.
+the first screen. On a touch screen a tap leaves a hover state behind, so
+the words over the painting are hidden where there is no pointer, and the
+button says it instead.
 
 ---
 

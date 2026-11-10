@@ -681,49 +681,45 @@ main {
   aspect-ratio: 3 / 4;
 }
 
-/* The way in, said on the picture itself. */
+/*
+ * The way in, said on the picture itself. Only where there is a mouse: on a
+ * touch screen a tap leaves the words sitting on the painting, and the button
+ * underneath already says where the tap goes.
+ */
 .today__hub__overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 20px;
-  background: linear-gradient(
-    to top,
-    rgba(18, 12, 8, 0.78),
-    rgba(18, 12, 8, 0) 55%
-  );
-  color: #fff;
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity 0.18s ease;
+  display: none;
 }
 
-.today__hub__link:hover .today__hub__overlay,
-.today__hub__link:focus-visible .today__hub__overlay {
-  opacity: 1;
+@media (hover: hover) {
+  .today__hub__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    background: linear-gradient(
+      to top,
+      rgba(18, 12, 8, 0.78),
+      rgba(18, 12, 8, 0) 55%
+    );
+    color: #fff;
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+
+  .today__hub__link:hover .today__hub__overlay,
+  .today__hub__link:focus-visible .today__hub__overlay {
+    opacity: 1;
+  }
 }
 
+/* The way in, said plainly. */
 .today__hub__cta {
-  display: block;
-  margin-top: 12px;
-}
-
-.today__hub__cta-label {
-  display: block;
-  font-family: var(--serif);
-  font-size: 19px;
-  font-weight: 600;
-  color: var(--accent);
-}
-
-.today__hub__cta-sub {
-  display: block;
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 2px;
+  margin-top: 14px;
+  justify-content: center;
 }
 
 .today__hub__mysteries {
@@ -738,8 +734,6 @@ main {
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: var(--surface);
-  text-decoration: none;
-  color: inherit;
 }
 
 .mystery-line__title {

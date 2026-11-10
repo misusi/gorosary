@@ -62,19 +62,24 @@ export default async function HomePage() {
       <section className="today">
         <div className="wrap today__card">
           <div className="today__head">
+            <div className="today__meta">
+              <span className="pill pill--season">{today.seasonLabel}</span>
+              <span className="pill">{dateLabel}</span>
+            </div>
             <p className="eyebrow today__eyebrow">Today&rsquo;s Rosary</p>
             <h1 className="today__title">{today.setTitle}</h1>
           </div>
 
           {/*
-            The painting, and the words beneath it, are one link: they are the
-            way into today's rosary, so they are made to look like it.
+            The painting is a link, and the button beneath it says plainly
+            where it goes. The five mysteries below are for reading, not for
+            clicking.
           */}
           <div className="today__hub__art">
             <Link
               className="today__hub__link"
               href={rosaryHref}
-              aria-label={`Pray the Rosary — the ${today.setTitle}`}
+              aria-label={`Pray the ${today.setTitle}`}
             >
               <span className="today__hub__frame">
                 <MysteryArt
@@ -86,10 +91,13 @@ export default async function HomePage() {
                   Pray the Rosary
                 </span>
               </span>
-              <span className="today__hub__cta">
-                <span className="today__hub__cta-label">Pray the Rosary</span>
-                <span className="today__hub__cta-sub">{today.setTitle}</span>
-              </span>
+            </Link>
+
+            <Link
+              className="button button--primary today__hub__cta"
+              href={rosaryHref}
+            >
+              Pray the {today.setTitle}
             </Link>
 
             <ImageCredit href="https://www.theholyrosary.org/rosary_gallery/">
@@ -99,14 +107,14 @@ export default async function HomePage() {
 
           <div className="today__hub__mysteries">
             {today.mysteries.map((mystery) => (
-              <Link className="mystery-line" href={rosaryHref} key={mystery.n}>
+              <div className="mystery-line" key={mystery.n}>
                 <span className="mystery-line__title">
                   {mystery.n}. {mystery.title}
                 </span>
                 <span className="mystery-line__scripture">
                   {mystery.scripture}
                 </span>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
